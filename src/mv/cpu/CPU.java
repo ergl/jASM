@@ -12,6 +12,9 @@ import mv.ins.instList.summitModifiers.Pop;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
+import java.nio.file.Path;
+
+
 
 /**
  * Ejecuta las instrucciones especificadas por el usuario.
@@ -25,21 +28,29 @@ public class CPU extends Watchable {
     private static final String NUM_ERROR = "El valor introducido debe ser un número";
     private static final String FORMAT_ERROR = "La posición no puede ser negativa";
 
+    private Path logFilePath;
     private Memory memory;
     private OperandStack stack;
     private ExecutionManager executionManager;
     private ProgramMV program;
     private InStrategy inStr;
     private OutStrategy outStr;
+    private boolean writeLog;
 
-    public CPU(InStrategy in, OutStrategy out) {
+    public CPU(InStrategy _in, OutStrategy _out, boolean _writeLog) {
         this.memory = new Memory();
         this.stack = new OperandStack();
         this.executionManager = new ExecutionManager();
-        this.inStr = in;
-        this.outStr = out;
+        this.inStr = _in;
+        this.outStr = _out;
+        
+        setLogOption(_writeLog);
     }
 
+    private void setLogOption(boolean _writeLog) {
+    	this.writeLog = _writeLog;
+    }
+    
     /**
      * Inicializa el programa a ejecutar por la CPU.
      *
@@ -65,6 +76,7 @@ public class CPU extends Watchable {
             if (inst != null) {
                 try {
                     inst.execute(executionManager, memory, stack, inStr, outStr);
+                    if(writeLog) log(); //TODO
                     this.executionManager.onNextInstruction();
                 } catch (RecoverableException re) {
                     this.notifyViews(re.getMessage());
@@ -205,6 +217,11 @@ public class CPU extends Watchable {
         this.memory.deleteWatchers();
     }
 
+    private void log() {
+    	//TODO: write to log file
+    	//Add clause in cpu.step
+    }
+    
     /**
      * Devuelve una version imprimible del estado de la maquina.
      * Muestra el estado de la pila de operandos y de la memoria.
