@@ -12,7 +12,7 @@ The original idea was to do a virtual machine for executing a pseudo-asm languag
 - Add support for Registers
     - Add new Instructions that execute on the registers
 - Add displacement jumps
-- Add CPU reset support (stack.flush, memory.flush program.rest, executionManager.reset)
+- ✓ Add CPU reset support. Use the 'reset' command on interactive mode or press the 'Reset' button while on windowed mode.
 - Breakpoint support
     - Specify in cpu:runProgram that breakpoints exist
     - Add clause to executionManager:onNextInstruction to detect breakpoint pc
