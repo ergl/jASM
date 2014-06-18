@@ -49,6 +49,7 @@ public class CPU extends Watchable {
     private ProgramMV program;
     private InStrategy inStr;
     private OutStrategy outStr;
+    
     private boolean writeLog;
 
     public CPU(InStrategy _in, OutStrategy _out, boolean _writeLog) {
@@ -100,6 +101,26 @@ public class CPU extends Watchable {
     	logWriter.close();
     }
     
+    public void enableBreakpoints() {
+    	this.executionManager.enableBreakpoints();
+    }
+    
+    public void disableBreakpoints() {
+    	this.executionManager.disableBreakpoints();
+    }
+    
+    public void setBreakpoint(int i) {
+    	this.executionManager.addBreakpoint(i);
+    }
+    
+    public void deleteBreakpoint(int i) {
+    	this.executionManager.deleteBreakpoint(i);
+    }
+    
+    public void deleteBreakpoints() {
+    	this.executionManager.disableBreakpoints();
+    }
+    
     /**
      * Inicializa el programa a ejecutar por la CPU.
      *
@@ -124,7 +145,8 @@ public class CPU extends Watchable {
         if (!this.isHalted()) {
             if (inst != null) {
                 try {
-                    inst.execute(executionManager, memory, stack, inStr, outStr);
+                    if(!executionManager.breakpointsEnabled())
+                    	inst.execute(executionManager, memory, stack, inStr, outStr);
                     if(writeLog) log(inst.toString());
                     this.executionManager.onNextInstruction();
                 } catch (RecoverableException re) {

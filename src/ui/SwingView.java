@@ -30,6 +30,11 @@ import commons.watcherPattern.Watcher;
  */
 public class SwingView implements Watcher {
 
+    /*
+	 * TODO: Change programpanel to JList
+	 * 		Add breakpoint support, toggling and hiding
+	 */
+
     public static int timeout = 100;
 
     private SwingController controller;
@@ -193,7 +198,7 @@ public class SwingView implements Watcher {
      */
     private class ActionPanel extends JPanel {
 
-        private JButton stepButton, runButton, pauseButton, quitButton;
+        private JButton stepButton, runButton, pauseButton, quitButton, resetButton;
 
         private URL stepIconURL, runIconURL, pauseIconURL, quitIconURL;
 
@@ -214,6 +219,8 @@ public class SwingView implements Watcher {
             runButton = (runIconURL != null) ? new JButton("Run", new ImageIcon(runIconURL)) : new JButton("RUN");
             pauseButton = (pauseIconURL != null) ? new JButton("Pause", new ImageIcon(pauseIconURL)) : new JButton("PAUSE");
             quitButton = (quitIconURL != null) ? new JButton("Exit", new ImageIcon(quitIconURL)) : new JButton("EXIT");
+
+            resetButton = new JButton("RESET");
 
             pauseButton.setEnabled(false);
 
@@ -285,10 +292,13 @@ public class SwingView implements Watcher {
 
             quitButton.addActionListener(e -> controller.quitEvent());
 
+            resetButton.addActionListener(e -> controller.reset());
+
             actionPanel.add(stepButton);
             actionPanel.add(runButton);
             actionPanel.add(pauseButton);
             actionPanel.add(quitButton);
+            actionPanel.add(resetButton);
 
             setBorder(new TitledBorder("Actions"));
             add(actionPanel, BorderLayout.CENTER);
@@ -467,6 +477,9 @@ public class SwingView implements Watcher {
         public void updateDisplays(Watchable o, Object arg) {
             this.updateStackDisplay((String) arg);
             SwingView.this.checkStackBox();
+            if (((String)arg).equalsIgnoreCase("")) {
+                SwingView.this.uncheckStackBox();
+            }
 
         }
 
@@ -585,6 +598,11 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
+            if (((String)arg).equalsIgnoreCase("")) {
+                model.setRowCount(0);
+                SwingView.this.uncheckMemoryBox();
+                return;
+            }
             this.updateMemoryTable((String) arg);
             SwingView.this.checkMemoryBox();
         }

@@ -1,6 +1,8 @@
 package mv.cpu;
 
 import commons.watcherPattern.Watchable;
+import commons.exceptions.UnrecoverableException;
+import java.util.ArrayList;
 
 /**
  * Unidad de control de la CPU.
@@ -15,13 +17,43 @@ public class ExecutionManager extends Watchable {
     private int nextPc;
     private int programCont;
     private boolean halt;
+    
+    private ArrayList<Integer> breakpoints;
+    private boolean enableBreakpoints;
 
     public ExecutionManager() {
         this.currentPc = 0;
         this.nextPc = this.currentPc + 1;
         this.halt = false;
+        this.enableBreakpoints =	 false;
     }
 
+    void addBreakpoint(int i) {
+    	if(!breakpoints.contains(i))
+    		breakpoints.add(i);
+    }
+    
+    void deleteBreakpoint(int i) {
+    	if(breakpoints.contains(i))
+    		breakpoints.remove(i);
+    }
+    
+    void clearBreakpoints() {
+    	breakpoints.clear();
+    }
+    
+    void enableBreakpoints() {
+    	this.enableBreakpoints = true;
+    }
+    
+    void disableBreakpoints() {
+    	this.enableBreakpoints = false;
+    }
+    
+    boolean breakpointsEnabled() {
+    	return this.enableBreakpoints;
+    }
+    
     void reset() {
     	currentPc = 0;
     	nextPc = currentPc + 1;
@@ -78,7 +110,13 @@ public class ExecutionManager extends Watchable {
      * Éste método se ejecuta con cada step de la CPU
      */
     public void onNextInstruction() {
-        if (this.nextPc < this.programCont) {
+    	if (enableBreakpoints && breakpoints.contains(currentPc)) {
+    		this.setChanged();
+    		this.notifyViews(currentPc);
+    		return;
+    	}
+    	
+    	if (this.nextPc < this.programCont) {
             this.currentPc = this.nextPc;
             this.nextPc = this.currentPc + 1;
 
