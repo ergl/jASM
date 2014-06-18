@@ -7,5 +7,3 @@ The original idea was to do a virtual machine for executing a pseudo-asm languag
 
 [//]: # (This is a comment ✓)
 
-
-

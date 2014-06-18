@@ -384,7 +384,7 @@ public class Main {
             System.exit(0);
         }
         
-        if (line.hasOption("d")) {
+        if (line.hasOption("l")) {
         	writeLog = true;
         }
 

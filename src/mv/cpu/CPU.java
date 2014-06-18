@@ -12,7 +12,13 @@ import mv.ins.instList.summitModifiers.Pop;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 
@@ -25,10 +31,18 @@ import java.nio.file.Path;
  */
 public class CPU extends Watchable {
 
-    private static final String NUM_ERROR = "El valor introducido debe ser un número";
-    private static final String FORMAT_ERROR = "La posición no puede ser negativa";
+	private static final String SHOW_STATUS = 	"El estado de la máquina tras ejecutar la instrucción es: ";
+    private static final String INST_MSG_BEGIN = "Comienza la ejecución de: ";
+	
+    private static final String NUM_ERROR =     "El valor introducido debe ser un número";
+    private static final String FORMAT_ERROR =  "La posición no puede ser negativa";
+    
+    private static final String LOG_FILE = 		"status.log";
 
     private Path logFilePath;
+    private PrintWriter logWriter;
+    private File logFile;
+    
     private Memory memory;
     private OperandStack stack;
     private ExecutionManager executionManager;
@@ -49,6 +63,35 @@ public class CPU extends Watchable {
 
     private void setLogOption(boolean _writeLog) {
     	this.writeLog = _writeLog;
+    	if(writeLog) configureLog();
+    }
+    
+    private void configureLog() {
+    	logFilePath = Paths.get(LOG_FILE);
+    	
+    	if (Files.exists(logFilePath)) {
+            try {
+                logWriter = new PrintWriter(new FileWriter(logFilePath.toFile()));
+                logFile = logFilePath.toFile();
+            } catch (IOException e) {
+                System.exit(2);
+            }
+        } else {
+            logFile = new File(LOG_FILE);
+            try {
+                logWriter = new PrintWriter(new FileWriter(logFile));
+            } catch (IOException e) {
+                System.exit(2);
+            }
+        }
+    }
+    
+    private void log(String instruction) {
+    	logWriter.write(printStatus(instruction) + "\n\n");
+    }
+    
+    private void closeResources() {
+    	logWriter.close();
     }
     
     /**
@@ -76,7 +119,7 @@ public class CPU extends Watchable {
             if (inst != null) {
                 try {
                     inst.execute(executionManager, memory, stack, inStr, outStr);
-                    if(writeLog) log(); //TODO
+                    if(writeLog) log(inst.toString());
                     this.executionManager.onNextInstruction();
                 } catch (RecoverableException re) {
                     this.notifyViews(re.getMessage());
@@ -215,11 +258,12 @@ public class CPU extends Watchable {
         this.executionManager.deleteWatchers();
         this.stack.deleteWatchers();
         this.memory.deleteWatchers();
+        
+        closeResources();
     }
-
-    private void log() {
-    	//TODO: write to log file
-    	//Add clause in cpu.step
+    
+    public String printStatus(String instruction) {
+    	return INST_MSG_BEGIN + instruction + System.lineSeparator() + SHOW_STATUS + this.toString();
     }
     
     /**
