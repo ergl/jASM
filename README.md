@@ -8,7 +8,7 @@ The original idea was to do a virtual machine for executing a pseudo-asm languag
 [//]: # (This is a comment ✓)
 
 ### Ideas ###
-- Print CPU status to log file
+- ✓ Print CPU status to log file. Use [-l, --log] to enable.
 - Add support for Registers
     - Add new Instructions that execute on the registers
 - Add displacement jumps
