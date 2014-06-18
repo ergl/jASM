@@ -22,6 +22,14 @@ public class ExecutionManager extends Watchable {
         this.halt = false;
     }
 
+    void reset() {
+    	currentPc = 0;
+    	nextPc = currentPc + 1;
+    	halt = false;
+    	this.setChanged();
+    	this.notifyViews(currentPc);
+    }
+    
     /**
      * Establece el número de instrucciones del programa.
      *

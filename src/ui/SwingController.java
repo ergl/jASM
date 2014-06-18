@@ -58,6 +58,14 @@ public class SwingController {
         cpu.addMemoryWatcher(memoryWatcher);
     }
 
+    void reset() {
+    	inStr.close();
+    	outStr.close();
+    	inStr.open(inStr.getFilePath());
+    	outStr.open();
+    	cpu.reset();
+    }
+
     void stepEvent() {
         if (isReady()) {
             try {

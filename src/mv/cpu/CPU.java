@@ -66,6 +66,12 @@ public class CPU extends Watchable {
     	if(writeLog) configureLog();
     }
     
+    public void reset() {
+    	memory.flush();
+    	stack.flush();
+    	executionManager.reset();
+    }
+    
     private void configureLog() {
     	logFilePath = Paths.get(LOG_FILE);
     	

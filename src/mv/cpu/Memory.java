@@ -21,6 +21,13 @@ public class Memory extends Watchable {
         this.memArray = new MemCell[MAX_MEMPOS];
         this.elements = 0;
     }
+    
+    void flush() {
+    	memArray = new MemCell[MAX_MEMPOS];
+    	elements = 0;
+    	this.setChanged();
+    	this.notifyViews(this.displayContent());
+    }
 
     public boolean isEmpty() {
         return elements == 0;
@@ -120,7 +127,7 @@ public class Memory extends Watchable {
             }
         }
     }
-
+    
     public String displayContent() {
         if (!isEmpty()) {
             String formattedMem = "";
