@@ -25,7 +25,8 @@ public abstract class Arithmetics extends OneParamInst {
     protected abstract Instruction getInst();
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+            throws UnrecoverableException, RecoverableException {
 
         int tmp1, tmp2;
         if (stack.elements() >= 2) {

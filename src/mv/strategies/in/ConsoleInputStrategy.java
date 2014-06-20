@@ -37,9 +37,9 @@ public class ConsoleInputStrategy implements InStrategy {
         /* There is no file to show */
         return null;
     }
-    
+
     @Override
     public Path getFilePath() {
-    	return null;
+        return null;
     }
 }

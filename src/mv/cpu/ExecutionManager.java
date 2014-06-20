@@ -17,7 +17,7 @@ public class ExecutionManager extends Watchable {
     private int nextPc;
     private int programCont;
     private boolean halt;
-    
+
     private ArrayList<Integer> breakpoints;
     private boolean enableBreakpoints;
 
@@ -25,43 +25,48 @@ public class ExecutionManager extends Watchable {
         this.currentPc = 0;
         this.nextPc = this.currentPc + 1;
         this.halt = false;
-        this.enableBreakpoints =	 false;
+        this.enableBreakpoints = true;
+        this.breakpoints = new ArrayList<Integer>();
     }
 
-    void addBreakpoint(int i) {
-    	if(!breakpoints.contains(i))
-    		breakpoints.add(i);
+    boolean onBreakpoint() {
+        return breakpoints.contains(currentPc);
     }
-    
-    void deleteBreakpoint(int i) {
-    	if(breakpoints.contains(i))
-    		breakpoints.remove(i);
+
+    void addBreakpoint(Integer i) {
+        if(!breakpoints.contains(i))
+            breakpoints.add(i);
     }
-    
+
+    void deleteBreakpoint(Integer i) {
+        if(breakpoints.contains(i))
+            breakpoints.remove(i);
+    }
+
     void clearBreakpoints() {
-    	breakpoints.clear();
+        breakpoints.clear();
     }
-    
+
     void enableBreakpoints() {
-    	this.enableBreakpoints = true;
+        this.enableBreakpoints = true;
     }
-    
+
     void disableBreakpoints() {
-    	this.enableBreakpoints = false;
+        this.enableBreakpoints = false;
     }
-    
+
     boolean breakpointsEnabled() {
-    	return this.enableBreakpoints;
+        return this.enableBreakpoints;
     }
-    
+
     void reset() {
-    	currentPc = 0;
-    	nextPc = currentPc + 1;
-    	halt = false;
-    	this.setChanged();
-    	this.notifyViews(currentPc);
+        currentPc = 0;
+        nextPc = currentPc + 1;
+        halt = false;
+        this.setChanged();
+        this.notifyViews(currentPc);
     }
-    
+
     /**
      * Establece el número de instrucciones del programa.
      *
@@ -110,12 +115,13 @@ public class ExecutionManager extends Watchable {
      * Éste método se ejecuta con cada step de la CPU
      */
     public void onNextInstruction() {
-    	if (enableBreakpoints && breakpoints.contains(currentPc)) {
+        /*
+    	if(enableBreakpoints && breakpoints.contains(currentPc)) {
     		this.setChanged();
     		this.notifyViews(currentPc);
     		return;
     	}
-    	
+    	*/
     	if (this.nextPc < this.programCont) {
             this.currentPc = this.nextPc;
             this.nextPc = this.currentPc + 1;

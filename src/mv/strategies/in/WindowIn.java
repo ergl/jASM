@@ -38,8 +38,8 @@ public class WindowIn extends Watchable implements InStrategy {
         return inStr.showFile();
     }
 
-	@Override
-	public Path getFilePath() {
-		return inStr.getFilePath();
-	}
+    @Override
+    public Path getFilePath() {
+        return inStr.getFilePath();
+    }
 }

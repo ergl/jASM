@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 
 import javax.swing.*;
@@ -31,9 +35,9 @@ import commons.watcherPattern.Watcher;
 public class SwingView implements Watcher {
 
     /*
-	 * TODO: Change programpanel to JList
-	 * 		Add breakpoint support, toggling and hiding
-	 */
+     * TODO: Breakpoint mark dissappears when program update happens
+     * Change + with another characters when "Skip all breakpoints" is enabled
+     */
 
     public static int timeout = 100;
 
@@ -200,25 +204,26 @@ public class SwingView implements Watcher {
 
         private JButton stepButton, runButton, pauseButton, quitButton, resetButton;
 
-        private URL stepIconURL, runIconURL, pauseIconURL, quitIconURL;
+        private URL stepIconURL, runIconURL, pauseIconURL, quitIconURL, resetIconURL;
 
         private ActionPanel() {
             initUI();
         }
 
         private void initUI() {
-            JPanel actionPanel = new JPanel(new GridLayout(1, 4, 1, 1));
+            JPanel actionPanel = new JPanel(new GridLayout(1,5));
 
-
-            stepIconURL = SwingView.class.getResource("../../../../res/step.png");
-            runIconURL = SwingView.class.getResource("../../../../res/run.png");
-            pauseIconURL = SwingView.class.getResource("../../../../res/pause.png");
-            quitIconURL = SwingView.class.getResource("../../../../res/exit.png");
+            stepIconURL = SwingView.class.getResource("res/step.png");
+            runIconURL = SwingView.class.getResource("res/run.png");
+            pauseIconURL = SwingView.class.getResource("res/pause.png");
+            quitIconURL = SwingView.class.getResource("res/exit.png");
+            resetIconURL = SwingView.class.getResource("res/reset.png");
 
             stepButton = (stepIconURL != null) ? new JButton("Step", new ImageIcon(stepIconURL)) : new JButton("STEP");
             runButton = (runIconURL != null) ? new JButton("Run", new ImageIcon(runIconURL)) : new JButton("RUN");
             pauseButton = (pauseIconURL != null) ? new JButton("Pause", new ImageIcon(pauseIconURL)) : new JButton("PAUSE");
             quitButton = (quitIconURL != null) ? new JButton("Exit", new ImageIcon(quitIconURL)) : new JButton("EXIT");
+            resetButton = (resetIconURL != null)  ?  new JButton("Reset", new ImageIcon(resetIconURL)) :  new JButton("RESET");
 
             resetButton = new JButton("RESET");
 
@@ -292,7 +297,20 @@ public class SwingView implements Watcher {
 
             quitButton.addActionListener(e -> controller.quitEvent());
 
-            resetButton.addActionListener(e -> controller.reset());
+            resetButton.addActionListener(e -> {
+                stepButton.setEnabled(true);
+                runButton.setEnabled(true);
+                resetButton.setEnabled(false);
+
+                SwingView.this.hideHaltedCPU();
+                SwingView.this.inputPanel.flushContent();
+                SwingView.this.outputPanel.flushContent();
+                SwingView.this.statusPanel.resetExecutedInstructions();
+
+                controller.reset();
+            });
+
+            resetButton.setEnabled(false);
 
             actionPanel.add(stepButton);
             actionPanel.add(runButton);
@@ -322,8 +340,14 @@ public class SwingView implements Watcher {
      */
     private class ProgramPanel extends JPanel implements Watcher {
 
-        private JTextPane programTextPane;
-        private JScrollPane programScrollable;
+        private JList<String> programList;
+        private DefaultListModel<String> programListModel;
+        private DefaultListCellRenderer programListRender;
+        private JScrollPane programListScroll;
+
+        private boolean breakpointSet;
+        private JRadioButton breakpointButton;
+
         private String[] program;
 
         private ProgramPanel() {
@@ -334,26 +358,84 @@ public class SwingView implements Watcher {
             setBorder(new TitledBorder("Program"));
             setLayout(new BorderLayout());
 
-            programTextPane = new JTextPane();
-            programTextPane.setEditable(false);
+            programList = new JList<String>();
+            programListModel = new DefaultListModel<String>();
+            programListRender = new DefaultListCellRenderer();
 
-            StyledDocument doc = programTextPane.getStyledDocument();
-            SimpleAttributeSet center = new SimpleAttributeSet();
-            StyleConstants.setAlignment(center, StyleConstants.ALIGN_LEFT);
-            doc.setParagraphAttributes(0, doc.getLength(), center, false);
+            //programListRender.setHorizontalAlignment(JLabel.CENTER);
 
-            programScrollable = new JScrollPane(programTextPane);
-            programScrollable.setPreferredSize(new Dimension(175, 300));
+            programList.setModel(programListModel);
+            programList.setCellRenderer(programListRender);
+
+            programList.addMouseListener(selectBreakpoint());
+
+            programListScroll = new JScrollPane(programList);
+            programListScroll.setPreferredSize(new Dimension(150, 250));
+
+            breakpointButton = new JRadioButton("Skip All Breakpoints");
+
+            breakpointButton.addItemListener(e -> {
+                if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    controller.enableBreakpoints();
+                } else if (e.getStateChange() == ItemEvent.SELECTED) {
+                    controller.disableBreakpoints();
+                }
+            });
+
+            breakpointSet = false;
 
             JPanel programDisplayPanel = new JPanel();
-            programDisplayPanel.add(programScrollable);
+            programDisplayPanel.add(programListScroll);
 
             add(programDisplayPanel, BorderLayout.PAGE_START);
+            add(breakpointButton, BorderLayout.PAGE_END);
         }
 
         private void addProgram(String[] text) {
             this.program = text;
+            for(String inst : program)
+                programListModel.addElement(inst);
             this.updateProgramDisplay(0);
+        }
+
+        private MouseAdapter selectBreakpoint() {
+            return new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    int index;
+                    @SuppressWarnings("unchecked")
+                    JList<String> list = (JList<String>)evt.getSource();
+                    if (evt.getClickCount() == 2) {
+                        index = list.locationToIndex(evt.getPoint());
+                        if (!breakpointSet) {
+                            controller.addBreakpointAt(index);
+                            showBreakpoint(index);
+                            breakpointSet = true;
+                        } else {
+                            controller.deleteBreakpointAt(index);
+                            hideBreakpoint(index);
+                            breakpointSet = false;
+                        }
+                    }
+                }
+            };
+        }
+
+        private void showBreakpoint(final int breakpointInst) {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                for (int i = 0; i < program.length; i++) {
+                    if (i == breakpointInst)
+                        programListModel.set(i, "+" + programListModel.getElementAt(i));
+                }
+            });
+        }
+
+        private void hideBreakpoint(final int breakpointInst) {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                for (int i = 0; i < program.length; i++) {
+                    if (i == breakpointInst)
+                        programListModel.set(i, program[i]);
+                }
+            });
         }
 
         @Override
@@ -365,33 +447,15 @@ public class SwingView implements Watcher {
 
         private void updateProgramDisplay(final int nextInst) {
             javax.swing.SwingUtilities.invokeLater(() -> {
-                programTextPane.setText(null);
-                StyledDocument doc = programTextPane.getStyledDocument();
-
-                String[] newText = formatProgram(ProgramPanel.this.program, nextInst);
-                for (String aNewText : newText) {
-                    try {
-                        doc.insertString(doc.getLength(), aNewText, null);
-                    } catch (BadLocationException e) {
-                        e.printStackTrace();
+                for (int i = 0; i < program.length; i++) {
+                    if (i == nextInst) {
+                        programListModel.set(i, "*" + programListModel.getElementAt(i));
+                    } else {
+                        programListModel.set(i, program[i]);
                     }
                 }
-
                 SwingView.this.updateStatusBar(nextInst);
             });
-        }
-
-        private String[] formatProgram(String[] text, int nextInst) {
-            String[] tmp = new String[text.length];
-
-            for (int i = 0; i < text.length; i++) {
-                tmp[i] = text[i] + System.lineSeparator();
-                if (i == nextInst) {
-                    tmp[i] = "*" + tmp[i];
-                }
-            }
-
-            return tmp;
         }
     }
 
@@ -579,8 +643,8 @@ public class SwingView implements Watcher {
             writeButton.addActionListener(e -> {
                 SwingView.this.uncheckMemoryBox();
                 SwingView.this.uncheckStackBox();
-                String pos = positionField.getText().trim(),
-                        val = valueField.getText().trim();
+                String pos = positionField.getText().trim();
+                String val = valueField.getText().trim();
 
                 positionField.setText(null);
                 valueField.setText(null);
@@ -686,6 +750,10 @@ public class SwingView implements Watcher {
             });
         }
 
+        private void flushContent() {
+            inputTextArea.setText(null);
+        }
+
         @Override
         public void updateDisplays(Watchable o, Object arg) {
             Integer iChar = (int) arg;
@@ -744,6 +812,10 @@ public class SwingView implements Watcher {
             outputScrollable.setPreferredSize(new Dimension(625, 100));
 
             add(outputScrollable);
+        }
+
+        private void flushContent() {
+            outputTextArea.setText(null);
         }
 
         @Override
@@ -815,6 +887,13 @@ public class SwingView implements Watcher {
         private void updateExecutedInstructions() {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 executedInstructions++;
+                executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
+            });
+        }
+
+        private void resetExecutedInstructions() {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                executedInstructions = -1;
                 executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
             });
         }

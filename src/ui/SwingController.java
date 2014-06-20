@@ -40,8 +40,7 @@ public class SwingController {
 
     void init(Watcher w) {
         cpu.addWatcher(w);
-
-        char[] inFileContents;
+        char[] inFileContents = null;
         inFileContents = this.inStr.showFile();
         cpu.loadProgram(program);
         this.swingView.init(inFileContents, cpu.showProgram());
@@ -59,11 +58,31 @@ public class SwingController {
     }
 
     void reset() {
-    	inStr.close();
-    	outStr.close();
-    	inStr.open(inStr.getFilePath());
-    	outStr.open();
-    	cpu.reset();
+        inStr.close();
+        outStr.close();
+        inStr.open(inStr.getFilePath());
+        outStr.open();
+        cpu.reset();
+    }
+
+    void enableBreakpoints() {
+        cpu.enableBreakpoints();
+    }
+    
+    void disableBreakpoints() {
+        cpu.disableBreakpoints();
+    }
+    
+    void addBreakpointAt(int i) {
+        cpu.setBreakpoint(i);
+    }
+    
+    void deleteBreakpointAt(int i) {
+        cpu.deleteBreakpoint(i);
+    }
+    
+    boolean breakpointsEnabled() {
+        return cpu.breakpointsEnabled();
     }
 
     void stepEvent() {

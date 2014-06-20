@@ -27,8 +27,8 @@ public class NullInputStrategy implements InStrategy {
         return null;
     }
 
-	@Override
-	public Path getFilePath() {
-		return null;
-	}
+    @Override
+    public Path getFilePath() {
+        return null;
+    }
 }

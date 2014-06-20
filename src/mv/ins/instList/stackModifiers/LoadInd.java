@@ -29,7 +29,8 @@ public class LoadInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+            throws UnrecoverableException, RecoverableException {
 
         if (!stack.isEmpty()) {
             int read = stack.popValue();

@@ -56,7 +56,6 @@ public class TextView implements Watcher {
             System.out.print("> ");
             controller.debug(sc.nextLine());
         } while (!controller.isHalted());
-
         quit();
     }
 

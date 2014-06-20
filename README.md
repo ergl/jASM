@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # jARM: Java-built ARM executer, debugger and IDE
 
 ### How?

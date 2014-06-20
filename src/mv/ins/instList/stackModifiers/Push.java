@@ -41,7 +41,8 @@ public class Push extends TwoParamInst {
      * Método encargado de ejecutar la operación sobre la CPU.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+            throws UnrecoverableException, RecoverableException {
 
         stack.pushValue(param);
     }

@@ -28,7 +28,7 @@ public class ProgramMV {
     public ProgramMV() {
         this.program = new Vector<>();
     }
-    
+
     /**
      * Método encargado de leer el programa, mostrando al usuario el prompt y los mensajes de información o error.
      * La ejecución termina cuando el usuario introduce el valor definido por PR_END_TOKEN. Al terminar de leer se muestra el programa cargado.
@@ -86,6 +86,7 @@ public class ProgramMV {
                         }
                     }
                 }
+
                 line = bf.readLine();
             }
 

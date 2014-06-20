@@ -14,7 +14,8 @@ import mv.strategies.OutStrategy;
  * @author Chaymae
  */
 public interface Instruction {
-    abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException;
+    abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+            throws UnrecoverableException, RecoverableException;
 
     abstract Instruction parse(String input);
 }

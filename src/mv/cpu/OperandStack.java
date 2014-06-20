@@ -21,11 +21,11 @@ public class OperandStack extends Watchable {
     }
 
     void flush() {
-    	stack.clear();
-    	this.setChanged();
-    	this.notifyViews(this.displayContent());
+        stack.clear();
+        this.setChanged();
+        this.notifyViews(this.displayContent());
     }
-    
+
     public void pushValue(Integer e) {
         stack.add(e);
 
@@ -41,7 +41,7 @@ public class OperandStack extends Watchable {
 
         return value;
     }
-    
+
     public boolean isEmpty() {
         return stack.isEmpty();
     }

@@ -3,6 +3,7 @@ package mv.cpu;
 import commons.Commons;
 import commons.exceptions.RecoverableException;
 import commons.exceptions.UnrecoverableException;
+import commons.exceptions.BreakpointException;
 import commons.watcherPattern.Watchable;
 import commons.watcherPattern.Watcher;
 import mv.ins.Instruction;
@@ -20,8 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
-
 /**
  * Ejecuta las instrucciones especificadas por el usuario.
  * Llama a sus observadores cuando se realiza una acción. Ver CPUMessage
@@ -31,25 +30,25 @@ import java.nio.file.Paths;
  */
 public class CPU extends Watchable {
 
-	private static final String SHOW_STATUS = 	"El estado de la máquina tras ejecutar la instrucción es: ";
+    private static final String SHOW_STATUS = "El estado de la máquina tras ejecutar la instrucción es: ";
     private static final String INST_MSG_BEGIN = "Comienza la ejecución de: ";
-	
-    private static final String NUM_ERROR =     "El valor introducido debe ser un número";
-    private static final String FORMAT_ERROR =  "La posición no puede ser negativa";
-    
-    private static final String LOG_FILE = 		"status.log";
+
+    private static final String NUM_ERROR = "El valor introducido debe ser un número";
+    private static final String FORMAT_ERROR = "La posición no puede ser negativa";
+
+    private static final String LOG_FILE = "status.log";
 
     private Path logFilePath;
     private PrintWriter logWriter;
     private File logFile;
-    
+
     private Memory memory;
     private OperandStack stack;
     private ExecutionManager executionManager;
     private ProgramMV program;
     private InStrategy inStr;
     private OutStrategy outStr;
-    
+
     private boolean writeLog;
 
     public CPU(InStrategy _in, OutStrategy _out, boolean _writeLog) {
@@ -58,25 +57,25 @@ public class CPU extends Watchable {
         this.executionManager = new ExecutionManager();
         this.inStr = _in;
         this.outStr = _out;
-        
+
         setLogOption(_writeLog);
     }
 
     private void setLogOption(boolean _writeLog) {
-    	this.writeLog = _writeLog;
-    	if(writeLog) configureLog();
+        this.writeLog = _writeLog;
+        if(writeLog) configureLog();
     }
-    
+
     public void reset() {
-    	memory.flush();
-    	stack.flush();
-    	executionManager.reset();
+        memory.flush();
+        stack.flush();
+        executionManager.reset();
     }
-    
+
     private void configureLog() {
-    	logFilePath = Paths.get(LOG_FILE);
-    	
-    	if (Files.exists(logFilePath)) {
+        logFilePath = Paths.get(LOG_FILE);
+
+        if (Files.exists(logFilePath)) {
             try {
                 logWriter = new PrintWriter(new FileWriter(logFilePath.toFile()));
                 logFile = logFilePath.toFile();
@@ -92,35 +91,39 @@ public class CPU extends Watchable {
             }
         }
     }
-    
+
     private void log(String instruction) {
-    	logWriter.write(printStatus(instruction) + "\n\n");
+        logWriter.write(printStatus(instruction) + "\n\n");
     }
-    
+
     private void closeResources() {
-    	logWriter.close();
+        logWriter.close();
+    }
+
+    public boolean breakpointsEnabled() {
+        return this.executionManager.breakpointsEnabled();
     }
     
     public void enableBreakpoints() {
-    	this.executionManager.enableBreakpoints();
+        this.executionManager.enableBreakpoints();
     }
-    
+
     public void disableBreakpoints() {
-    	this.executionManager.disableBreakpoints();
+        this.executionManager.disableBreakpoints();
     }
-    
-    public void setBreakpoint(int i) {
-    	this.executionManager.addBreakpoint(i);
+
+    public void setBreakpoint(Integer i) {
+        this.executionManager.addBreakpoint(i);
     }
-    
-    public void deleteBreakpoint(int i) {
-    	this.executionManager.deleteBreakpoint(i);
+
+    public void deleteBreakpoint(Integer i) {
+        this.executionManager.deleteBreakpoint(i);
     }
-    
+
     public void deleteBreakpoints() {
-    	this.executionManager.disableBreakpoints();
+        this.executionManager.disableBreakpoints();
     }
-    
+
     /**
      * Inicializa el programa a ejecutar por la CPU.
      *
@@ -145,8 +148,8 @@ public class CPU extends Watchable {
         if (!this.isHalted()) {
             if (inst != null) {
                 try {
-                    if(!executionManager.breakpointsEnabled())
-                    	inst.execute(executionManager, memory, stack, inStr, outStr);
+                    if(executionManager.breakpointsEnabled() && executionManager.onBreakpoint()) throw new BreakpointException("Breakpoint reached");
+                    inst.execute(executionManager, memory, stack, inStr, outStr);
                     if(writeLog) log(inst.toString());
                     this.executionManager.onNextInstruction();
                 } catch (RecoverableException re) {
@@ -155,6 +158,8 @@ public class CPU extends Watchable {
                 } catch (UnrecoverableException ue) {
                     stop();
                     this.notifyViews(ue.getMessage());
+                } catch (BreakpointException be) {
+                    this.notifyViews(be.getMessage());
                 }
             } else {
                 System.err.println("No existe instrucción");
@@ -168,8 +173,9 @@ public class CPU extends Watchable {
      */
     public void runProgram() {
         try {
-            step();
-            while (!this.isHalted())
+            if(!executionManager.breakpointsEnabled() && !executionManager.onBreakpoint())
+                step();
+            while (!this.isHalted() && !executionManager.breakpointsEnabled() && !executionManager.onBreakpoint())
                 step();
         } catch (RecoverableException e) {
         }
@@ -286,14 +292,14 @@ public class CPU extends Watchable {
         this.executionManager.deleteWatchers();
         this.stack.deleteWatchers();
         this.memory.deleteWatchers();
-        
+
         closeResources();
     }
-    
+
     public String printStatus(String instruction) {
-    	return INST_MSG_BEGIN + instruction + System.lineSeparator() + SHOW_STATUS + this.toString();
+        return INST_MSG_BEGIN + instruction + System.lineSeparator() + SHOW_STATUS + this.toString();
     }
-    
+
     /**
      * Devuelve una version imprimible del estado de la maquina.
      * Muestra el estado de la pila de operandos y de la memoria.

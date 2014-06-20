@@ -21,6 +21,8 @@ public class TextController {
     private InStrategy inStr;
     private OutStrategy outStr;
 
+    private CommandInterpreter debugCommand;
+
     private TextView textView;
 
     public TextController(CPU _cpu, ProgramMV _program, InStrategy _inStr, OutStrategy _outStr) {
@@ -49,7 +51,7 @@ public class TextController {
     }
 
     void debug(String input) {
-        CommandInterpreter debugCommand = CommandParser.parseCommand(input);
+        this.debugCommand = CommandParser.parseCommand(input);
 
         if (debugCommand == null) {
             textView.show(COMM_ERROR, true);
@@ -83,7 +85,6 @@ public class TextController {
 
     void runEvent() {
         cpu.runProgram();
-
         if (cpu.isHalted()) {
             textView.quit();
         }

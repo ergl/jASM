@@ -64,3 +64,4 @@ public abstract class OneParamInst implements Instruction {
         return this.orden.toUpperCase();
     }
 }
+

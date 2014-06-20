@@ -88,13 +88,13 @@ public class Main {
         switch(mode) {
             case INTERACTIVE:
                 doInteractive(asmFile, inFile, outFile, inStr, outStr, writeLog); break;
-            
+
             case WINDOW:
                 doVisual(asmFile, inFile, outFile, inStr, outStr, writeLog); break;
-            
+
             case BATCH:
                 doBatch(asmFile, inFile, outFile, inStr, outStr, writeLog); break;
-            
+
             default:
                 doBatch(asmFile, inFile, outFile, inStr, outStr, writeLog);
         }
@@ -102,16 +102,16 @@ public class Main {
 
     /**
      * Ejecuta el sistema en modo Interactivo.
-     * Inicializa los Paths de los ficheros introducidos y ejecuta el programa de manera similar a la anterior práctica.
-     * Si no existe archivo ASM, se da la opción de introducir el programa por consola.
+     * Inicializa los Paths de los ficheros introducidos y ejecuta el programa de manera similar a la anterior pr&aacute;ctica.
+     * Si no existe archivo ASM, se da la opci&oacute;n de introducir el programa por consola.
      * <p>
      * Todas las excepciones lanzadas por fallos en ficheros (porque no existan, etc) son capturadas y solucionadas a este nivel.
      *
      * @param asmFileString nombre del archivo ASM que contiene el código del programa
      * @param inFileString nombre del archivo TXT que contiene el input del programa
      * @param outFileString nombre del archivo TXT que sirve de output del programa
-     * @param inStr configuración del modo de entrada del programa
-     * @param outStr configuración del modo de salida del programa
+     * @param inStr configuraci&oacute;n del modo de entrada del programa
+     * @param outStr configuraci&oacute;n del modo de salida del programa
      */
     private static void doInteractive(String asmFileString, String inFileString, String outFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
@@ -280,7 +280,7 @@ public class Main {
 
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
-        
+
         if(inFileString != null) {
             try {
                 inFilePath = Paths.get(inFileString);
@@ -383,9 +383,9 @@ public class Main {
             showHelp();
             System.exit(0);
         }
-        
+
         if (line.hasOption("l")) {
-        	writeLog = true;
+            writeLog = true;
         }
 
         if (line.hasOption("m")) {
@@ -463,7 +463,7 @@ public class Main {
 
         private static InStrategy _inStrategy;
         private static OutStrategy _outStrategy;
-        
+
         private static boolean _writeLog;
 
         private SetupConfigurator(ExecutionMode mode, String asmFile, String inFile, String outFile, boolean writeLog) {
@@ -519,7 +519,7 @@ public class Main {
         }
 
         private boolean getLogOption() {
-        	return _writeLog;
+            return _writeLog;
         }
     }
 }
