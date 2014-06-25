@@ -48,3 +48,4 @@ public class Push extends TwoParamInst {
         stack.pushValue(param);
     }
 }
+

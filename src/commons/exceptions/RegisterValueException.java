@@ -2,7 +2,6 @@ package commons.exceptions;
 
 import mv.ins.Instruction;
 
-@SuppressWarnings("serial")
 public class RegisterValueException extends UnrecoverableException {
 
     public RegisterValueException(Instruction inst, int n) {

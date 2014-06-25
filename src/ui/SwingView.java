@@ -53,7 +53,6 @@ public class SwingView implements Watcher {
         inputPanel = 	new InputPanel();
         outputPanel = 	new OutputPanel();
         statusPanel = 	new StatusPanel();
-
         registerPanel =	new RegisterPanel();
 
         controller =    _cont;
@@ -80,11 +79,11 @@ public class SwingView implements Watcher {
     }
 
     private JPanel mainTopPanel() {
-    	JPanel mainPanel = new JPanel(new GridLayout(2,1));
-    	mainPanel.add(actionPanel);
-    	mainPanel.add(registerPanel);
+        JPanel mainPanel = new JPanel(new GridLayout(2,1));
+        mainPanel.add(actionPanel);
+        mainPanel.add(registerPanel);
 
-    	return mainPanel;
+        return mainPanel;
     }
 
     private JPanel mainSubPanel() {
@@ -371,7 +370,6 @@ public class SwingView implements Watcher {
 
     	private void initUI() {
     		setBorder(new TitledBorder("Registers"));
-
     		r0Label = new JLabel("R0");
     		r1Label = new JLabel("R1");
     		r2Label = new JLabel("R2");
@@ -411,6 +409,7 @@ public class SwingView implements Watcher {
 
 			if(tokens.length != 4)
 				return;
+
 
 			r0Field.setText(tokens[0]);
 			r1Field.setText(tokens[1]);

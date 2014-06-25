@@ -51,8 +51,8 @@ public class SwingController {
 
     void addCpuWatchers(Watcher programWatcher, Watcher stackWatcher,
     		Watcher memoryWatcher, Watcher registerWatcher) {
-
-        cpu.addEMWatcher(programWatcher);
+        
+    	cpu.addEMWatcher(programWatcher);
         cpu.addStackWatcher(stackWatcher);
         cpu.addMemoryWatcher(memoryWatcher);
         cpu.addRegisterWatcher(registerWatcher);
