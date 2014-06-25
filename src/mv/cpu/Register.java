@@ -1,10 +1,10 @@
 package mv.cpu;
 
-public class Registro {
+public class Register {
 
     private int value;
 
-    public Registro(int _content) {
+    public Register(int _content) {
         this.value = _content;
     }
 

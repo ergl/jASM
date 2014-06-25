@@ -56,3 +56,4 @@ public abstract class SummitModifiers extends OneParamInst {
         }
     }
 }
+

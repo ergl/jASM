@@ -52,6 +52,7 @@ public class CPU extends Watchable {
 
     private boolean writeLog;
 
+
     public CPU(InStrategy _in, OutStrategy _out, boolean _writeLog) {
         this.memory = new Memory();
         this.stack = new OperandStack();

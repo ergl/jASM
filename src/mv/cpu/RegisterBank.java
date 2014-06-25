@@ -8,16 +8,16 @@ import java.util.ListIterator;
 public class RegisterBank extends Watchable {
 
     private static int MAX_REGISTER = 4;
-    private ArrayList<Registro> registerList;
+    private ArrayList<Register> registerList;
 
     public RegisterBank() {
-        this.registerList = new ArrayList<Registro>();
+        this.registerList = new ArrayList<Register>();
         init();
     }
 
     private void init() {
         for(int i = 0; i < MAX_REGISTER; i++) {
-            registerList.add(new Registro(0));
+            registerList.add(new Register(0));
         }
     }
 
@@ -32,11 +32,11 @@ public class RegisterBank extends Watchable {
     }
 
     private String displayContent() {
-        ListIterator<Registro> li = registerList.listIterator();
+        ListIterator<Register> li = registerList.listIterator();
 
         StringBuilder sb = new StringBuilder();
         while(li.hasNext()) {
-            Registro n = li.next();
+            Register n = li.next();
             sb.append(n.getContent() + " ");
         }
 
@@ -45,13 +45,13 @@ public class RegisterBank extends Watchable {
 
     @Override
     public String toString() {
-        ListIterator<Registro> li = registerList.listIterator();
+        ListIterator<Register> li = registerList.listIterator();
 
         StringBuilder sb = new StringBuilder();
         sb.append("Registros: ");
 
         while(li.hasNext()) {
-            Registro n = li.next();
+            Register n = li.next();
             sb.append("[R"+ registerList.indexOf(n) + "]: " + n + " ");
         }
 

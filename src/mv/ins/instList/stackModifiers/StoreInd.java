@@ -14,7 +14,6 @@ import mv.ins.instList.OneParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-
 /**
  * Realiza la operación de STORE del valor de la cima de la pila en la referencia indicada por la subcima de la pila.
  * En caso de que sea una operación imposible, vuelve a apilar los valores en la pila.

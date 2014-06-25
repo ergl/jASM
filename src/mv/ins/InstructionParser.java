@@ -38,7 +38,6 @@ public class InstructionParser {
         /* Examen */
         new Move(), 	new Loopdec()
 
-
     };
 
     /**

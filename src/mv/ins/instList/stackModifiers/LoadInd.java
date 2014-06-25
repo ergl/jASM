@@ -10,7 +10,6 @@ import mv.ins.instList.OneParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-
 /**
  * Realiza una operación de LOAD con referencia indicada por la cima de la pila.
  * En caso de que sea una operación ilegal, vuelve a apilar dicho valor.
