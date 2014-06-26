@@ -11,8 +11,8 @@ The original idea was to do a virtual machine for executing a pseudo-asm languag
 - ✓ Print CPU status to log file. Use [-l, --log] to enable.
 - ✓ Add CPU reset support. Use the 'reset' command on interactive mode or press the 'Reset' button while on windowed mode.
 - ✓ Breakpoint support. Double click on an instruction to add a breakpoint. Double click again to remove it.
-- Add support for Registers
-    - Add new Instructions that execute on the registers
+- ✓ Add support for Registers
+- ✓ Add Queue support
 - Add displacement jumps
 - Undo support (one undo step - for now)
 
