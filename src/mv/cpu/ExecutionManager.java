@@ -1,6 +1,7 @@
 package mv.cpu;
 
 import commons.watcherPattern.Watchable;
+
 import java.util.ArrayList;
 
 /**
@@ -72,7 +73,10 @@ public class ExecutionManager extends Watchable {
      *
 =======
      * 
+<<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
 >>>>>>> af02449... Fixed bug preventing pausing/resetting program when pressing Run button multiple times. Changed package structure to new standard:src/mv/cpu/ExecutionManager.java
+=======
+>>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/cpu/ExecutionManager.java
      * @param programCont el número de instrucciones a ejecutar
      */
     public void configureExecutionManager(int programCont) {

@@ -11,7 +11,6 @@ import mv.ins.instList.TwoParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-
 /**
  * Realiza la operación de push sobre la pila.
  *

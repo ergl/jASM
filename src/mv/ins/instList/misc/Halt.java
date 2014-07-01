@@ -32,7 +32,11 @@ public class Halt extends OneParamInst {
 
     /**
      * Crea un objeto de la operación correspondiente.
+<<<<<<< HEAD:src/mv/ins/instList/misc/Halt.java
      *
+=======
+     * 
+>>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/ins/instList/misc/Halt.java
      * @return el objeto operación determinado
      */
     @Override

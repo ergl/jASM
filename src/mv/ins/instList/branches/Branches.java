@@ -38,6 +38,7 @@ public abstract class Branches extends TwoParamInst {
     @Override
     public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
             throws RecoverableException {
+
         if (!stack.isEmpty()) {
             int value = stack.popValue();
             operation(executionManager, value);

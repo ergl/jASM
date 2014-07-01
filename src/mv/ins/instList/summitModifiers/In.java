@@ -17,8 +17,6 @@ import mv.strategies.OutStrategy;
  */
 public class In extends SummitModifiers {
 
-    private int value;
-
     public In() {
         super("IN");
     }
@@ -36,9 +34,5 @@ public class In extends SummitModifiers {
     public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) {
         stack.pushValue(in.read());
 
-    }
-
-    public int getValue() {
-        return this.value;
     }
 }

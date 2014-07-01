@@ -46,4 +46,5 @@ public abstract class CommandInterpreter {
     public static boolean isQuit() {
         return cpu.isHalted();
     }
+
 }
