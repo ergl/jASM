@@ -55,14 +55,8 @@ public class Main {
 
     /**
      * Encargado de distribuir las tareas de parsear los argumentos y determinar el modo de ejecución,
-<<<<<<< HEAD:src/mv/Main.java
      * así como llamar a los métodos de ejecución dependiendo de los argumentos introducidos.
      *
-=======
-     * así como llamar a los métodos de ejecución dependiendo de los argumentos introducidos. 
-     *  
-     * @see mv.Main#optionSelector(String[])
->>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/Main.java
      * @param args los argumentos introducidos por el usuario
      *
      * @see mv.Main#optionSelector(String[])
