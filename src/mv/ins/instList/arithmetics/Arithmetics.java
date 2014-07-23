@@ -1,11 +1,13 @@
 package mv.ins.instList.arithmetics;
 
-import commons.exceptions.*;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.StackException;
+import commons.exceptions.UnrecoverableException;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
 import mv.ins.Instruction;
-import mv.ins.instList.*;
+import mv.ins.instList.OneParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 

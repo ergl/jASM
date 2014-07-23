@@ -1,9 +1,9 @@
 package mv.strategies.in;
 
-import java.nio.file.Path;
-
 import commons.watcherPattern.Watchable;
 import mv.strategies.InStrategy;
+
+import java.nio.file.Path;
 
 public class WindowIn extends Watchable implements InStrategy {
 

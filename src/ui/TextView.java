@@ -1,11 +1,11 @@
 package ui;
 
-import java.util.Scanner;
-
 import commons.watcherPattern.Watchable;
 import commons.watcherPattern.Watcher;
 import mv.Main;
 import mv.Main.ExecutionMode;
+
+import java.util.Scanner;
 
 public class TextView implements Watcher {
 

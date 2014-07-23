@@ -1,5 +1,10 @@
 package mv.cpu;
 
+import commons.exceptions.BadProgramException;
+import commons.exceptions.UnrecoverableException;
+import mv.ins.Instruction;
+import mv.ins.InstructionParser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -9,12 +14,9 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.Vector;
 
-import commons.exceptions.BadProgramException;
-import commons.exceptions.UnrecoverableException;
-import mv.ins.Instruction;
-import mv.ins.InstructionParser;
-
 public class ProgramMV {
+
+    private static char COMMENT_DELIMITER = '@';
 
     private static final int MAX_PROGRAM_SIZE = 100;
     private static final String MSG_INTRO = "Introduce el programa fuente: ";
@@ -72,8 +74,8 @@ public class ProgramMV {
             while (line != null) {
                 line = line.trim();
 
-                if (!line.startsWith(";")) {
-                    String[] tmp = line.split(";");
+                if (!line.startsWith(String.valueOf(COMMENT_DELIMITER))) {
+                    String[] tmp = line.split(String.valueOf(COMMENT_DELIMITER));
                     StringBuilder sb = new StringBuilder();
                     sb.append(tmp[0]);
 
@@ -98,6 +100,8 @@ public class ProgramMV {
                     bf.close();
                 }
             } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(2);
             }
         }
     }

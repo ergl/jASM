@@ -39,7 +39,8 @@ public abstract class TwoParamInst implements Instruction {
     /**
      * Método encargado de ejecutar la operación sobre la CPU.
      */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException;
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+            throws UnrecoverableException, RecoverableException;
 
     /**
      * Crea un objeto de la operación correspondiente.

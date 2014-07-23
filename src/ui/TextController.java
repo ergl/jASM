@@ -65,6 +65,7 @@ public class TextController {
         try {
             debugCommand.executeCommand(cpu);
         } catch (Exception e) {
+            // TODO
         }
 
         if (cpu.isHalted()) {

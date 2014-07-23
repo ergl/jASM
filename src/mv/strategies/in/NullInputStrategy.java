@@ -1,8 +1,8 @@
 package mv.strategies.in;
 
-import java.nio.file.Path;
-
 import mv.strategies.InStrategy;
+
+import java.nio.file.Path;
 
 public class NullInputStrategy implements InStrategy {
 

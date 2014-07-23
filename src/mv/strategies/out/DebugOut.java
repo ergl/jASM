@@ -18,9 +18,6 @@ public class DebugOut implements OutStrategy {
     @Override
     public void write(char c) {
         outStr.write(c);
-
-        // TODO Auto-generated method stub
-
     }
 
     @Override

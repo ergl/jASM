@@ -1,6 +1,9 @@
 package mv.ins.instList.arithmetics;
 
-import commons.exceptions.*;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.StackException;
+import commons.exceptions.UnrecoverableException;
+
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
@@ -25,8 +28,8 @@ public class Div extends Arithmetics {
      * Comprueba que la cima no sea cero.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
-
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+        throws UnrecoverableException, RecoverableException {
         int tmp1, tmp2;
         if (stack.elements() >= 2) {
             tmp1 = stack.popValue();

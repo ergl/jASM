@@ -1,25 +1,14 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.net.URL;
+import commons.watcherPattern.Watchable;
+import commons.watcherPattern.Watcher;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
-
-import commons.watcherPattern.Watchable;
-import commons.watcherPattern.Watcher;
+import java.awt.*;
+import java.awt.event.*;
+import java.net.URL;
 
 /**
  * Vista de la interfaz gráfica Swing.
@@ -28,7 +17,7 @@ import commons.watcherPattern.Watcher;
  * <p>
  * Accede directamente al controlador a través de los Listeners.
  * Observa a SwingController y a la CPU. (El método update es llamado desde CPU o SwingController)
- *
+ * 
  * @author Borja
  * @author Chaymae
  */
@@ -54,15 +43,15 @@ public class SwingView implements Watcher {
     private StatusPanel statusPanel;
 
     public SwingView(SwingController _cont) {
-        mainFrame = new JFrame();
-        actionPanel = new ActionPanel();
-        programPanel = new ProgramPanel();
-        stackPanel = new StackPanel();
-        memoryPanel = new MemoryPanel();
-        inputPanel = new InputPanel();
-        outputPanel = new OutputPanel();
-        statusPanel = new StatusPanel();
-        controller = _cont;
+        mainFrame = 	new JFrame();
+        actionPanel = 	new ActionPanel();
+        programPanel = 	new ProgramPanel();
+        stackPanel = 	new StackPanel();
+        memoryPanel = 	new MemoryPanel();
+        inputPanel = 	new InputPanel();
+        outputPanel = 	new OutputPanel();
+        statusPanel = 	new StatusPanel();
+        controller =    _cont;
 
         initUI();
     }
@@ -86,12 +75,12 @@ public class SwingView implements Watcher {
 
     private JPanel mainSubPanel() {
 
-        JPanel mainPanel = new JPanel();
-        JPanel topSubPanel = topSubPanel();
-        JPanel bottomPanel = new JPanel();
+        JPanel mainPanel = 		new JPanel();		
+        JPanel topSubPanel = 	topSubPanel();
+        JPanel bottomPanel = 	new JPanel();
 
         mainPanel.setLayout(new BorderLayout());
-        bottomPanel.setLayout(new GridLayout(2, 1));
+        bottomPanel.setLayout(new GridLayout(2,1));
 
         bottomPanel.add(this.inputPanel);
         bottomPanel.add(this.outputPanel);
@@ -105,7 +94,7 @@ public class SwingView implements Watcher {
     private JPanel topSubPanel() {
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
+        panel.setLayout(new GridLayout(1,2));
 
         panel.add(this.stackPanel);
         panel.add(this.memoryPanel);
@@ -145,26 +134,24 @@ public class SwingView implements Watcher {
     }
 
     void quit() {
-        if (JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (runThread != null && runThread.isAlive()) {
+        if(JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if(runThread != null && runThread.isAlive())
                 runThread.interrupt();
-            }
             controller.shutdown();
             System.exit(0);
         }
     }
 
     private void showHaltedCPU() {
-        if (!controller.ready()) {
+        if(!controller.ready())
             this.statusPanel.showHaltedCPU();
-        }
     }
 
     private void hideHaltedCPU() {
         this.statusPanel.hideHaltedCPU();
     }
 
-    private void updateStatusBar(int nextInst) {
+    private void updateStatusBar() {
         this.statusPanel.updateExecutedInstructions();
     }
 
@@ -188,23 +175,30 @@ public class SwingView implements Watcher {
     public void updateDisplays(Watchable o, Object arg) {
         show((String) arg);
 
-        if (runThread != null && runThread.isAlive()) {
+        if(runThread != null && runThread.isAlive())
             runThread.interrupt();
-        }
     }
 
     /**
      * Panel de acciones de la interfaz.
      * Contiene los botones principales de la aplicación: Step, Run y Quit.
-     *
+     * 
      * @author Borja
      * @author Chaymae
      */
     private class ActionPanel extends JPanel {
 
-        private JButton stepButton, runButton, pauseButton, quitButton, resetButton;
+        private JButton stepButton,
+        runButton,
+        pauseButton,
+        quitButton,
+        resetButton;
 
-        private URL stepIconURL, runIconURL, pauseIconURL, quitIconURL, resetIconURL;
+        private URL stepIconURL,
+        runIconURL,
+        pauseIconURL,
+        quitIconURL, 
+        resetIconURL;
 
         private ActionPanel() {
             initUI();
@@ -212,20 +206,18 @@ public class SwingView implements Watcher {
 
         private void initUI() {
             JPanel actionPanel = new JPanel(new GridLayout(1,5));
-
+            
             stepIconURL = SwingView.class.getResource("res/step.png");
             runIconURL = SwingView.class.getResource("res/run.png");
             pauseIconURL = SwingView.class.getResource("res/pause.png");
             quitIconURL = SwingView.class.getResource("res/exit.png");
             resetIconURL = SwingView.class.getResource("res/reset.png");
 
-            stepButton = (stepIconURL != null) ? new JButton("Step", new ImageIcon(stepIconURL)) : new JButton("STEP");
-            runButton = (runIconURL != null) ? new JButton("Run", new ImageIcon(runIconURL)) : new JButton("RUN");
-            pauseButton = (pauseIconURL != null) ? new JButton("Pause", new ImageIcon(pauseIconURL)) : new JButton("PAUSE");
-            quitButton = (quitIconURL != null) ? new JButton("Exit", new ImageIcon(quitIconURL)) : new JButton("EXIT");
+            stepButton = (stepIconURL  != null)  ?  new JButton("Step", new ImageIcon(stepIconURL))   :  new JButton("STEP");
+            runButton = (runIconURL   != null)  ?  new JButton("Run", new ImageIcon(runIconURL))     :  new JButton("RUN");
+            pauseButton = (pauseIconURL != null)  ?  new JButton("Pause", new ImageIcon(pauseIconURL)) :  new JButton("PAUSE");
+            quitButton = (quitIconURL  != null)  ?  new JButton("Exit", new ImageIcon(quitIconURL))   :  new JButton("EXIT");
             resetButton = (resetIconURL != null)  ?  new JButton("Reset", new ImageIcon(resetIconURL)) :  new JButton("RESET");
-
-            resetButton = new JButton("RESET");
 
             pauseButton.setEnabled(false);
 
@@ -234,6 +226,8 @@ public class SwingView implements Watcher {
                 SwingView.this.uncheckStackBox();
                 SwingView.this.uncheckMemoryBox();
 
+                resetButton.setEnabled(true);
+                controller.disableBreakpoints();
                 controller.stepEvent();
             });
 
@@ -243,12 +237,25 @@ public class SwingView implements Watcher {
 
                     public void run() {
 
-                        SwingUtilities.invokeLater(() -> stepButton.setEnabled(false));
+                        SwingUtilities.invokeLater(() -> {
+                            stepButton.setEnabled(false);
+                            resetButton.setEnabled(true);
+                            runButton.setEnabled(false);
+                            resetButton.setEnabled(false);
+                        });
                         SwingView.this.stackPanel.disableActions();
                         SwingView.this.memoryPanel.disableActions();
 
 
-                        while (!Thread.currentThread().isInterrupted() && controller.ready()) {
+                        if(controller.breakpointsEnabled()) {
+                            controller.disableBreakpoints();
+                            controller.stepEvent();
+                            controller.enableBreakpoints();
+                        } else {
+                            controller.stepEvent();
+                        }
+
+                        while(!Thread.currentThread().isInterrupted() && controller.ready()) {
 
                             SwingView.this.hideHaltedCPU();
                             SwingView.this.uncheckStackBox();
@@ -256,7 +263,7 @@ public class SwingView implements Watcher {
 
                             controller.stepEvent();
 
-                            if (Thread.currentThread().isInterrupted()) {
+                            if(Thread.currentThread().isInterrupted()) {
                                 SwingUtilities.invokeLater(() -> stepButton.setEnabled(true));
 
                                 SwingView.this.stackPanel.enableActions();
@@ -270,9 +277,8 @@ public class SwingView implements Watcher {
                             }
                         }
 
-                        if (!controller.ready()) {
+                        if(!controller.ready())
                             SwingView.this.disableActions();
-                        }
                     }
                 };
 
@@ -282,13 +288,14 @@ public class SwingView implements Watcher {
             pauseButton.addActionListener(e -> {
                 SwingView.this.showHaltedCPU();
 
-                if (runThread != null && runThread.isAlive()) {
+                if(runThread != null && runThread.isAlive())
                     runThread.interrupt();
-                }
 
                 SwingUtilities.invokeLater(() -> {
                     stepButton.setEnabled(true);
                     pauseButton.setEnabled(false);
+                    runButton.setEnabled(true);
+                    resetButton.setEnabled(true);
                 });
                 SwingView.this.stackPanel.enableActions();
                 SwingView.this.memoryPanel.enableActions();
@@ -315,8 +322,8 @@ public class SwingView implements Watcher {
             actionPanel.add(stepButton);
             actionPanel.add(runButton);
             actionPanel.add(pauseButton);
-            actionPanel.add(quitButton);
             actionPanel.add(resetButton);
+            actionPanel.add(quitButton);
 
             setBorder(new TitledBorder("Actions"));
             add(actionPanel, BorderLayout.CENTER);
@@ -334,7 +341,7 @@ public class SwingView implements Watcher {
     /**
      * Panel de programa.
      * Representa el programa en ejecución, con un indicador de la instrucción a ejecutar en la siguiente acción.
-     *
+     * 
      * @author Borja
      * @author Chaymae
      */
@@ -402,7 +409,6 @@ public class SwingView implements Watcher {
             return new MouseAdapter() {
                 public void mouseClicked(MouseEvent evt) {
                     int index;
-                    @SuppressWarnings("unchecked")
                     JList<String> list = (JList<String>)evt.getSource();
                     if (evt.getClickCount() == 2) {
                         index = list.locationToIndex(evt.getPoint());
@@ -440,9 +446,8 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            if (arg != null) {
-                this.updateProgramDisplay((int) arg);
-            }
+            if(arg != null)
+                this.updateProgramDisplay((Integer)arg);
         }
 
         private void updateProgramDisplay(final int nextInst) {
@@ -454,7 +459,8 @@ public class SwingView implements Watcher {
                         programListModel.set(i, program[i]);
                     }
                 }
-                SwingView.this.updateStatusBar(nextInst);
+
+                SwingView.this.updateStatusBar();
             });
         }
     }
@@ -464,7 +470,7 @@ public class SwingView implements Watcher {
      * Representa la pila en el momento presente de ejecución.
      * Permite ejecutar las instrucciones debug Push y Pop.
      * Se actualiza automáticamente con cada acción sobre ella.
-     *
+     * 
      * @author Borja
      * @author Chaymae
      */
@@ -474,7 +480,8 @@ public class SwingView implements Watcher {
         private JScrollPane stackScrollable;
         private JLabel pushValueLabel;
         private JTextField pushValueField;
-        private JButton pushButton, popButton;
+        private JButton pushButton,
+        popButton;
 
         private StackPanel() {
             initUI();
@@ -498,8 +505,8 @@ public class SwingView implements Watcher {
 
         private JPanel buttonSubPanel() {
 
-            JPanel mainPanel = new JPanel(new BorderLayout());
-            JPanel topRowPanel = new JPanel();
+            JPanel mainPanel= 		new JPanel(new BorderLayout());
+            JPanel topRowPanel = 	new JPanel();
             JPanel bottomRowPanel = new JPanel();
 
             pushValueLabel = new JLabel();
@@ -507,29 +514,36 @@ public class SwingView implements Watcher {
             topRowPanel.add(pushValueLabel);
 
             pushValueField = new JTextField();
-            pushValueField.setPreferredSize(new Dimension(60, 20));
+            pushValueField.setPreferredSize(new Dimension(60,20));
             topRowPanel.add(pushValueField);
 
             pushButton = new JButton();
             pushButton.setText("Push");
-            pushButton.addActionListener(e -> {
-                SwingView.this.uncheckMemoryBox();
-                SwingView.this.uncheckStackBox();
-                controller.pushEvent(pushValueField.getText().trim());
-                pushValueField.setText(null);
+            pushButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingView.this.uncheckMemoryBox();
+                    SwingView.this.uncheckStackBox();
+                    controller.pushEvent(pushValueField.getText().trim());
+                    pushValueField.setText(null);
+                }
+
             });
 
             topRowPanel.add(pushButton);
 
-            popButton = new JButton();
+            popButton =  new JButton();
             popButton.setText("Pop");
-            popButton.addActionListener(e -> {
-                SwingView.this.uncheckMemoryBox();
-                SwingView.this.uncheckStackBox();
-                controller.popEvent();
+            popButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingView.this.uncheckMemoryBox();
+                    SwingView.this.uncheckStackBox();
+                    controller.popEvent();
+                }
             });
 
-            bottomRowPanel.add(popButton);
+            bottomRowPanel.add(popButton);		
 
             mainPanel.add(topRowPanel, BorderLayout.CENTER);
             mainPanel.add(bottomRowPanel, BorderLayout.PAGE_END);
@@ -539,33 +553,41 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            this.updateStackDisplay((String) arg);
+            this.updateStackDisplay((String)arg);
             SwingView.this.checkStackBox();
-            if (((String)arg).equalsIgnoreCase("")) {
+            if(((String)arg).equalsIgnoreCase("")) {
                 SwingView.this.uncheckStackBox();
             }
 
         }
 
         private void updateStackDisplay(final String stackContents) {
-            javax.swing.SwingUtilities.invokeLater(() -> stackTextArea.setText(stackContents));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    stackTextArea.setText(stackContents);
+                }
+            });
         }
 
         private void enableActions() {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                StackPanel.this.pushValueField.setText(null);
-                StackPanel.this.pushValueField.setEditable(true);
-                StackPanel.this.popButton.setEnabled(true);
-                StackPanel.this.pushButton.setEnabled(true);
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    StackPanel.this.pushValueField.setText(null);
+                    StackPanel.this.pushValueField.setEditable(true);
+                    StackPanel.this.popButton.setEnabled(true);
+                    StackPanel.this.pushButton.setEnabled(true);
+                }
             });
         }
 
         private void disableActions() {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                StackPanel.this.pushValueField.setText(null);
-                StackPanel.this.pushValueField.setEditable(false);
-                StackPanel.this.popButton.setEnabled(false);
-                StackPanel.this.pushButton.setEnabled(false);
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    StackPanel.this.pushValueField.setText(null);
+                    StackPanel.this.pushValueField.setEditable(false);
+                    StackPanel.this.popButton.setEnabled(false);
+                    StackPanel.this.pushButton.setEnabled(false);
+                }
             });
         }
     }
@@ -575,19 +597,22 @@ public class SwingView implements Watcher {
      * Representa el estado de la memoria, ordenador por posición.
      * Permite ejecutar la instrucción debug Write.
      * Se actualiza automáticamente con cada acción sobre ella.
-     *
+     * 
      * @author Borja
      * @author Chaymae
      */
+    @SuppressWarnings("serial")
     private class MemoryPanel extends JPanel implements Watcher {
 
         private JTable memoryTable;
         private DefaultTableModel model;
 
         private JScrollPane memoryScrollable;
-        private JLabel positionLabel, valueLabel;
+        private JLabel positionLabel,
+        valueLabel;
 
-        private JTextField positionField, valueField;
+        private JTextField positionField,
+        valueField;
 
         private JButton writeButton;
 
@@ -598,18 +623,18 @@ public class SwingView implements Watcher {
         private void initUI() {
             setBorder(new TitledBorder("Memory"));
             setLayout(new BorderLayout());
-            setPreferredSize(new Dimension(250, 185));
+            setPreferredSize(new Dimension(250,185));
 
             JPanel inputSubPanel = buttonSubPanel();
 
-            model = new DefaultTableModel(new Object[] {"DIR", "VAL"}, 0);
+            model = new DefaultTableModel(new Object[]{"DIR", "VAL"}, 0);
 
             memoryTable = new JTable(model);
             memoryTable.setCellSelectionEnabled(false);
             memoryTable.setEnabled(false);
 
             memoryScrollable = new JScrollPane(memoryTable);
-            memoryScrollable.setPreferredSize(new Dimension(375, 185));
+            memoryScrollable.setPreferredSize(new Dimension(375,185));
 
             add(memoryScrollable, BorderLayout.PAGE_START);
             add(inputSubPanel, BorderLayout.PAGE_END);
@@ -617,38 +642,42 @@ public class SwingView implements Watcher {
 
         private JPanel buttonSubPanel() {
 
-            JPanel mainPanel = new JPanel(new BorderLayout());
-            JPanel topRowPanel = new JPanel();
-            JPanel bottomRowPanel = new JPanel();
+            JPanel mainPanel = 			new JPanel(new BorderLayout());
+            JPanel topRowPanel = 		new JPanel();
+            JPanel bottomRowPanel = 	new JPanel();
 
-            positionLabel = new JLabel();
+            positionLabel =  			new JLabel();
             positionLabel.setText("Pos: ");
             topRowPanel.add(positionLabel);
 
-            positionField = new JTextField();
+            positionField = 			new JTextField();
             positionField.setPreferredSize(new Dimension(60, 20));
             topRowPanel.add(positionField);
 
-            valueLabel = new JLabel();
+            valueLabel = 				new JLabel();
             valueLabel.setText("Val: ");
             topRowPanel.add(valueLabel);
 
 
-            valueField = new JTextField();
+            valueField = 				new JTextField();
             valueField.setPreferredSize(new Dimension(60, 20));
             topRowPanel.add(valueField);
 
-            writeButton = new JButton();
+            writeButton = 				new JButton();
             writeButton.setText("Write");
-            writeButton.addActionListener(e -> {
-                SwingView.this.uncheckMemoryBox();
-                SwingView.this.uncheckStackBox();
-                String pos = positionField.getText().trim();
-                String val = valueField.getText().trim();
+            writeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingView.this.uncheckMemoryBox();
+                    SwingView.this.uncheckStackBox();
+                    String pos = positionField.getText().trim(),
+                            val = valueField.getText().trim();
 
-                positionField.setText(null);
-                valueField.setText(null);
-                controller.writeEvent(pos, val);
+                    positionField.setText(null);
+                    valueField.setText(null);
+                    controller.writeEvent(pos, val);
+                }
+
             });
 
             bottomRowPanel.add(writeButton);
@@ -662,51 +691,56 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            if (((String)arg).equalsIgnoreCase("")) {
+            if(((String)arg).equalsIgnoreCase("")) {
                 model.setRowCount(0);
                 SwingView.this.uncheckMemoryBox();
                 return;
             }
+
             this.updateMemoryTable((String) arg);
             SwingView.this.checkMemoryBox();
         }
 
         private void updateMemoryTable(final String memoryContents) {
-            javax.swing.SwingUtilities.invokeLater(() -> {
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
 
-                String[] contents = null;
+                    String[] contents = null;
 
-                if (!memoryContents.equals("")) {
-                    contents = memoryContents.split(" ");
-                }
+                    if(!memoryContents.equals(""))
+                        contents = memoryContents.split(" ");
 
-                if (contents != null) {
-                    model.setRowCount(0);
-                    for (int i = 0; i < contents.length - 1; i++)
-                        if ((i & 1) == 0) {
-                            MemoryPanel.this.model.addRow(new Object[] {contents[i], contents[i + 1]});
-                        }
+                    if(contents != null) {
+                        model.setRowCount(0);
+                        for(int i = 0; i < contents.length - 1; i++)
+                            if((i&1) == 0)
+                                MemoryPanel.this.model.addRow(new Object[]{contents[i], contents[i+1]});
+                    }
                 }
             });
         }
 
         private void enableActions() {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                MemoryPanel.this.positionField.setText(null);
-                MemoryPanel.this.valueField.setText(null);
-                MemoryPanel.this.positionField.setEditable(true);
-                MemoryPanel.this.valueField.setEditable(true);
-                MemoryPanel.this.writeButton.setEnabled(true);
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    MemoryPanel.this.positionField.setText(null);
+                    MemoryPanel.this.valueField.setText(null);
+                    MemoryPanel.this.positionField.setEditable(true);
+                    MemoryPanel.this.valueField.setEditable(true);
+                    MemoryPanel.this.writeButton.setEnabled(true);
+                }
             });
         }
 
         private void disableActions() {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                MemoryPanel.this.positionField.setText(null);
-                MemoryPanel.this.valueField.setText(null);
-                MemoryPanel.this.positionField.setEditable(false);
-                MemoryPanel.this.valueField.setEditable(false);
-                MemoryPanel.this.writeButton.setEnabled(false);
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    MemoryPanel.this.positionField.setText(null);
+                    MemoryPanel.this.valueField.setText(null);
+                    MemoryPanel.this.positionField.setEditable(false);
+                    MemoryPanel.this.valueField.setEditable(false);
+                    MemoryPanel.this.writeButton.setEnabled(false);
+                }
             });
         }
     }
@@ -714,11 +748,12 @@ public class SwingView implements Watcher {
     /**
      * Panel de entrada.
      * Representa, en caso de que haya, el contenido del archivo .IN
-     * Además, indica qué caracteres se han leído de él.
-     *
+     * Además, indica qué caracteres se han leído de él. 
+     * 
      * @author Borja
      * @author Chaymae
      */
+    @SuppressWarnings("serial")
     private class InputPanel extends JPanel implements Watcher {
 
         private JTextArea inputTextArea;
@@ -732,22 +767,23 @@ public class SwingView implements Watcher {
             setBorder(new TitledBorder("Program-p Input"));
 
             inputTextArea = new JTextArea();
-            inputTextArea.setLineWrap(true);
+            inputTextArea.setLineWrap(true); 
             inputTextArea.setEditable(false);
 
             inputScrollable = new JScrollPane(inputTextArea);
-            inputScrollable.setPreferredSize(new Dimension(625, 100));
+            inputScrollable.setPreferredSize(new Dimension(625,100));	
 
             add(inputScrollable);
         }
 
         /* Llamado al inicio de la aplicación. Para cada acción, se llama updayeInputText */
         private void displayFile(final char[] cs) {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                if (cs != null) {
-                    inputTextArea.setText(String.valueOf(cs));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    if(cs != null)
+                        inputTextArea.setText(String.valueOf(cs));
                 }
-            });
+            });   
         }
 
         private void flushContent() {
@@ -756,31 +792,32 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            Integer iChar = (int) arg;
+            Integer iChar = (Integer) arg;
 
-            if (iChar != -1) {
+            if(iChar != null && iChar != -1)
                 inputPanel.updateInputDisplay(Character.toChars(iChar));
-            }
         }
 
         /* Llamado al ejecutarse una instrucción IN. Busca el carácter parámetro y lo sustituye por '*'
          * Usamos char[] porque no se puede convertir de int a char, sólo a char[] 
          */
         private void updateInputDisplay(final char[] c) {
-            javax.swing.SwingUtilities.invokeLater(() -> {
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
 
-                char[] writtenText = inputTextArea.getText().toCharArray();
-                int j = 0;
+                    char[] writtenText = inputTextArea.getText().toCharArray();
+                    int j = 0;
 
-                while (j < writtenText.length) {
-                    if (writtenText[j] == c[0] && writtenText[j] != '\n') {
-                        writtenText[j] = '*';
-                        break;
+                    while( j < writtenText.length ) {
+                        if(writtenText[j] == c[0] && writtenText[j] != '\n') {
+                            writtenText[j] = '*';
+                            break;
+                        }
+                        j++;
                     }
-                    j++;
-                }
 
-                inputTextArea.setText(String.valueOf(writtenText));
+                    inputTextArea.setText(String.valueOf(writtenText));
+                }
             });
         }
     }
@@ -788,10 +825,11 @@ public class SwingView implements Watcher {
     /**
      * Panel de salida.
      * Representa, en caso de que haya, el contenido del archivo .OUT
-     *
+     * 
      * @author Borja
      * @author Chaymae
      */
+    @SuppressWarnings("serial")
     private class OutputPanel extends JPanel implements Watcher {
 
         private JTextArea outputTextArea;
@@ -805,11 +843,11 @@ public class SwingView implements Watcher {
             setBorder(new TitledBorder("Program-p Output"));
 
             outputTextArea = new JTextArea();
-            outputTextArea.setLineWrap(true);
+            outputTextArea.setLineWrap(true); 
             outputTextArea.setEditable(false);
 
             outputScrollable = new JScrollPane(outputTextArea);
-            outputScrollable.setPreferredSize(new Dimension(625, 100));
+            outputScrollable.setPreferredSize(new Dimension(625,100));	
 
             add(outputScrollable);
         }
@@ -820,44 +858,53 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            Character oChar = (char) arg;
-            outputPanel.updateOutputDisplay(oChar);
+            Character oChar = (Character) arg;
+
+            if(oChar != null)
+                outputPanel.updateOutputDisplay(oChar);
         }
 
         private void updateOutputDisplay(final Character arg) {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                if (arg != null) {
-                    OutputPanel.this.outputTextArea.append(String.valueOf(arg));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    if(arg != null)
+                        OutputPanel.this.outputTextArea.append(String.valueOf(arg));
                 }
             });
         }
     }
 
+    @SuppressWarnings("serial")
     private class StatusPanel extends JPanel {
 
-        private JLabel haltedCPULabel, executedInstructionsLabel, executedInstructionsNumberLabel, modifiedMemoryLabel, modifiedStackLabel;
+        private JLabel haltedCPULabel,
+        executedInstructionsLabel,
+        executedInstructionsNumberLabel,
+        modifiedMemoryLabel,
+        modifiedStackLabel;
 
         private int executedInstructions;
 
-        private JCheckBox modifiedMemoryCheckBox, modifiedStackCheckBox;
+        private JCheckBox modifiedMemoryCheckBox,
+        modifiedStackCheckBox;
 
         private StatusPanel() {
             initUI();
         }
 
         private void initUI() {
-            haltedCPULabel = new JLabel();
+            haltedCPULabel = 			new JLabel();
             executedInstructionsLabel = new JLabel("Num. Instrucciones ejecutadas:");
-            modifiedMemoryLabel = new JLabel("Memoria modificada");
-            modifiedStackLabel = new JLabel("Pila modificada");
+            modifiedMemoryLabel = 		new JLabel("Memoria modificada");
+            modifiedStackLabel = 		new JLabel("Pila modificada");
 
             haltedCPULabel.setForeground(Color.red);
 
             executedInstructions = -1;
             executedInstructionsNumberLabel = new JLabel(String.valueOf(executedInstructions));
 
-            modifiedMemoryCheckBox = new JCheckBox();
-            modifiedStackCheckBox = new JCheckBox();
+            modifiedMemoryCheckBox = 	new JCheckBox();
+            modifiedStackCheckBox = 	new JCheckBox();
 
             modifiedMemoryCheckBox.setEnabled(false);
             modifiedStackCheckBox.setEnabled(false);
@@ -877,41 +924,70 @@ public class SwingView implements Watcher {
         }
 
         private void showHaltedCPU() {
-            javax.swing.SwingUtilities.invokeLater(() -> haltedCPULabel.setText("Máquina Parada"));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    haltedCPULabel.setText("Máquina Parada");
+                }
+            });
         }
 
         private void hideHaltedCPU() {
-            javax.swing.SwingUtilities.invokeLater(() -> haltedCPULabel.setText(null));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    haltedCPULabel.setText(null);
+
+                }
+            });
         }
 
         private void updateExecutedInstructions() {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                executedInstructions++;
-                executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    executedInstructions++;
+                    executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
+                }
             });
         }
 
         private void resetExecutedInstructions() {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                executedInstructions = -1;
-                executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    executedInstructions = -1;
+                    executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
+                }
+            });
+        }
+        
+        private void checkMemoryBox() {
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    modifiedMemoryCheckBox.setSelected(true);
+                }
             });
         }
 
-        private void checkMemoryBox() {
-            javax.swing.SwingUtilities.invokeLater(() -> modifiedMemoryCheckBox.setSelected(true));
-        }
-
         private void uncheckMemoryBox() {
-            javax.swing.SwingUtilities.invokeLater(() -> modifiedMemoryCheckBox.setSelected(false));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    modifiedMemoryCheckBox.setSelected(false);
+                }
+            });
         }
 
         private void checkStackBox() {
-            javax.swing.SwingUtilities.invokeLater(() -> modifiedStackCheckBox.setSelected(true));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    modifiedStackCheckBox.setSelected(true);
+                }
+            });
         }
 
         private void uncheckStackBox() {
-            javax.swing.SwingUtilities.invokeLater(() -> modifiedStackCheckBox.setSelected(false));
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    modifiedStackCheckBox.setSelected(false); 
+                }
+            });
         }
     }
 }

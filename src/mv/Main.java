@@ -1,12 +1,5 @@
 package mv;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
-
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -31,6 +24,13 @@ import ui.SwingController;
 import ui.SwingView;
 import ui.TextController;
 import ui.TextView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 /**
  * Ejecuta la interfaz de interaccion con la VM.
@@ -121,7 +121,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ProgramMV program = new ProgramMV();
         CPU cpu =           new CPU(inStr, outStr, writeLog);
-        Path inFilePath =   null;
+        Path inFilePath;
         File asmFile;
 
         if (inFileString != null) {

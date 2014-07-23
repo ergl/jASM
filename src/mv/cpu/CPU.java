@@ -178,6 +178,7 @@ public class CPU extends Watchable {
             while (!this.isHalted() && !executionManager.breakpointsEnabled() && !executionManager.onBreakpoint())
                 step();
         } catch (RecoverableException e) {
+            // TODO
         }
     }
 

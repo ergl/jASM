@@ -1,10 +1,10 @@
 package mv.cpu;
 
+import commons.watcherPattern.Watchable;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
-
-import commons.watcherPattern.Watchable;
 
 /**
  * La pila de operandos de la maquina virtual.

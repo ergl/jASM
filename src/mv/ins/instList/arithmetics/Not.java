@@ -1,6 +1,9 @@
 package mv.ins.instList.arithmetics;
 
-import commons.exceptions.*;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.StackException;
+import commons.exceptions.UnrecoverableException;
+
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
@@ -10,6 +13,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de Not sobre la cima de la pila.
+<<<<<<< HEAD:src/mv/ins/instList/arithmetics/Not.java
  *
  * @author Borja
  * @author Chaymae

@@ -33,7 +33,8 @@ public abstract class OneParamInst implements Instruction {
     /**
      * Método encargado de ejecutar la operación sobre la CPU.
      */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException;
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+            throws UnrecoverableException, RecoverableException;
 
     /**
      * Analiza el input del usuario.
@@ -64,4 +65,3 @@ public abstract class OneParamInst implements Instruction {
         return this.orden.toUpperCase();
     }
 }
-

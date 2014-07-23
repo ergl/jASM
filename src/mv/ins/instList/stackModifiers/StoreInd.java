@@ -1,6 +1,10 @@
 package mv.ins.instList.stackModifiers;
 
-import commons.exceptions.*;
+import commons.exceptions.OutOfBoundMemoryException;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.StackException;
+import commons.exceptions.UnrecoverableException;
+
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;

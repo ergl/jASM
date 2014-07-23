@@ -1,6 +1,7 @@
 package mv.ins;
 
-import commons.exceptions.*;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.UnrecoverableException;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
