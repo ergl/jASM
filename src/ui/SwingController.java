@@ -49,10 +49,13 @@ public class SwingController {
         ((Watchable) outStr).addWatcher(outStrWatcher);
     }
 
-    void addCpuWatchers(Watcher programWatcher, Watcher stackWatcher, Watcher memoryWatcher) {
+    void addCpuWatchers(Watcher programWatcher, Watcher stackWatcher,
+    		Watcher memoryWatcher, Watcher registerWatcher) {
+
         cpu.addEMWatcher(programWatcher);
         cpu.addStackWatcher(stackWatcher);
         cpu.addMemoryWatcher(memoryWatcher);
+        cpu.addRegisterWatcher(registerWatcher);
     }
 
     void reset() {

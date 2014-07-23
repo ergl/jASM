@@ -8,6 +8,7 @@ import commons.exceptions.UnrecoverableException;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.ins.instList.TwoParamInst;
 import mv.strategies.InStrategy;
@@ -44,7 +45,7 @@ public class Store extends TwoParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
             throws UnrecoverableException, RecoverableException {
 
         if (this.auxParam != null) {

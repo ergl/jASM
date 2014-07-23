@@ -33,7 +33,12 @@ public class InstructionParser {
         new Neg(),      new In(),       new Out(),
 
         /* Misc */
-        new Halt()
+        new Halt(),
+
+        /* Examen */
+        new Move(), 	new Loopdec()
+
+
     };
 
     /**

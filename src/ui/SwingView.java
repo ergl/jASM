@@ -42,6 +42,8 @@ public class SwingView implements Watcher {
     private OutputPanel outputPanel;
     private StatusPanel statusPanel;
 
+    private RegisterPanel registerPanel;
+
     public SwingView(SwingController _cont) {
         mainFrame = 	new JFrame();
         actionPanel = 	new ActionPanel();
@@ -51,6 +53,9 @@ public class SwingView implements Watcher {
         inputPanel = 	new InputPanel();
         outputPanel = 	new OutputPanel();
         statusPanel = 	new StatusPanel();
+
+        registerPanel =	new RegisterPanel();
+
         controller =    _cont;
 
         initUI();
@@ -58,6 +63,7 @@ public class SwingView implements Watcher {
 
     private void initUI() {
 
+    	JPanel topPanel = mainTopPanel();
         JPanel subPanel = mainSubPanel();
 
         mainFrame.setTitle("Máquina Virtual de TP");
@@ -65,12 +71,20 @@ public class SwingView implements Watcher {
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setLayout(new BorderLayout());
 
-        mainFrame.add(this.actionPanel, BorderLayout.PAGE_START);
+        mainFrame.add(topPanel, BorderLayout.PAGE_START);
         mainFrame.add(this.programPanel, BorderLayout.LINE_START);
         mainFrame.add(subPanel, BorderLayout.CENTER);
         mainFrame.add(statusPanel, BorderLayout.PAGE_END);
 
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    private JPanel mainTopPanel() {
+    	JPanel mainPanel = new JPanel(new GridLayout(2,1));
+    	mainPanel.add(actionPanel);
+    	mainPanel.add(registerPanel);
+
+    	return mainPanel;
     }
 
     private JPanel mainSubPanel() {
@@ -94,7 +108,7 @@ public class SwingView implements Watcher {
     private JPanel topSubPanel() {
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,2));
+        panel.setLayout(new GridLayout(1, 2));
 
         panel.add(this.stackPanel);
         panel.add(this.memoryPanel);
@@ -109,7 +123,7 @@ public class SwingView implements Watcher {
     public void enable() {
         javax.swing.SwingUtilities.invokeLater(() -> {
             controller.addStrWatcher(inputPanel, outputPanel);
-            controller.addCpuWatchers(programPanel, stackPanel, memoryPanel);
+            controller.addCpuWatchers(programPanel, stackPanel, memoryPanel, registerPanel);
 
             controller.init(SwingView.this);
             mainFrame.pack();
@@ -336,6 +350,75 @@ public class SwingView implements Watcher {
                 runButton.setEnabled(false);
             });
         }
+    }
+
+    @SuppressWarnings("serial")
+	private class RegisterPanel extends JPanel implements Watcher {
+
+    	private JLabel r0Label,
+    				   r1Label,
+    				   r2Label,
+    				   r3Label;
+
+    	private JTextField r0Field,
+    	    			   r1Field,
+    	    			   r2Field,
+    	    			   r3Field;
+
+    	private RegisterPanel() {
+    		initUI();
+    	}
+
+    	private void initUI() {
+    		setBorder(new TitledBorder("Registers"));
+
+    		r0Label = new JLabel("R0");
+    		r1Label = new JLabel("R1");
+    		r2Label = new JLabel("R2");
+    		r3Label = new JLabel("R3");
+
+    		r0Field = new JTextField();
+    		r1Field = new JTextField();
+    		r2Field = new JTextField();
+    		r3Field = new JTextField();
+
+    		r0Field.setEditable(false);
+    		r1Field.setEditable(false);
+    		r2Field.setEditable(false);
+    		r3Field.setEditable(false);
+
+    		r0Field.setPreferredSize(new Dimension(60,20));
+    		r1Field.setPreferredSize(new Dimension(60,20));
+    		r2Field.setPreferredSize(new Dimension(60,20));
+    		r3Field.setPreferredSize(new Dimension(60,20));
+
+    		add(this.r0Label);
+    		add(this.r0Field);
+
+    		add(this.r1Label);
+    		add(this.r1Field);
+
+    		add(this.r2Label);
+    		add(this.r2Field);
+
+    		add(this.r3Label);
+    		add(this.r3Field);
+    	}
+
+		@Override
+		public void updateDisplays(Watchable o, Object arg) {
+			String[] tokens = ((String)arg).split("\\s");
+
+			if(tokens.length != 4)
+				return;
+
+			r0Field.setText(tokens[0]);
+			r1Field.setText(tokens[1]);
+			r2Field.setText(tokens[2]);
+			r3Field.setText(tokens[3]);
+
+		}
+
     }
 
     /**
@@ -713,7 +796,7 @@ public class SwingView implements Watcher {
                     if(contents != null) {
                         model.setRowCount(0);
                         for(int i = 0; i < contents.length - 1; i++)
-                            if((i&1) == 0)
+                            if( (i&1) == 0)
                                 MemoryPanel.this.model.addRow(new Object[]{contents[i], contents[i+1]});
                     }
                 }

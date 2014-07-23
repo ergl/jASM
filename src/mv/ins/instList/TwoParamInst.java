@@ -6,6 +6,7 @@ import commons.exceptions.UnrecoverableException;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
@@ -19,6 +20,7 @@ import mv.strategies.OutStrategy;
 public abstract class TwoParamInst implements Instruction {
 
     protected String orden;
+    protected String register = null;
     protected Integer param = null;
     protected Integer auxParam = null;
 
@@ -31,15 +33,28 @@ public abstract class TwoParamInst implements Instruction {
         this.param = param;
     }
 
-    public TwoParamInst(String orden, int param1, int param2) {
-        this.param = param1;
-        this.auxParam = param2;
+    public TwoParamInst(String orden, int param, int param1) {
+        this.orden = orden;
+        this.param = param;
+        this.auxParam = param1;
     }
+
+    public TwoParamInst(String orden, String register, int param) {
+    	this.orden = orden;
+    	this.register = register;
+    	this.param = param;
+    }
+    public TwoParamInst(String orden, String register, int param, int param1) {
+    	this.orden = orden;
+    	this.register = register;
+    	this.param = param;
+    	this.auxParam = param1;
+	}
 
     /**
      * Método encargado de ejecutar la operación sobre la CPU.
      */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
             throws UnrecoverableException, RecoverableException;
 
     /**
@@ -78,6 +93,10 @@ public abstract class TwoParamInst implements Instruction {
      */
     @Override
     public String toString() {
-        return this.orden.toUpperCase() + " " + this.param.toString();
+    	if(this.register == null)
+            return this.orden.toUpperCase() + " " + this.param.toString();
+    	if(this.auxParam == null)
+    		return this.orden.toUpperCase() + " " + this.register + this.param.toString();
+    	return this.orden.toUpperCase() + " " + this.register + this.param + " " + this.auxParam;
     }
 }

@@ -7,6 +7,7 @@ import commons.exceptions.UnrecoverableException;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.ins.instList.OneParamInst;
 import mv.strategies.InStrategy;
@@ -45,7 +46,7 @@ public abstract class SummitModifiers extends OneParamInst {
      * Método encargado de ejecutar la operación sobre la CPU.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
             throws UnrecoverableException, RecoverableException {
 
         if (!stack.isEmpty()) {

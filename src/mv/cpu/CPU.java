@@ -48,6 +48,7 @@ public class CPU extends Watchable {
     private ProgramMV program;
     private InStrategy inStr;
     private OutStrategy outStr;
+    private RegisterBank registerList;
 
     private boolean writeLog;
 
@@ -55,9 +56,7 @@ public class CPU extends Watchable {
         this.memory = new Memory();
         this.stack = new OperandStack();
         this.executionManager = new ExecutionManager();
-        this.inStr = _in;
-        this.outStr = _out;
-
+        this.registerList =     new RegisterBank();
         setLogOption(_writeLog);
     }
 
@@ -149,7 +148,7 @@ public class CPU extends Watchable {
             if (inst != null) {
                 try {
                     if(executionManager.breakpointsEnabled() && executionManager.onBreakpoint()) throw new BreakpointException("Breakpoint reached");
-                    inst.execute(executionManager, memory, stack, inStr, outStr);
+                    inst.execute(executionManager, memory, stack, inStr, outStr, registerList);
                     if(writeLog) log(inst.toString());
                     this.executionManager.onNextInstruction();
                 } catch (RecoverableException re) {
@@ -229,7 +228,7 @@ public class CPU extends Watchable {
     private void cpuDebug(Instruction inst) {
         this.setChanged();
         try {
-            inst.execute(executionManager, memory, stack, null, null);
+            inst.execute(executionManager, memory, stack, null, null, registerList);
         } catch (RecoverableException re) {
             this.notifyViews(re.getMessage());
         } catch (UnrecoverableException ue) {
@@ -288,11 +287,16 @@ public class CPU extends Watchable {
         this.memory.addWatcher(w);
     }
 
+    public void addRegisterWatcher(Watcher w) {
+    	this.registerList.addWatcher(w);
+    }
+
     public void deleteAsignedWatchers() {
         this.deleteWatchers();
         this.executionManager.deleteWatchers();
         this.stack.deleteWatchers();
         this.memory.deleteWatchers();
+        this.registerList.deleteWatchers();
 
         closeResources();
     }
@@ -307,6 +311,8 @@ public class CPU extends Watchable {
      */
     @Override
     public String toString() {
-        return System.lineSeparator() + memory.toString() + System.lineSeparator() + stack.toString();
+        return System.lineSeparator() + memory.toString() +
+        	   System.lineSeparator() + stack.toString()  +
+        	   System.lineSeparator() + registerList.toString();
     }
 }

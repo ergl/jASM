@@ -22,8 +22,9 @@ public class Step extends CommandInterpreter {
         Instruction nextInstruction = cpu.nextInstruction();
 
         if(nextInstruction != null) {
+            System.out.println(INST_MSG_BEGIN + nextInstruction.toString());
             cpu.step();
-            System.out.println(cpu.printStatus(nextInstruction.toString()));
+            System.out.println(EXEC_END + cpu.toString());
         }
     }
 

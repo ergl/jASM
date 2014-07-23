@@ -5,6 +5,7 @@ import commons.exceptions.UnrecoverableException;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
@@ -33,7 +34,7 @@ public abstract class OneParamInst implements Instruction {
     /**
      * Método encargado de ejecutar la operación sobre la CPU.
      */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
             throws UnrecoverableException, RecoverableException;
 
     /**

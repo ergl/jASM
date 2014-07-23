@@ -5,6 +5,7 @@ import commons.exceptions.StackException;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.ins.instList.TwoParamInst;
 import mv.strategies.InStrategy;
@@ -35,7 +36,7 @@ public abstract class Branches extends TwoParamInst {
      * La pila no puede estar vacía.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
             throws RecoverableException {
         if (!stack.isEmpty()) {
             int value = stack.popValue();
