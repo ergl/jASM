@@ -29,13 +29,13 @@ No bugs found as of yet. For future bugs refer to the issue tracker
 - ### Comparisons  
     Structure: `<op>{<cond>}Rn,Operand2`  
     
-    Operations:
+    Operations:  
     * `CMP op1 - op2`  
     * `CMN op1 + op2`  
     * `TST op1 && op2`  
     * `TEQ op1 EOR op2` 
      
-    Usage:
+    Usage:  
     - `CMP r0,r1`  
     - `TSTEQ r2,#5`
 
@@ -43,13 +43,13 @@ No bugs found as of yet. For future bugs refer to the issue tracker
 - ### Logical Ops  
     Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
     
-    Operations:
+    Operations:  
     * `AND op1 && op2`  
     * `EOR op1 EOR op2`  
     * `ORR op1 || op2`  
     * `BIC op1 && !op2`  
 
-    Usage:
+    Usage:  
     - `AND r0,r1,r2`  
     - `BICEQ r2,r3,#7`  
     - `EORS r1,r3,r0`  
@@ -58,11 +58,11 @@ No bugs found as of yet. For future bugs refer to the issue tracker
 - ### Data Movement  
      Structure: `<op>{<cond>}{S}Rd,Operand2`  
      
-     Operations:
+     Operations:  
      * `MOV op2`  
      * `MVN !op2`  
      
-     Usage:
+     Usage:  
      - `MOV r0,r1`  
      - `MOVS r2,#10`  
      - `MVNEQ r1,#0`  
@@ -71,7 +71,10 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     * `MUL{<cond>}{S}Rd,Rm,Rs : Rd = Rm * Rs`  
     * `MLA{<cond>}{S}Rd,Rm,Rs : Rd = (Rm*Rs) + Rn [Multiply Accumulate]`
 
-    Restrictions:  
+    Restrictions:
+
+        * Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
+        * Cannot use PC as operand
 
         - Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
         - Cannot use PC as operand
@@ -81,14 +84,15 @@ No bugs found as of yet. For future bugs refer to the issue tracker
         - Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
         - Cannot use PC as operand
 
-- ### Load / Store  
+- ### Load / Store
     (See documentation)  
     Obs: Must move data into register before using them.
     
 
 - ### Barrel Shift
-    (See documentation)
 
+    (See documentation)  
+    
     * Logical Shift Left: `LSL #X`
     * Logical Shift Right: `LSR #X`
     * Arithmetic Shift Right: `ASR #X`
