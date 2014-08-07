@@ -23,8 +23,9 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     
     Usage:
         - ADD r0,r1,r2
-        - SUBGT r3,r3,#1
-    
+        - SUBGT r3,r3,#1  
+
+
 - ### Comparisons  
     Structure: `<op>{<cond>}Rn,Operand2`  
     
@@ -35,8 +36,9 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     
     Usage:
         - CMP r0,r1
-        - TSTEQ r2,#5
-        
+        - TSTEQ r2,#5  
+
+ 
 - ### Logical Ops  
     Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
     
@@ -48,7 +50,8 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     Usage:
         - AND r0,r1,r2
         - BICEQ r2,r3,#7 
-        - EORS r1,r3,r0
+        - EORS r1,r3,r0  
+
 
 - ### Data Movement  
      Structure: `<op>{<cond>}{S}Rd,Operand2`  
@@ -59,16 +62,17 @@ No bugs found as of yet. For future bugs refer to the issue tracker
      Usage:
          - MOV r0,r1
          - MOVS r2,#10
-         - MVNEQ r1,#0
-                  
+         - MVNEQ r1,#0  
+
 - ### Multiplication  
     * `MUL{<cond>}{S}Rd,Rm,Rs : Rd = Rm * Rs`
     * `MLA{<cond>}{S}Rd,Rm,Rs : Rd = (Rm*Rs) + Rn [Multiply Accumulate]`
     
-    Restrictions: 
+    Restrictions:
+
         - Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
         - Cannot use PC as operand
-        
+
 - ### Load / Store  
     (See documentation)  
     Obs: Must move data into register before using them.
