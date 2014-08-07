@@ -26,20 +26,20 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     
 - ### Comparisons 
     Structure: `<op>{<cond>}Rn,Operand2`  
-    - `CMP op1 - op2 [nw]` (no write)
-    - `CMN op1 + op2 [nw]`
-    - `TST op1 && op2 [nw]`
-    - `TEQ op1 EOR op2 [nw]`
+    * `CMP op1 - op2 [nw]` (no write)
+    * `CMN op1 + op2 [nw]`
+    * `TST op1 && op2 [nw]`
+    * `TEQ op1 EOR op2 [nw]`
     
     Usage:
         - CMP r0,r1
         - TSTEQ r2,#5
 - ### Logical Ops
     Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
-    - `AND op1 && op2`
-    - `EOR op1 EOR op2`
-    - `ORR op1 || op2`
-    - `BIC op1 && !op2`
+    * `AND op1 && op2`
+    * `EOR op1 EOR op2`
+    * `ORR op1 || op2`
+    * `BIC op1 && !op2`
     
     Usage:
         - AND r0,r1,r2
@@ -48,8 +48,8 @@ No bugs found as of yet. For future bugs refer to the issue tracker
 
 - ### Data Movement
      Structure: `<op>{<cond>}{S}Rd,Operand2`  
-     - `MOV op2`
-     - `MVN !op2`
+     * `MOV op2`
+     * `MVN !op2`
   
      Usage:
          - MOV r0,r1
@@ -69,9 +69,9 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     
 - ### Bargit rel Shift
     (See documentation)  
-    - Logical Shift Left: `LSL #X`
-    - Logical Shift Right: `LSR #X`
-    - Arithmetic Shift Right: `ASR #X`
-    - Rotate Right: `ROR #X`
+    * Logical Shift Left: `LSL #X`
+    * Logical Shift Right: `LSR #X`
+    * Arithmetic Shift Right: `ASR #X`
+    * Rotate Right: `ROR #X`
     
 - ### ...
