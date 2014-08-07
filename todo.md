@@ -30,7 +30,7 @@ No bugs found as of yet. For future bugs refer to the issue tracker
         - SUBGT r3,r3,#1
     
 - ### Comparisons 
-    Structure:  `<op>{<cond>}Rn,Operand2`
+    Structure: `<op>{<cond>}Rn,Operand2`  
     - `CMP op1 - op2 [nw]` (no write)
     - `CMN op1 + op2 [nw]`
     - `TST op1 && op2 [nw]`
@@ -40,7 +40,7 @@ No bugs found as of yet. For future bugs refer to the issue tracker
         - CMP r0,r1
         - TSTEQ r2,#5
 - ### Logical Ops
-    Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`
+    Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
     - `AND op1 && op2`
     - `EOR op1 EOR op2`
     - `ORR op1 || op2`
@@ -52,7 +52,7 @@ No bugs found as of yet. For future bugs refer to the issue tracker
         - EORS r1,r3,r0
 
 - ### Data Movement
-     Structure: `<op>{<cond>}{S}Rd,Operand2`
+     Structure: `<op>{<cond>}{S}Rd,Operand2`  
      - `MOV op2`
      - `MVN !op2`
   
