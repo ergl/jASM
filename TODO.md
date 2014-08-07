@@ -11,8 +11,9 @@
 No bugs found as of yet. For future bugs refer to the issue tracker
 
 ## Instructions to support
-- ### Arithmetics
+- ### Arithmetics  
     Structure: `<op>{<cond>}{S}Rd,Rn,Operand2`  
+    
     * `ADD op1 + op2`
     * `ADC op1 + op2 + carry`
     * `SUB op1 - op2`
@@ -24,18 +25,21 @@ No bugs found as of yet. For future bugs refer to the issue tracker
         - ADD r0,r1,r2
         - SUBGT r3,r3,#1
     
-- ### Comparisons 
+- ### Comparisons  
     Structure: `<op>{<cond>}Rn,Operand2`  
-    * `CMP op1 - op2 [nw]` (no write)
-    * `CMN op1 + op2 [nw]`
-    * `TST op1 && op2 [nw]`
-    * `TEQ op1 EOR op2 [nw]`
+    
+    * `CMP op1 - op2`
+    * `CMN op1 + op2`
+    * `TST op1 && op2`
+    * `TEQ op1 EOR op2`
     
     Usage:
         - CMP r0,r1
         - TSTEQ r2,#5
-- ### Logical Ops
+        
+- ### Logical Ops  
     Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
+    
     * `AND op1 && op2`
     * `EOR op1 EOR op2`
     * `ORR op1 || op2`
@@ -46,8 +50,9 @@ No bugs found as of yet. For future bugs refer to the issue tracker
         - BICEQ r2,r3,#7 
         - EORS r1,r3,r0
 
-- ### Data Movement
+- ### Data Movement  
      Structure: `<op>{<cond>}{S}Rd,Operand2`  
+     
      * `MOV op2`
      * `MVN !op2`
   
@@ -56,14 +61,15 @@ No bugs found as of yet. For future bugs refer to the issue tracker
          - MOVS r2,#10
          - MVNEQ r1,#0
                   
-- ### Multiplication
+- ### Multiplication  
     * `MUL{<cond>}{S}Rd,Rm,Rs : Rd = Rm * Rs`
     * `MLA{<cond>}{S}Rd,Rm,Rs : Rd = (Rm*Rs) + Rn [Multiply Accumulate]`
     
     Restrictions: 
         - Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
         - Cannot use PC as operand
-- ### Load / Store
+        
+- ### Load / Store  
     (See documentation)  
     Obs: Must move data into register before using them.
     
