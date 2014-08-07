@@ -48,6 +48,6 @@ com_crashlytics_export_strings.xml
 hs_err_pid*
 
 # Project Specifics #
-doc/
-res/
+src/ui/res/
 lib/
+
