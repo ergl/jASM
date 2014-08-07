@@ -14,6 +14,7 @@ No bugs found as of yet. For future bugs refer to the issue tracker
 - ### Arithmetics  
     Structure: `<op>{<cond>}{S}Rd,Rn,Operand2`  
     
+    Operations:  
     * `ADD op1 + op2`
     * `ADC op1 + op2 + carry`
     * `SUB op1 - op2`
@@ -21,53 +22,55 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     * `RSB op2 - op1`
     * `RSC op2 - op1 + carry - 1`  
     
-    Usage:
-        - ADD r0,r1,r2
-        - SUBGT r3,r3,#1  
-
+    Usage:  
+    * `ADD r0,r1,r2`
+    * `SUBGT r3,r3,#1` 
 
 - ### Comparisons  
     Structure: `<op>{<cond>}Rn,Operand2`  
     
+    Operations:
     * `CMP op1 - op2`
     * `CMN op1 + op2`
     * `TST op1 && op2`
-    * `TEQ op1 EOR op2`
-    
+    * `TEQ op1 EOR op2` 
+     
     Usage:
-        - CMP r0,r1
-        - TSTEQ r2,#5  
+    - `CMP r0,r1`
+    - `TSTEQ r2,#5`
 
  
 - ### Logical Ops  
     Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
     
+    Operations:
     * `AND op1 && op2`
     * `EOR op1 EOR op2`
     * `ORR op1 || op2`
-    * `BIC op1 && !op2`
-    
+    * `BIC op1 && !op2`  
+
     Usage:
-        - AND r0,r1,r2
-        - BICEQ r2,r3,#7 
-        - EORS r1,r3,r0  
+    - `AND r0,r1,r2`
+    - `BICEQ r2,r3,#7`
+    - `EORS r1,r3,r0`  
 
 
 - ### Data Movement  
      Structure: `<op>{<cond>}{S}Rd,Operand2`  
      
+     Operations:
      * `MOV op2`
-     * `MVN !op2`
-  
+     * `MVN !op2`  
+     
      Usage:
-         - MOV r0,r1
-         - MOVS r2,#10
-         - MVNEQ r1,#0  
+     - `MOV r0,r1`
+     - `MOVS r2,#10`
+     - `MVNEQ r1,#0`  
 
 - ### Multiplication  
     * `MUL{<cond>}{S}Rd,Rm,Rs : Rd = Rm * Rs`
     * `MLA{<cond>}{S}Rd,Rm,Rs : Rd = (Rm*Rs) + Rn [Multiply Accumulate]`
-    
+
     Restrictions:
 
         - Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
@@ -77,8 +80,14 @@ No bugs found as of yet. For future bugs refer to the issue tracker
     (See documentation)  
     Obs: Must move data into register before using them.
     
+<<<<<<< HEAD:TODO.md
 - ### Bargit rel Shift
     (See documentation)  
+=======
+- ### Barrel Shift
+    (See documentation)
+    
+>>>>>>> d1e755f... Hell:todo.md
     * Logical Shift Left: `LSL #X`
     * Logical Shift Right: `LSR #X`
     * Arithmetic Shift Right: `ASR #X`
