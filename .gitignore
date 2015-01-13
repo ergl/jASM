@@ -49,6 +49,5 @@ hs_err_pid*
 
 # Project Specifics #
 src/ui/res/
-lib/
 !src/mv/strategies/out
 
