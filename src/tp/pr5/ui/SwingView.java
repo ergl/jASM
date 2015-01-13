@@ -8,18 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
@@ -85,7 +74,7 @@ public class SwingView implements Watcher {
         mainFrame.add(subPanel, BorderLayout.CENTER);
         mainFrame.add(statusPanel, BorderLayout.PAGE_END);
 
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private JPanel mainSubPanel() {
@@ -405,13 +394,15 @@ public class SwingView implements Watcher {
 
                 public void run() {
                     programTextPane.setText(null);
-                    StyledDocument doc = (StyledDocument) programTextPane.getStyledDocument();
+                    StyledDocument doc = programTextPane.getStyledDocument();
 
                     String[] newText = formatProgram(ProgramPanel.this.program, nextInst);
-                    for(int i = 0; i < newText.length; i++) {
+                    for(String aNewText : newText) {
                         try {
-                            doc.insertString(doc.getLength(), newText[i], null);
-                        } catch (BadLocationException e) { e.printStackTrace(); }
+                            doc.insertString(doc.getLength(), aNewText, null);
+                        } catch (BadLocationException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     SwingView.this.updateStatusBar(nextInst);
@@ -749,7 +740,7 @@ public class SwingView implements Watcher {
         public void updateDisplays(Watchable o, Object arg) {
             Integer iChar = (int) arg;
 
-            if(iChar != null && iChar != (int)-1)
+            if(iChar != null && iChar != -1)
                 inputPanel.updateInputDisplay(Character.toChars(iChar));
         }
 

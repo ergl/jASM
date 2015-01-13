@@ -26,7 +26,7 @@ public class ProgramMV {
     private Vector<Instruction> program;
 
     public ProgramMV() {
-        this.program = new Vector<Instruction>();
+        this.program = new Vector<>();
     }
 
     /**
@@ -63,7 +63,7 @@ public class ProgramMV {
         
         BufferedReader bf = null;
         Path input = Paths.get(file);
-        Instruction inst = null;
+        Instruction inst;
 
         try {
             bf = Files.newBufferedReader(input, Charset.defaultCharset());
@@ -94,7 +94,8 @@ public class ProgramMV {
             System.exit(2);
         } finally {
             try {
-                bf.close();
+                if (bf != null)
+                    bf.close();
             } catch (IOException e) {}
         }
     }

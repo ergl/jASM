@@ -66,7 +66,7 @@ public class FileInputStrategy implements InStrategy  {
             sc = new Scanner(inFile);
             try {
                 while(sc.hasNextLine())
-                    fileContent.append(sc.nextLine() + lineSeparator);
+                    fileContent.append(sc.nextLine()).append(lineSeparator);
                 return fileContent.toString().trim().toCharArray();
             } finally {
                 sc.close();

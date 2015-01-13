@@ -16,7 +16,7 @@ public class Watchable {
     private ArrayList<Watcher> watcherList;
 
     public Watchable() {
-        watcherList = new ArrayList<Watcher>();
+        watcherList = new ArrayList<>();
     }
 
     public synchronized void addWatcher(Watcher w) {

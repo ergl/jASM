@@ -44,13 +44,9 @@ public abstract class SummitModifiers extends OneParamInst {
             throws UnrecoverableException, RecoverableException {
 
         if (!stack.isEmpty()) {
-            try { 
-                operation(stack, in, out); 
-            } catch(RecoverableException re) {
-                throw re;
-            }
-        }
-        else
+            operation(stack, in, out);
+        } else {
             throw new StackException(this, stack.elements());
+        }
     }
 }

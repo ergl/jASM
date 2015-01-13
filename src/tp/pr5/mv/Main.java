@@ -117,7 +117,7 @@ public class Main {
         Scanner sc =        new Scanner(System.in);
         ProgramMV program = new ProgramMV();
         CPU cpu =           new CPU(inStr, outStr);
-        Path inFilePath =   null;
+        Path inFilePath;
         File asmFile;
 
         if (inFileString != null) {
@@ -357,7 +357,7 @@ public class Main {
      */
     private static SetupConfigurator optionSelector(String[] args) {
 
-        CommandLine line =          null;
+        CommandLine line;
         CommandLineParser parser =  new BasicParser();
         Options options =           new Options();
 
@@ -471,9 +471,7 @@ public class Main {
                     _inStrategy = new ConsoleInputStrategy();
             }
 
-            InStrategy inpuStrategy = new WindowIn(_inStrategy);
-
-            return inpuStrategy;
+            return new WindowIn(_inStrategy);
         }
 
         private OutStrategy getOutputStrategy() {
@@ -487,9 +485,7 @@ public class Main {
                     _outStrategy = new ConsoleWriteStrategy();
             }
 
-            OutStrategy outputStrategy = new WindowOut(_outStrategy);
-
-            return outputStrategy;
+            return new WindowOut(_outStrategy);
         }
 
         private ExecutionMode getMode() {

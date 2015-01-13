@@ -17,7 +17,7 @@ public class OperandStack extends Watchable {
     private ArrayList<Integer> stack;
 
     public OperandStack() {
-        stack = new ArrayList<Integer>();
+        stack = new ArrayList<>();
     }
 
     public void pushValue(Integer e) {
@@ -60,7 +60,7 @@ public class OperandStack extends Watchable {
                 firstValue = false;
             }
             else
-                sb.append("\n" + n);
+                sb.append("\n").append(n);
         }
 
         return sb.toString();

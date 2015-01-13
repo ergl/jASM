@@ -41,7 +41,7 @@ public class SwingController {
     void init(Watcher w) {
         cpu.addWatcher(w);
         
-        char[] inFileContents = null;
+        char[] inFileContents;
         inFileContents = this.inStr.showFile();
         cpu.loadProgram(program);
         this.swingView.init(inFileContents, cpu.showProgram());
