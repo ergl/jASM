@@ -357,7 +357,7 @@ public class Main {
      */
     private static SetupConfigurator optionSelector(String[] args) {
 
-        CommandLine line;
+        CommandLine line = null;
         CommandLineParser parser =  new BasicParser();
         Options options =           new Options();
 
