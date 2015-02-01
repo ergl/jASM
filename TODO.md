@@ -1,4 +1,6 @@
 ### TODO
+- Draft Code style guide
+- Fix all code style issues
 - Reimplementing the internal structure of the virtual machine following the current ARM standard
 - Implementing the full ARM instruction set
 - Recognizing different comments and arm delimiters
