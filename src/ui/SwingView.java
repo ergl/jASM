@@ -740,7 +740,7 @@ public class SwingView implements Watcher {
         public void updateDisplays(Watchable o, Object arg) {
             Integer iChar = (int) arg;
 
-            if(iChar != null && iChar != -1)
+            if(iChar != -1)
                 inputPanel.updateInputDisplay(Character.toChars(iChar));
         }
 
@@ -800,10 +800,8 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            Character oChar = (char) arg; 
-
-            if(oChar != null)
-                outputPanel.updateOutputDisplay(oChar);
+            Character oChar = (char) arg;
+            outputPanel.updateOutputDisplay(oChar);
         }
 
         private void updateOutputDisplay(final Character arg) {

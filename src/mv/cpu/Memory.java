@@ -54,7 +54,7 @@ public class Memory extends Watchable {
             memArray[oldRef].setVal(val);
             this.notifyViews(this.displayContent());
         }
-        else if (oldRef == -1 && !isFull()) {
+        else if (!isFull()) {
             if (!isEmpty()) {
                 int i = elements - 1;
 

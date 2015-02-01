@@ -22,7 +22,6 @@ public class FileWriteStrategy implements OutStrategy {
     private PrintWriter writer;
     private Path outFilePath;
     private File outFile;
-
     public FileWriteStrategy(String file) {
         this.fileName = file;
     }

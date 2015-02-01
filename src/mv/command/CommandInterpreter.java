@@ -1,7 +1,6 @@
 package mv.command;
 
 import commons.exceptions.RecoverableException;
-import commons.exceptions.UnrecoverableException;
 import mv.cpu.CPU;
 
 /**
