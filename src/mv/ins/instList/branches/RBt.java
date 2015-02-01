@@ -32,8 +32,6 @@ public class RBt extends Branches {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
-     * @return el objeto operación determinado
      */
     @Override
     protected void operation(ExecutionManager controlUnit, int value) {

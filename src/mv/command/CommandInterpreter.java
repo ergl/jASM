@@ -34,8 +34,6 @@ public abstract class CommandInterpreter {
 
     /**
      * Método encargado de ejecutar el comando sobre la CPU.
-     * @return 
-     * @throws UnrecoverableException TODO
      * @throws RecoverableException TODO
      */
     public abstract void executeCommand(CPU cpu) throws RecoverableException;

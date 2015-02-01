@@ -25,7 +25,7 @@ public class ExecutionManager extends Watchable {
     /**
      * Establece el número de instrucciones del programa.
      * 
-     * @param _programCont el número de instrucciones a ejecutar
+     * @param programCont el número de instrucciones a ejecutar
      */
     public void configureExecutionManager(int programCont) {
         this.programCont = programCont;
@@ -46,7 +46,6 @@ public class ExecutionManager extends Watchable {
      * Éste método se ejecuta al realizar una operación Branch
      * 
      * @param newPc el nuevo valor del contador de programa
-     * @throws UnrecoverableException excepción si se accede a un contador ilegal
      */
     public void setPc(int newPc) {
         if(!this.halt && newPc >= 0)
@@ -58,7 +57,6 @@ public class ExecutionManager extends Watchable {
      * Éste método se ejecuta al realizar una operación RBranch
      * 
      * @param increment la cantidad que debe aumentar el contador de programa
-     * @throws UnrecoverableException excepción si se accede a un contador ilegal
      */
     public void incrementPc(int increment) {
         if(!this.halt && (this.nextPc + increment - 1 >= 0))

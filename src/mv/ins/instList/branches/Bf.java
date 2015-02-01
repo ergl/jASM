@@ -35,7 +35,6 @@ public class Bf extends Branches {
      * 
      * @param controlUnit la unidad de control sobre la que se opera
      * @param value valor al que se quiere saltar
-     * @return el éxito de la operación
      */
     @Override
     protected void operation(ExecutionManager controlUnit, int value) {

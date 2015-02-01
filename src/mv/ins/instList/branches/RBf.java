@@ -32,8 +32,6 @@ public class RBf extends Branches {
 
     /**
      * Método encargado de realizar la operación correspondiente sobre la memoria.
-     * 
-     *  @return el éxito de la operación
      */
     @Override
     protected void operation(ExecutionManager controlUnit, int value) {
