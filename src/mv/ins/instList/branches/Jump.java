@@ -6,7 +6,7 @@ import mv.strategies.*;
 
 /**
  * Realiza la operación de salto incondicional.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -22,7 +22,7 @@ public class Jump extends Branches {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     @Override
@@ -31,7 +31,8 @@ public class Jump extends Branches {
     }
 
     @Override
-    protected void operation(ExecutionManager controlUnit, int value) {}
+    protected void operation(ExecutionManager controlUnit, int value) {
+    }
 
     /**
      * Método encargado de ejecutar la operación sobre la CPU.

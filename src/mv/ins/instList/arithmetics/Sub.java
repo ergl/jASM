@@ -4,7 +4,7 @@ import mv.ins.Instruction;
 
 /**
  * Realiza la operació de resta sobre la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -22,5 +22,5 @@ public class Sub extends Arithmetics {
     @Override
     protected Instruction getInst() {
         return new Sub();
-    }	
+    }
 }

@@ -6,7 +6,7 @@ import mv.ins.Instruction;
 /**
  * Realiza la operación de salto relativo condicional true.
  * Salta si la cima de la pila es distinta de cero.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -22,8 +22,8 @@ public class RBt extends Branches {
 
     /**
      * Método encargado de realizar la operación correspondiente sobre la memoria.
-     * 
-     *  @return el éxito de la operación
+     *
+     * @return el éxito de la operación
      */
     @Override
     protected Instruction getInst(int param) {
@@ -35,7 +35,8 @@ public class RBt extends Branches {
      */
     @Override
     protected void operation(ExecutionManager controlUnit, int value) {
-        if(value != 0)
+        if (value != 0) {
             controlUnit.incrementPc(param);
+        }
     }
 }

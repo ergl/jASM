@@ -13,7 +13,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de push sobre la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -29,7 +29,7 @@ public class Push extends TwoParamInst {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     @Override
@@ -41,9 +41,8 @@ public class Push extends TwoParamInst {
      * Método encargado de ejecutar la operación sobre la CPU.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws UnrecoverableException, RecoverableException {
-        
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+
         stack.pushValue(param);
     }
 }

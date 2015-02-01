@@ -12,11 +12,11 @@ import mv.strategies.OutStrategy;
 
 /**
  * Clase abstracta común a todas las instrucciones que reciben un parámetro del usuario.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
-public abstract class TwoParamInst implements Instruction{
+public abstract class TwoParamInst implements Instruction {
 
     protected String orden;
     protected Integer param = null;
@@ -39,12 +39,11 @@ public abstract class TwoParamInst implements Instruction{
     /**
      * Método encargado de ejecutar la operación sobre la CPU.
      */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws UnrecoverableException, RecoverableException;
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException;
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     protected abstract Instruction getInst(int param);
@@ -52,20 +51,22 @@ public abstract class TwoParamInst implements Instruction{
     /**
      * Analiza el input del usuario.
      * Necesita un parámetro.
-     * 
+     *
      * @return la instrucción defindia por el usuario. Si la instrucción no existe devolverá una instrucción nula.
      */
     public Instruction parse(String input) {
         input = input.trim();
         String[] tokens = input.split("\\ ");
 
-        if (tokens.length != 2)
+        if (tokens.length != 2) {
             return null;
+        }
 
         if (Commons.isInteger(tokens[1])) {
             int param = Integer.parseInt(tokens[1]);
-            if (tokens[0].equalsIgnoreCase(orden))
+            if (tokens[0].equalsIgnoreCase(orden)) {
                 return getInst(param);
+            }
         }
 
         return null;

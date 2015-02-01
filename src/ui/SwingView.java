@@ -26,18 +26,18 @@ import commons.watcherPattern.Watcher;
  * <p>
  * Accede directamente al controlador a través de los Listeners.
  * Observa a SwingController y a la CPU. (El método update es llamado desde CPU o SwingController)
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
 public class SwingView implements Watcher {
 
     public static int timeout = 100;
-    
+
     private SwingController controller;
     private JFrame mainFrame;
     private Thread runThread = null;
-    
+
     private ActionPanel actionPanel;
     private ProgramPanel programPanel;
     private StackPanel stackPanel;
@@ -47,15 +47,15 @@ public class SwingView implements Watcher {
     private StatusPanel statusPanel;
 
     public SwingView(SwingController _cont) {
-        mainFrame = 	new JFrame();
-        actionPanel = 	new ActionPanel();
-        programPanel = 	new ProgramPanel();
-        stackPanel = 	new StackPanel();
-        memoryPanel = 	new MemoryPanel();
-        inputPanel = 	new InputPanel();
-        outputPanel = 	new OutputPanel();
-        statusPanel = 	new StatusPanel();
-        controller =    _cont;
+        mainFrame = new JFrame();
+        actionPanel = new ActionPanel();
+        programPanel = new ProgramPanel();
+        stackPanel = new StackPanel();
+        memoryPanel = new MemoryPanel();
+        inputPanel = new InputPanel();
+        outputPanel = new OutputPanel();
+        statusPanel = new StatusPanel();
+        controller = _cont;
 
         initUI();
     }
@@ -79,12 +79,12 @@ public class SwingView implements Watcher {
 
     private JPanel mainSubPanel() {
 
-        JPanel mainPanel = 		new JPanel();		
-        JPanel topSubPanel = 	topSubPanel();
-        JPanel bottomPanel = 	new JPanel();
+        JPanel mainPanel = new JPanel();
+        JPanel topSubPanel = topSubPanel();
+        JPanel bottomPanel = new JPanel();
 
         mainPanel.setLayout(new BorderLayout());
-        bottomPanel.setLayout(new GridLayout(2,1));
+        bottomPanel.setLayout(new GridLayout(2, 1));
 
         bottomPanel.add(this.inputPanel);
         bottomPanel.add(this.outputPanel);
@@ -98,7 +98,7 @@ public class SwingView implements Watcher {
     private JPanel topSubPanel() {
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,2));
+        panel.setLayout(new GridLayout(1, 2));
 
         panel.add(this.stackPanel);
         panel.add(this.memoryPanel);
@@ -139,16 +139,18 @@ public class SwingView implements Watcher {
 
     void quit() {
         if (JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if (runThread != null && runThread.isAlive())
+            if (runThread != null && runThread.isAlive()) {
                 runThread.interrupt();
+            }
             controller.shutdown();
             System.exit(0);
         }
     }
 
     private void showHaltedCPU() {
-        if (!controller.ready())
+        if (!controller.ready()) {
             this.statusPanel.showHaltedCPU();
+        }
     }
 
     private void hideHaltedCPU() {
@@ -179,49 +181,44 @@ public class SwingView implements Watcher {
     public void updateDisplays(Watchable o, Object arg) {
         show((String) arg);
 
-        if (runThread != null && runThread.isAlive())
+        if (runThread != null && runThread.isAlive()) {
             runThread.interrupt();
+        }
     }
-    
+
     /**
      * Panel de acciones de la interfaz.
      * Contiene los botones principales de la aplicación: Step, Run y Quit.
-     * 
+     *
      * @author Borja
      * @author Chaymae
      */
     private class ActionPanel extends JPanel {
 
-        private JButton stepButton,
-        runButton,
-        pauseButton,
-        quitButton;
+        private JButton stepButton, runButton, pauseButton, quitButton;
 
-        private URL stepIconURL,
-        runIconURL,
-        pauseIconURL,
-        quitIconURL;
+        private URL stepIconURL, runIconURL, pauseIconURL, quitIconURL;
 
         private ActionPanel() {
             initUI();
         }
 
         private void initUI() {
-            JPanel actionPanel = new JPanel(new GridLayout(1,4,1,1));
+            JPanel actionPanel = new JPanel(new GridLayout(1, 4, 1, 1));
 
 
-            stepIconURL = 	SwingView.class.getResource("../../../../res/step.png"); 
-            runIconURL 	= 	SwingView.class.getResource("../../../../res/run.png");
-            pauseIconURL = 	SwingView.class.getResource("../../../../res/pause.png");
-            quitIconURL = 	SwingView.class.getResource("../../../../res/exit.png");
+            stepIconURL = SwingView.class.getResource("../../../../res/step.png");
+            runIconURL = SwingView.class.getResource("../../../../res/run.png");
+            pauseIconURL = SwingView.class.getResource("../../../../res/pause.png");
+            quitIconURL = SwingView.class.getResource("../../../../res/exit.png");
 
-            stepButton 	= (stepIconURL != null)  ?  new JButton("Step", new ImageIcon(stepIconURL))  :  new JButton("STEP");
-            runButton 	= (runIconURL != null) 	 ?  new JButton("Run", new ImageIcon(runIconURL))   :  new JButton("RUN");
-            pauseButton = (pauseIconURL != null) ?  new JButton("Pause", new ImageIcon(pauseIconURL)) :  new JButton("PAUSE");
-            quitButton 	= (quitIconURL != null)  ?  new JButton("Exit", new ImageIcon(quitIconURL))  :  new JButton("EXIT");
+            stepButton = (stepIconURL != null) ? new JButton("Step", new ImageIcon(stepIconURL)) : new JButton("STEP");
+            runButton = (runIconURL != null) ? new JButton("Run", new ImageIcon(runIconURL)) : new JButton("RUN");
+            pauseButton = (pauseIconURL != null) ? new JButton("Pause", new ImageIcon(pauseIconURL)) : new JButton("PAUSE");
+            quitButton = (quitIconURL != null) ? new JButton("Exit", new ImageIcon(quitIconURL)) : new JButton("EXIT");
 
             pauseButton.setEnabled(false);
-            
+
             stepButton.addActionListener(e -> {
                 SwingView.this.hideHaltedCPU();
                 SwingView.this.uncheckStackBox();
@@ -263,19 +260,21 @@ public class SwingView implements Watcher {
                             }
                         }
 
-                        if (!controller.ready())
+                        if (!controller.ready()) {
                             SwingView.this.disableActions();
+                        }
                     }
-                  };
+                };
 
-                  runThread.start();
+                runThread.start();
             });
 
             pauseButton.addActionListener(e -> {
                 SwingView.this.showHaltedCPU();
 
-                if (runThread != null && runThread.isAlive())
+                if (runThread != null && runThread.isAlive()) {
                     runThread.interrupt();
+                }
 
                 SwingUtilities.invokeLater(() -> {
                     stepButton.setEnabled(true);
@@ -294,7 +293,7 @@ public class SwingView implements Watcher {
             actionPanel.add(quitButton);
 
             setBorder(new TitledBorder("Actions"));
-            add(actionPanel,BorderLayout.CENTER);	
+            add(actionPanel, BorderLayout.CENTER);
         }
 
         private void disableActions() {
@@ -309,7 +308,7 @@ public class SwingView implements Watcher {
     /**
      * Panel de programa.
      * Representa el programa en ejecución, con un indicador de la instrucción a ejecutar en la siguiente acción.
-     * 
+     *
      * @author Borja
      * @author Chaymae
      */
@@ -351,8 +350,9 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            if (arg != null)
-                this.updateProgramDisplay((int)arg);
+            if (arg != null) {
+                this.updateProgramDisplay((int) arg);
+            }
         }
 
         private void updateProgramDisplay(final int nextInst) {
@@ -377,9 +377,10 @@ public class SwingView implements Watcher {
             String[] tmp = new String[text.length];
 
             for (int i = 0; i < text.length; i++) {
-                tmp[i] = text[i] + System.lineSeparator();	
-                if (i == nextInst)
+                tmp[i] = text[i] + System.lineSeparator();
+                if (i == nextInst) {
                     tmp[i] = "*" + tmp[i];
+                }
             }
 
             return tmp;
@@ -391,7 +392,7 @@ public class SwingView implements Watcher {
      * Representa la pila en el momento presente de ejecución.
      * Permite ejecutar las instrucciones debug Push y Pop.
      * Se actualiza automáticamente con cada acción sobre ella.
-     * 
+     *
      * @author Borja
      * @author Chaymae
      */
@@ -401,8 +402,7 @@ public class SwingView implements Watcher {
         private JScrollPane stackScrollable;
         private JLabel pushValueLabel;
         private JTextField pushValueField;
-        private JButton pushButton,
-        popButton;
+        private JButton pushButton, popButton;
 
         private StackPanel() {
             initUI();
@@ -426,8 +426,8 @@ public class SwingView implements Watcher {
 
         private JPanel buttonSubPanel() {
 
-            JPanel mainPanel= 		new JPanel(new BorderLayout());
-            JPanel topRowPanel = 	new JPanel();
+            JPanel mainPanel = new JPanel(new BorderLayout());
+            JPanel topRowPanel = new JPanel();
             JPanel bottomRowPanel = new JPanel();
 
             pushValueLabel = new JLabel();
@@ -435,7 +435,7 @@ public class SwingView implements Watcher {
             topRowPanel.add(pushValueLabel);
 
             pushValueField = new JTextField();
-            pushValueField.setPreferredSize(new Dimension(60,20));
+            pushValueField.setPreferredSize(new Dimension(60, 20));
             topRowPanel.add(pushValueField);
 
             pushButton = new JButton();
@@ -449,7 +449,7 @@ public class SwingView implements Watcher {
 
             topRowPanel.add(pushButton);
 
-            popButton =  new JButton();
+            popButton = new JButton();
             popButton.setText("Pop");
             popButton.addActionListener(e -> {
                 SwingView.this.uncheckMemoryBox();
@@ -457,7 +457,7 @@ public class SwingView implements Watcher {
                 controller.popEvent();
             });
 
-            bottomRowPanel.add(popButton);		
+            bottomRowPanel.add(popButton);
 
             mainPanel.add(topRowPanel, BorderLayout.CENTER);
             mainPanel.add(bottomRowPanel, BorderLayout.PAGE_END);
@@ -467,7 +467,7 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            this.updateStackDisplay((String)arg);
+            this.updateStackDisplay((String) arg);
             SwingView.this.checkStackBox();
 
         }
@@ -484,7 +484,7 @@ public class SwingView implements Watcher {
                 StackPanel.this.pushButton.setEnabled(true);
             });
         }
-        
+
         private void disableActions() {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 StackPanel.this.pushValueField.setText(null);
@@ -500,7 +500,7 @@ public class SwingView implements Watcher {
      * Representa el estado de la memoria, ordenador por posición.
      * Permite ejecutar la instrucción debug Write.
      * Se actualiza automáticamente con cada acción sobre ella.
-     * 
+     *
      * @author Borja
      * @author Chaymae
      */
@@ -510,12 +510,10 @@ public class SwingView implements Watcher {
         private DefaultTableModel model;
 
         private JScrollPane memoryScrollable;
-        private JLabel positionLabel,
-                       valueLabel;
-        
-        private JTextField positionField,
-                           valueField;
-        
+        private JLabel positionLabel, valueLabel;
+
+        private JTextField positionField, valueField;
+
         private JButton writeButton;
 
         private MemoryPanel() {
@@ -525,18 +523,18 @@ public class SwingView implements Watcher {
         private void initUI() {
             setBorder(new TitledBorder("Memory"));
             setLayout(new BorderLayout());
-            setPreferredSize(new Dimension(250,185));
+            setPreferredSize(new Dimension(250, 185));
 
             JPanel inputSubPanel = buttonSubPanel();
 
-            model = new DefaultTableModel(new Object[]{"DIR", "VAL"}, 0);
+            model = new DefaultTableModel(new Object[] {"DIR", "VAL"}, 0);
 
             memoryTable = new JTable(model);
             memoryTable.setCellSelectionEnabled(false);
             memoryTable.setEnabled(false);
 
             memoryScrollable = new JScrollPane(memoryTable);
-            memoryScrollable.setPreferredSize(new Dimension(375,185));
+            memoryScrollable.setPreferredSize(new Dimension(375, 185));
 
             add(memoryScrollable, BorderLayout.PAGE_START);
             add(inputSubPanel, BorderLayout.PAGE_END);
@@ -544,28 +542,28 @@ public class SwingView implements Watcher {
 
         private JPanel buttonSubPanel() {
 
-            JPanel mainPanel = 			new JPanel(new BorderLayout());
-            JPanel topRowPanel = 		new JPanel();
-            JPanel bottomRowPanel = 	new JPanel();
+            JPanel mainPanel = new JPanel(new BorderLayout());
+            JPanel topRowPanel = new JPanel();
+            JPanel bottomRowPanel = new JPanel();
 
-            positionLabel =  			new JLabel();
+            positionLabel = new JLabel();
             positionLabel.setText("Pos: ");
             topRowPanel.add(positionLabel);
 
-            positionField = 			new JTextField();
+            positionField = new JTextField();
             positionField.setPreferredSize(new Dimension(60, 20));
             topRowPanel.add(positionField);
 
-            valueLabel = 				new JLabel();
+            valueLabel = new JLabel();
             valueLabel.setText("Val: ");
             topRowPanel.add(valueLabel);
 
 
-            valueField = 				new JTextField();
+            valueField = new JTextField();
             valueField.setPreferredSize(new Dimension(60, 20));
             topRowPanel.add(valueField);
 
-            writeButton = 				new JButton();
+            writeButton = new JButton();
             writeButton.setText("Write");
             writeButton.addActionListener(e -> {
                 SwingView.this.uncheckMemoryBox();
@@ -598,18 +596,20 @@ public class SwingView implements Watcher {
 
                 String[] contents = null;
 
-                if (!memoryContents.equals(""))
+                if (!memoryContents.equals("")) {
                     contents = memoryContents.split(" ");
+                }
 
                 if (contents != null) {
                     model.setRowCount(0);
                     for (int i = 0; i < contents.length - 1; i++)
-                        if ((i&1) == 0)
-                            MemoryPanel.this.model.addRow(new Object[]{contents[i], contents[i+1]});
+                        if ((i & 1) == 0) {
+                            MemoryPanel.this.model.addRow(new Object[] {contents[i], contents[i + 1]});
+                        }
                 }
             });
         }
-        
+
         private void enableActions() {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 MemoryPanel.this.positionField.setText(null);
@@ -619,7 +619,7 @@ public class SwingView implements Watcher {
                 MemoryPanel.this.writeButton.setEnabled(true);
             });
         }
-        
+
         private void disableActions() {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 MemoryPanel.this.positionField.setText(null);
@@ -634,8 +634,8 @@ public class SwingView implements Watcher {
     /**
      * Panel de entrada.
      * Representa, en caso de que haya, el contenido del archivo .IN
-     * Además, indica qué caracteres se han leído de él. 
-     * 
+     * Además, indica qué caracteres se han leído de él.
+     *
      * @author Borja
      * @author Chaymae
      */
@@ -652,11 +652,11 @@ public class SwingView implements Watcher {
             setBorder(new TitledBorder("Program-p Input"));
 
             inputTextArea = new JTextArea();
-            inputTextArea.setLineWrap(true); 
+            inputTextArea.setLineWrap(true);
             inputTextArea.setEditable(false);
 
             inputScrollable = new JScrollPane(inputTextArea);
-            inputScrollable.setPreferredSize(new Dimension(625,100));	
+            inputScrollable.setPreferredSize(new Dimension(625, 100));
 
             add(inputScrollable);
         }
@@ -664,8 +664,9 @@ public class SwingView implements Watcher {
         /* Llamado al inicio de la aplicación. Para cada acción, se llama updayeInputText */
         private void displayFile(final char[] cs) {
             javax.swing.SwingUtilities.invokeLater(() -> {
-                if (cs != null)
+                if (cs != null) {
                     inputTextArea.setText(String.valueOf(cs));
+                }
             });
         }
 
@@ -673,8 +674,9 @@ public class SwingView implements Watcher {
         public void updateDisplays(Watchable o, Object arg) {
             Integer iChar = (int) arg;
 
-            if (iChar != -1)
+            if (iChar != -1) {
                 inputPanel.updateInputDisplay(Character.toChars(iChar));
+            }
         }
 
         /* Llamado al ejecutarse una instrucción IN. Busca el carácter parámetro y lo sustituye por '*'
@@ -702,7 +704,7 @@ public class SwingView implements Watcher {
     /**
      * Panel de salida.
      * Representa, en caso de que haya, el contenido del archivo .OUT
-     * 
+     *
      * @author Borja
      * @author Chaymae
      */
@@ -719,11 +721,11 @@ public class SwingView implements Watcher {
             setBorder(new TitledBorder("Program-p Output"));
 
             outputTextArea = new JTextArea();
-            outputTextArea.setLineWrap(true); 
+            outputTextArea.setLineWrap(true);
             outputTextArea.setEditable(false);
 
             outputScrollable = new JScrollPane(outputTextArea);
-            outputScrollable.setPreferredSize(new Dimension(625,100));	
+            outputScrollable.setPreferredSize(new Dimension(625, 100));
 
             add(outputScrollable);
         }
@@ -736,42 +738,38 @@ public class SwingView implements Watcher {
 
         private void updateOutputDisplay(final Character arg) {
             javax.swing.SwingUtilities.invokeLater(() -> {
-                if(arg != null)
+                if (arg != null) {
                     OutputPanel.this.outputTextArea.append(String.valueOf(arg));
+                }
             });
         }
     }
 
     private class StatusPanel extends JPanel {
 
-        private JLabel haltedCPULabel,
-        executedInstructionsLabel,
-        executedInstructionsNumberLabel,
-        modifiedMemoryLabel,
-        modifiedStackLabel;
+        private JLabel haltedCPULabel, executedInstructionsLabel, executedInstructionsNumberLabel, modifiedMemoryLabel, modifiedStackLabel;
 
         private int executedInstructions;
 
-        private JCheckBox modifiedMemoryCheckBox,
-        modifiedStackCheckBox;
+        private JCheckBox modifiedMemoryCheckBox, modifiedStackCheckBox;
 
         private StatusPanel() {
             initUI();
         }
 
         private void initUI() {
-            haltedCPULabel = 			new JLabel();
+            haltedCPULabel = new JLabel();
             executedInstructionsLabel = new JLabel("Num. Instrucciones ejecutadas:");
-            modifiedMemoryLabel = 		new JLabel("Memoria modificada");
-            modifiedStackLabel = 		new JLabel("Pila modificada");
+            modifiedMemoryLabel = new JLabel("Memoria modificada");
+            modifiedStackLabel = new JLabel("Pila modificada");
 
             haltedCPULabel.setForeground(Color.red);
 
             executedInstructions = -1;
             executedInstructionsNumberLabel = new JLabel(String.valueOf(executedInstructions));
 
-            modifiedMemoryCheckBox = 	new JCheckBox();
-            modifiedStackCheckBox = 	new JCheckBox();
+            modifiedMemoryCheckBox = new JCheckBox();
+            modifiedStackCheckBox = new JCheckBox();
 
             modifiedMemoryCheckBox.setEnabled(false);
             modifiedStackCheckBox.setEnabled(false);

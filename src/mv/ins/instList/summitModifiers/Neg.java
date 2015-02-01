@@ -7,7 +7,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de Neg sobre la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */

@@ -11,7 +11,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de Halt sobre la CPU.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -28,7 +28,7 @@ public class Halt extends OneParamInst {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     @Override

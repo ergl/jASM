@@ -7,15 +7,15 @@ import mv.cpu.CPU;
 /**
  * Realiza la operación Run sobre la CPU.
  * Realiza la operación step tantas veces como operaciones tenga el programa a ejecutar.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
 public class Run extends Step {
 
     @Override
-    public void executeCommand(CPU cpu) throws RecoverableException{
-        while(!cpu.isHalted())
+    public void executeCommand(CPU cpu) throws RecoverableException {
+        while (!cpu.isHalted())
             super.executeCommand(cpu);
     }
 

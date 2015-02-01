@@ -6,7 +6,7 @@ import mv.ins.Instruction;
 /**
  * Realiza la operación de salto condicional false.
  * Salta si el valor de la pila es cero.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -22,7 +22,7 @@ public class Bf extends Branches {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     @Override
@@ -32,13 +32,14 @@ public class Bf extends Branches {
 
     /**
      * Realiza la operación de salto sobre la unidad de control.
-     * 
+     *
      * @param controlUnit la unidad de control sobre la que se opera
      * @param value valor al que se quiere saltar
      */
     @Override
     protected void operation(ExecutionManager controlUnit, int value) {
-        if(value == 0)
+        if (value == 0) {
             controlUnit.setPc(param);
+        }
     }
 }

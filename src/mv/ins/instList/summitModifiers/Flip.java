@@ -8,7 +8,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de Flip sobre la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -30,8 +30,8 @@ public class Flip extends SummitModifiers {
             int tmp1 = stack.popValue();
             stack.pushValue(tmp);
             stack.pushValue(tmp1);
-        }
-        else
+        } else {
             throw new StackException(this, stack.elements());
+        }
     }
 }

@@ -13,7 +13,7 @@ import mv.strategies.OutStrategy;
 /**
  * Realiza la operación de STORE del valor de la cima de la pila en la referencia indicada por la subcima de la pila.
  * En caso de que sea una operación imposible, vuelve a apilar los valores en la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -29,23 +29,21 @@ public class StoreInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws UnrecoverableException, RecoverableException {
-        
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+
         if (stack.elements() >= 2) {
             int value = stack.popValue();
             int ref = stack.popValue();
             if (ref >= 0) {
                 memory.storeValue(value, ref);
                 stack.pushValue(ref);
-            }
-            else {
+            } else {
                 stack.pushValue(ref);
                 stack.pushValue(value);
                 throw new OutOfBoundMemoryException(ref);
             }
-        }
-        else
+        } else {
             throw new StackException(this, stack.elements());
+        }
     }
 }

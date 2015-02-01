@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 /**
  * Configuración de entrada cuando no se especifica un archivo de entrada.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */

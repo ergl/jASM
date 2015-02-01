@@ -12,7 +12,7 @@ import mv.strategies.OutStrategy;
 /**
  * Realiza la operación de salto dependiendo del valor de la cima de la pila.
  * En caso de que sea imposible el salto, vuelve a apilar el valor en la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -32,8 +32,8 @@ public class JumpInd extends OneParamInst {
         if (!stack.isEmpty()) {
             int value = stack.popValue();
             executionManager.setPc(value);
-        }
-        else
+        } else {
             throw new StackException(this, stack.elements());
+        }
     }
 }

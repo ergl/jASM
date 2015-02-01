@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Ver Observable.
  * Implementación propia de la clase Observable en el patrón Observer.
  * Thread safe
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -20,16 +20,19 @@ public class Watchable {
     }
 
     public synchronized void addWatcher(Watcher w) {
-        if(w == null)
+        if (w == null) {
             throw new NullPointerException();
+        }
 
-        if(!watcherList.contains(w))
+        if (!watcherList.contains(w)) {
             watcherList.add(w);
+        }
     }
 
     public synchronized void deleteWatcher(Watcher w) {
-        if(watcherList.contains(w))
+        if (watcherList.contains(w)) {
             watcherList.remove(w);
+        }
     }
 
     public void notifyViews() {
@@ -41,15 +44,16 @@ public class Watchable {
         Object[] arrLocal;
 
         synchronized(this) {
-            if(!changedFlag)
+            if (!changedFlag) {
                 return;
+            }
 
-            arrLocal =  watcherList.toArray();
+            arrLocal = watcherList.toArray();
             clearChanged();
         }
 
-        for(int i = arrLocal.length - 1 ; i >= 0; i--)
-            ((Watcher)arrLocal[i]).updateDisplays(this, arg);
+        for (int i = arrLocal.length - 1; i >= 0; i--)
+            ((Watcher) arrLocal[i]).updateDisplays(this, arg);
 
     }
 

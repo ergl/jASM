@@ -11,7 +11,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Clase abstracta común a todas las operaciones de salto.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -34,15 +34,13 @@ public abstract class Branches extends TwoParamInst {
      * La pila no puede estar vacía.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws RecoverableException {
-        
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws RecoverableException {
+
         if (!stack.isEmpty()) {
             int value = stack.popValue();
             operation(executionManager, value);
-        }
-
-        else
+        } else {
             throw new StackException(this, stack.elements());
+        }
     }
 }

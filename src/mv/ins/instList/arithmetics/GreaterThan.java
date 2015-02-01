@@ -5,11 +5,11 @@ import mv.ins.Instruction;
 /**
  * Realiza la operación de Greater Than sobre la pila.
  * Apila un 1 en la pila si la cima anterior es mayor que la subcima.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
-public class GreaterThan extends Arithmetics  {
+public class GreaterThan extends Arithmetics {
 
     public GreaterThan() {
         super("GT");

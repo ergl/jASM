@@ -6,7 +6,7 @@ import commons.watcherPattern.Watchable;
  * Memoria fisica de la maquina virtual.
  * Cien posiciones no ampliables, memoria ilimitada simulada por
  * un rango ilimitado de direcciones de memoria.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -40,7 +40,7 @@ public class Memory extends Watchable {
      * y de menor a mayor.
      * <p>
      * Las direcciones son sobreescribibles, en cuyo caso solo se actualiza el valor.
-     * 
+     *
      * @param val valor a cargar en memoria
      * @param ref direccion de memoria en la que sera cargado el valor
      */
@@ -58,11 +58,11 @@ public class Memory extends Watchable {
                 int i = elements - 1;
 
                 while (i >= 0 && (memArray[i].getPos() > ref)) {
-                    memArray[i+1] = memArray[i];
+                    memArray[i + 1] = memArray[i];
                     i--;
                 }
 
-                memArray[i+1] = new MemCell(val, ref);
+                memArray[i + 1] = new MemCell(val, ref);
                 elements++;
 
                 this.notifyViews(this.displayContent());
@@ -82,34 +82,37 @@ public class Memory extends Watchable {
     /**
      * Devuelve la posicion en memoria de una direccion dada.
      * Devuelve -1 en caso de no existir la direccion especificada.
-     * 
+     *
      * @param ref direccion de memoria que quiere situarse
+     *
      * @return posicion en memoria de la direccion
+     *
      * @see #busquedaBinariaRef(int, int, int)
      */
     public int getMemoryReference(int ref) {
-        return busquedaBinariaRef(ref, 0, elements-1);
+        return busquedaBinariaRef(ref, 0, elements - 1);
     }
 
     /**
      * Implementacion de la busqueda de inMemory.
-     * 
+     *
      * @param ref direccion de memoria que quiere situarse
      * @param ini punto de inicio de la busqueda
      * @param fin punto de finalizacion de la busqueda
+     *
      * @return posicion de la direccion. Devuelve -1 si no existe
      */
     private int busquedaBinariaRef(int ref, int ini, int fin) {
         int pos = -1;
 
-        if(ini > fin) {
+        if (ini > fin) {
             return pos;
         } else {
-            pos = (ini + fin)/2;
-            if(ref < this.memArray[pos].getPos()) {
+            pos = (ini + fin) / 2;
+            if (ref < this.memArray[pos].getPos()) {
                 return busquedaBinariaRef(ref, ini, pos - 1);
 
-            } else if (ref  > this.memArray[pos].getPos() ) {
+            } else if (ref > this.memArray[pos].getPos()) {
                 return busquedaBinariaRef(ref, pos + 1, fin);
 
             } else {
@@ -119,10 +122,10 @@ public class Memory extends Watchable {
     }
 
     public String displayContent() {
-        if(!isEmpty()) {
+        if (!isEmpty()) {
             String formattedMem = "";
-            for(int i = 0; i < elements; i++) 
-                formattedMem += memArray[i].getPos() + " " + memArray[i].getVal() + " "; 
+            for (int i = 0; i < elements; i++)
+                formattedMem += memArray[i].getPos() + " " + memArray[i].getVal() + " ";
 
             return formattedMem;
         } else {
@@ -132,10 +135,10 @@ public class Memory extends Watchable {
 
     @Override
     public String toString() {
-        if(!isEmpty()) {
+        if (!isEmpty()) {
             String formattedMem = "";
-            for(int i = 0; i < elements; i++)
-                formattedMem += "[" + memArray[i].getPos()+ "]" + ":" + memArray[i].getVal() + " ";
+            for (int i = 0; i < elements; i++)
+                formattedMem += "[" + memArray[i].getPos() + "]" + ":" + memArray[i].getVal() + " ";
 
             return "Memoria: " + formattedMem;
         } else {

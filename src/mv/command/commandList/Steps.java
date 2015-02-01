@@ -8,7 +8,7 @@ import mv.cpu.CPU;
 /**
  * Realiza la operación Step N sobre la CPU.
  * N es el número de veces que se ejecuta la instrucción Step, de la que deriva.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -37,8 +37,8 @@ public class Steps extends Step {
         input = input.trim();
         String[] tokens = input.split("\\ ");
 
-        if(tokens.length == 2 && tokens[0].equalsIgnoreCase("STEP")) {
-            if(Commons.isInteger(tokens[1])) {
+        if (tokens.length == 2 && tokens[0].equalsIgnoreCase("STEP")) {
+            if (Commons.isInteger(tokens[1])) {
                 int param = Integer.parseInt(tokens[1]);
                 return (param >= 1) ? new Steps(param) : null;
             }

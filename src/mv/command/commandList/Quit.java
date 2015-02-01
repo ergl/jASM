@@ -5,13 +5,14 @@ import mv.cpu.CPU;
 
 /**
  * Realiza la operación de Quit sobre la CPU.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
 public class Quit extends CommandInterpreter {
 
-    public Quit() {}
+    public Quit() {
+    }
 
     @Override
     public void executeCommand(CPU cpu) {
@@ -23,11 +24,13 @@ public class Quit extends CommandInterpreter {
         input = input.trim();
         String[] tokens = input.split("\\ ");
 
-        if(tokens.length != 1)
+        if (tokens.length != 1) {
             return null;
+        }
 
-        if(tokens[0].equalsIgnoreCase("QUIT"))
+        if (tokens[0].equalsIgnoreCase("QUIT")) {
             return new Quit();
+        }
 
         return null;
     }

@@ -2,7 +2,7 @@ package commons.exceptions;
 
 /**
  * Excepción de programa que finaliza la ejecución del programa
- *  
+ *
  * @author Borja
  * @author Chaymae
  */

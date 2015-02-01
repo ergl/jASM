@@ -4,7 +4,7 @@ import mv.ins.Instruction;
 
 /**
  * Realiza la operación de multipicación sobre la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */

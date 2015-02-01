@@ -4,7 +4,7 @@ package mv.cpu;
  * Unidad individual de la Memoria.
  * La celula de memoria se compone de un valor y una referencia asociada
  * que podria compararse a su direccion de memoria.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */

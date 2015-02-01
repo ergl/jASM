@@ -13,11 +13,11 @@ import java.util.Scanner;
  * Configuración de entrada cuando se especifica un archivo de entrada.
  * Dado que todas las posibles excepciones que pueden darse ya habrán sido lanzadas y
  * solucionadas antes de ejecutar los métodos de esta clase, no hacemos nada con ellas aquí.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
-public class FileInputStrategy implements InStrategy  {
+public class FileInputStrategy implements InStrategy {
 
     private FileReader fr;
     private File inFile;
@@ -39,9 +39,11 @@ public class FileInputStrategy implements InStrategy  {
     public int read() {
         int value;
         try {
-            if(fr.ready())
+            if (fr.ready()) {
                 value = fr.read();
-            else value = -1;
+            } else {
+                value = -1;
+            }
         } catch (IOException e) {
             value = -1;
         }
@@ -52,7 +54,7 @@ public class FileInputStrategy implements InStrategy  {
     public void close() {
         try {
             this.fr.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.exit(2);
         }
     }
@@ -65,7 +67,7 @@ public class FileInputStrategy implements InStrategy  {
         try {
             sc = new Scanner(inFile);
             try {
-                while(sc.hasNextLine())
+                while (sc.hasNextLine())
                     fileContent.append(sc.nextLine()).append(lineSeparator);
                 return fileContent.toString().trim().toCharArray();
             } finally {

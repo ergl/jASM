@@ -10,11 +10,11 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de Not sobre la cima de la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
-public class Not extends Arithmetics  {
+public class Not extends Arithmetics {
 
     public Not() {
         super("NOT");
@@ -35,11 +35,13 @@ public class Not extends Arithmetics  {
         if (!stack.isEmpty()) {
             int tmp = stack.popValue();
 
-            if (tmp != 0)
+            if (tmp != 0) {
                 stack.pushValue(0);
-            else stack.pushValue(1);
-        }
-        else
+            } else {
+                stack.pushValue(1);
+            }
+        } else {
             throw new StackException(this, stack.elements());
+        }
     }
 }

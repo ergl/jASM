@@ -5,7 +5,7 @@ import mv.ins.Instruction;
 /**
  * Realiza la operación de and sobre la pila.
  * Realiza un and sobre la cima y la subcima de la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */

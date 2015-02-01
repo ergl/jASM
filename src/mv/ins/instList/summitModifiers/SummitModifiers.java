@@ -11,7 +11,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Clase abstracta común a todas las operaciones que alteran la cima existente de la pila de alguna manera.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -23,16 +23,18 @@ public abstract class SummitModifiers extends OneParamInst {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     protected abstract Instruction getInst();
 
     /**
      * Método encargado de realizar la operación correspondiente sobre la memoria.
+     *
      * @param in TODO
      * @param out TODO
-     * @throws RecoverableException 
+     *
+     * @throws RecoverableException
      */
     protected abstract void operation(OperandStack stack, InStrategy in, OutStrategy out) throws RecoverableException;
 
@@ -40,8 +42,7 @@ public abstract class SummitModifiers extends OneParamInst {
      * Método encargado de ejecutar la operación sobre la CPU.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
 
         if (!stack.isEmpty()) {
             operation(stack, in, out);

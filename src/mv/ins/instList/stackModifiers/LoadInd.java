@@ -13,7 +13,7 @@ import mv.strategies.OutStrategy;
 /**
  * Realiza una operación de LOAD con referencia indicada por la cima de la pila.
  * En caso de que sea una operación ilegal, vuelve a apilar dicho valor.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -29,29 +29,27 @@ public class LoadInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws UnrecoverableException, RecoverableException {
-        
-        if(!stack.isEmpty()) {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+
+        if (!stack.isEmpty()) {
             int read = stack.popValue();
-            if(read >= 0) {
+            if (read >= 0) {
                 if (!memory.isEmpty()) {
                     int pos = memory.getMemoryReference(read);
-                    if (pos != -1)
+                    if (pos != -1) {
                         stack.pushValue(memory.loadValue(pos));
-
-                    else
+                    } else {
                         throw new MemoryException("La celda seleccionada está vacía.");
-                }
-                else
+                    }
+                } else {
                     throw new MemoryException("La celda seleccionada está vacía.");
-            }
-            else {
+                }
+            } else {
                 stack.pushValue(read);
                 throw new OutOfBoundMemoryException(read);
             }
-        }
-        else
+        } else {
             throw new StackException(this, stack.elements());
+        }
     }
 }

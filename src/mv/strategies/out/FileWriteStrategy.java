@@ -22,6 +22,7 @@ public class FileWriteStrategy implements OutStrategy {
     private PrintWriter writer;
     private Path outFilePath;
     private File outFile;
+
     public FileWriteStrategy(String file) {
         this.fileName = file;
     }
@@ -40,14 +41,14 @@ public class FileWriteStrategy implements OutStrategy {
             try {
                 this.writer = new PrintWriter(new FileWriter(this.outFilePath.toFile()));
                 this.outFile = this.outFilePath.toFile();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.exit(2);
             }
         } else {
             this.outFile = new File(this.fileName);
             try {
                 this.writer = new PrintWriter(new FileWriter(this.outFile));
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.exit(2);
             }
         }

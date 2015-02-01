@@ -6,7 +6,7 @@ import mv.ins.Instruction;
 /**
  * Realiza la operación de salto relativo condicional false.
  * Salta si la cima de la pila es cero.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -22,7 +22,7 @@ public class RBf extends Branches {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     @Override
@@ -35,7 +35,8 @@ public class RBf extends Branches {
      */
     @Override
     protected void operation(ExecutionManager controlUnit, int value) {
-        if(value == 0)
+        if (value == 0) {
             controlUnit.incrementPc(param);
+        }
     }
 }

@@ -8,29 +8,32 @@ import mv.Main;
 import mv.Main.ExecutionMode;
 
 public class TextView implements Watcher {
-    
+
     private ExecutionMode mode;
     private TextController controller;
     private Scanner sc;
-    
+
     public TextView(TextController _cont, Main.ExecutionMode _mode) {
-        this.mode       = _mode;
+        this.mode = _mode;
         this.controller = _cont;
-        this.sc         = new Scanner(System.in);
+        this.sc = new Scanner(System.in);
     }
-    
+
     public void enable() {
         controller.init(this);
         switch (mode) {
             case BATCH:
-                doBatch(); break;
+                doBatch();
+                break;
             case INTERACTIVE:
-                doInteractive(); break;
+                doInteractive();
+                break;
             case WINDOW:
                 break;
             default:
-                doBatch(); break;
-        }        
+                doBatch();
+                break;
+        }
     }
 
     void show(String message, boolean err) {
@@ -45,18 +48,18 @@ public class TextView implements Watcher {
         controller.runEvent();
         quit();
     }
-    
+
     private void doInteractive() {
         System.out.println(controller.showProgram());
-        
+
         do {
             System.out.print("> ");
             controller.debug(sc.nextLine());
         } while (!controller.isHalted());
-        
+
         quit();
     }
-    
+
     void quit() {
         controller.shutdown();
         System.exit(0);

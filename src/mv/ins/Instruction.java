@@ -8,14 +8,13 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Interfaz que describe la ejecución y parseo de las operaciones de programa. 
- * 
+ * Interfaz que describe la ejecución y parseo de las operaciones de programa.
+ *
  * @author Borja
  * @author Chaymae
  */
 public interface Instruction {
-    abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws UnrecoverableException, RecoverableException;
-    
+    abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException;
+
     abstract Instruction parse(String input);
 }

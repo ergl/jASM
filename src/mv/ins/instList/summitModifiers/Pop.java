@@ -7,7 +7,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación pop sobre la pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -19,7 +19,7 @@ public class Pop extends SummitModifiers {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     @Override

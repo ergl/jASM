@@ -12,7 +12,7 @@ import mv.strategies.OutStrategy;
 /**
  * Controlador del Vista Swing
  * Accede directamen a la CPU, y es observado por SwingView
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -27,20 +27,20 @@ public class SwingController {
     private SwingView swingView;
 
     public SwingController(CPU _cpu, ProgramMV _program, InStrategy _inStr, OutStrategy _outStr) {
-        this.cpu =      _cpu;
-        this.program = 	_program;
-        this.inStr = 	_inStr;
-        this.outStr = 	_outStr;
+        this.cpu = _cpu;
+        this.program = _program;
+        this.inStr = _inStr;
+        this.outStr = _outStr;
     }
 
 
     public void addView(SwingView view) {
         this.swingView = view;
     }
-    
+
     void init(Watcher w) {
         cpu.addWatcher(w);
-        
+
         char[] inFileContents;
         inFileContents = this.inStr.showFile();
         cpu.loadProgram(program);
@@ -51,13 +51,13 @@ public class SwingController {
         ((Watchable) inStr).addWatcher(inStrWatcher);
         ((Watchable) outStr).addWatcher(outStrWatcher);
     }
-    
+
     void addCpuWatchers(Watcher programWatcher, Watcher stackWatcher, Watcher memoryWatcher) {
         cpu.addEMWatcher(programWatcher);
         cpu.addStackWatcher(stackWatcher);
         cpu.addMemoryWatcher(memoryWatcher);
     }
-        
+
     void stepEvent() {
         if (isReady()) {
             try {
@@ -71,24 +71,27 @@ public class SwingController {
     }
 
     void pushEvent(String value) {
-        if (isReady())
+        if (isReady()) {
             cpu.debugInstruction(value, null);
+        }
     }
 
     void popEvent() {
-        if (isReady())
+        if (isReady()) {
             cpu.debugInstruction(null, null);
+        }
     }
 
     void writeEvent(String position, String value) {
-        if (isReady())
+        if (isReady()) {
             cpu.debugInstruction(position, value);
+        }
     }
 
     boolean ready() {
         return !cpu.isHalted();
     }
-    
+
     private boolean isReady() {
         if (!ready()) {
             swingView.disableActions();
@@ -96,7 +99,7 @@ public class SwingController {
         }
         return true;
     }
-    
+
     void shutdown() {
         try {
             this.cpu.stop();

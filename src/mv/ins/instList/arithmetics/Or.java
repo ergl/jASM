@@ -4,7 +4,7 @@ import mv.ins.Instruction;
 
 /**
  * Realiza la operación de Or sobre la cima y la subcima de pila.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */

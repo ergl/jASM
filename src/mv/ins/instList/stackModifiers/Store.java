@@ -11,7 +11,7 @@ import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de Store sobre la memoria.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -31,7 +31,7 @@ public class Store extends TwoParamInst {
 
     /**
      * Crea un objeto de la operación correspondiente.
-     * 
+     *
      * @return el objeto operación determinado
      */
     @Override
@@ -40,24 +40,25 @@ public class Store extends TwoParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out)
-            throws UnrecoverableException, RecoverableException {
-        
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+
         if (this.auxParam != null) {
-            if (this.param >= 0)
+            if (this.param >= 0) {
                 memory.storeValue(this.auxParam, this.param);
-            else 
+            } else {
                 throw new OutOfBoundMemoryException(this.param);
-        }
-        else {		
+            }
+        } else {
             if (!stack.isEmpty()) {
                 int value = stack.popValue();
-                if (this.param >= 0)
+                if (this.param >= 0) {
                     memory.storeValue(value, this.param);
-                else throw new OutOfBoundMemoryException(this.param);
-            }
-            else
+                } else {
+                    throw new OutOfBoundMemoryException(this.param);
+                }
+            } else {
                 throw new StackException(this, stack.elements());
-        }	
+            }
+        }
     }
 }

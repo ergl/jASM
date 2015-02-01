@@ -2,7 +2,7 @@ package commons.exceptions;
 
 /**
  * Excepción que ocurre cuando el programa ASM contiene sintaxis incorrecto.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */

@@ -8,7 +8,7 @@ import commons.watcherPattern.Watchable;
 
 /**
  * La pila de operandos de la maquina virtual.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -28,7 +28,7 @@ public class OperandStack extends Watchable {
     }
 
     public Integer popValue() {
-        int value = stack.remove(elements() -1);
+        int value = stack.remove(elements() - 1);
 
         this.setChanged();
         this.notifyViews(this.displayContent());
@@ -45,17 +45,18 @@ public class OperandStack extends Watchable {
     }
 
     public String displayContent() {
-        if(stack.size() == 0)
+        if (stack.size() == 0) {
             return "";
+        }
 
         ListIterator<Integer> li = stack.listIterator(stack.size());
-        
+
         StringBuilder sb = new StringBuilder();
         boolean firstValue = true;
 
-        while(li.hasPrevious()) {
+        while (li.hasPrevious()) {
             Integer n = li.previous();
-            if(firstValue) {
+            if (firstValue) {
                 sb.append(n);
                 firstValue = false;
             } else {
@@ -68,17 +69,18 @@ public class OperandStack extends Watchable {
 
     public String toString() {
         Iterator<Integer> it = stack.iterator();
-        if (!it.hasNext())
+        if (!it.hasNext()) {
             return "Pila de Operandos: <vacía>";
+        }
 
-        StringBuilder sb  = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("Pila de Operandos: ");
-        
+
         do {
             sb.append(it.next());
             sb.append(' ');
-        } while(it.hasNext());
-        
+        } while (it.hasNext());
+
         return sb.append("").toString();
     }
 }

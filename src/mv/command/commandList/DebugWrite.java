@@ -7,7 +7,7 @@ import mv.cpu.CPU;
 /**
  * Realiza la operación de Write sobre la CPU.
  * Esta operación es independiente del programa y existe con fines de debug.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
@@ -15,7 +15,8 @@ public class DebugWrite extends CommandInterpreter {
     private int ref;
     private int val;
 
-    public DebugWrite() {}
+    public DebugWrite() {
+    }
 
     public DebugWrite(int _ref, int _val) {
         this.ref = _ref;

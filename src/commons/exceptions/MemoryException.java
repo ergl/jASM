@@ -2,7 +2,7 @@ package commons.exceptions;
 
 /**
  * Excepción que ocurre cuando no existen elementos en la memoria o se intenta cargar de una celda vacía.
- * 
+ *
  * @author Borja
  * @author Chaymae
  */
