@@ -1,6 +1,5 @@
 ### TODO
 - Prepare alternative branch for merging
-- Draft Code style guide
 - Reimplementing the internal structure of the virtual machine following the current ARM standard
 - Implementing the full ARM instruction set
 - Recognizing different comments and arm delimiters
