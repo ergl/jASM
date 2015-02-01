@@ -196,7 +196,6 @@ public class SwingView implements Watcher {
      * @author Borja
      * @author Chaymae
      */
-    @SuppressWarnings("serial")
     private class ActionPanel extends JPanel {
 
         private JButton stepButton,
@@ -346,7 +345,6 @@ public class SwingView implements Watcher {
      * @author Borja
      * @author Chaymae
      */
-    @SuppressWarnings("serial")
     private class ProgramPanel extends JPanel implements Watcher {
 
         private JTextPane programTextPane;
@@ -432,7 +430,6 @@ public class SwingView implements Watcher {
      * @author Borja
      * @author Chaymae
      */
-    @SuppressWarnings("serial")
     private class StackPanel extends JPanel implements Watcher {
 
         private JTextArea stackTextArea;
@@ -557,7 +554,6 @@ public class SwingView implements Watcher {
      * @author Borja
      * @author Chaymae
      */
-    @SuppressWarnings("serial")
     private class MemoryPanel extends JPanel implements Watcher {
 
         private JTable memoryTable;
@@ -703,7 +699,6 @@ public class SwingView implements Watcher {
      * @author Borja
      * @author Chaymae
      */
-    @SuppressWarnings("serial")
     private class InputPanel extends JPanel implements Watcher {
 
         private JTextArea inputTextArea;
@@ -775,7 +770,6 @@ public class SwingView implements Watcher {
      * @author Borja
      * @author Chaymae
      */
-    @SuppressWarnings("serial")
     private class OutputPanel extends JPanel implements Watcher {
 
         private JTextArea outputTextArea;
@@ -814,7 +808,6 @@ public class SwingView implements Watcher {
         }
     }
 
-    @SuppressWarnings("serial")
     private class StatusPanel extends JPanel {
 
         private JLabel haltedCPULabel,
