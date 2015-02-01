@@ -59,7 +59,7 @@ public class SwingController {
     }
         
     void stepEvent() {
-        if(isReady()) {
+        if (isReady()) {
             try {
                 cpu.step();
             } catch (RecoverableException e) {/* Already handled by view */}
@@ -71,17 +71,17 @@ public class SwingController {
     }
 
     void pushEvent(String value) {
-        if(isReady())
+        if (isReady())
             cpu.debugInstruction(value, null);
     }
 
     void popEvent() {
-        if(isReady())
+        if (isReady())
             cpu.debugInstruction(null, null);
     }
 
     void writeEvent(String position, String value) {
-        if(isReady())
+        if (isReady())
             cpu.debugInstruction(position, value);
     }
 
@@ -90,7 +90,7 @@ public class SwingController {
     }
     
     private boolean isReady() {
-        if(!ready()) {
+        if (!ready()) {
             swingView.disableActions();
             return false;
         }

@@ -21,7 +21,7 @@ public class TextView implements Watcher {
     
     public void enable() {
         controller.init(this);
-        switch(mode) {
+        switch (mode) {
             case BATCH:
                 doBatch(); break;
             case INTERACTIVE:
@@ -34,10 +34,11 @@ public class TextView implements Watcher {
     }
 
     void show(String message, boolean err) {
-        if(err)
+        if (err) {
             System.err.println(message);
-        else
+        } else {
             System.out.println(message);
+        }
     }
 
     private void doBatch() {
@@ -51,7 +52,7 @@ public class TextView implements Watcher {
         do {
             System.out.print("> ");
             controller.debug(sc.nextLine());
-        } while(!controller.isHalted());
+        } while (!controller.isHalted());
         
         quit();
     }

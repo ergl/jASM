@@ -144,8 +144,8 @@ public class SwingView implements Watcher {
     }
 
     void quit() {
-        if(JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            if(runThread != null && runThread.isAlive())
+        if (JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir?", "Salir", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (runThread != null && runThread.isAlive())
                 runThread.interrupt();
             controller.shutdown();
             System.exit(0);
@@ -153,7 +153,7 @@ public class SwingView implements Watcher {
     }
 
     private void showHaltedCPU() {
-        if(!controller.ready())
+        if (!controller.ready())
             this.statusPanel.showHaltedCPU();
     }
 
@@ -185,7 +185,7 @@ public class SwingView implements Watcher {
     public void updateDisplays(Watchable o, Object arg) {
         show((String) arg);
 
-        if(runThread != null && runThread.isAlive())
+        if (runThread != null && runThread.isAlive())
             runThread.interrupt();
     }
     
@@ -256,7 +256,7 @@ public class SwingView implements Watcher {
                             SwingView.this.memoryPanel.disableActions();
 
                             
-                            while(!Thread.currentThread().isInterrupted() && controller.ready()) {
+                            while (!Thread.currentThread().isInterrupted() && controller.ready()) {
                                 
                                 SwingView.this.hideHaltedCPU();
                                 SwingView.this.uncheckStackBox();
@@ -264,7 +264,7 @@ public class SwingView implements Watcher {
                                 
                                 controller.stepEvent();
                                 
-                                if(Thread.currentThread().isInterrupted()) {
+                                if (Thread.currentThread().isInterrupted()) {
                                     javax.swing.SwingUtilities.invokeLater(new Runnable() {
                                         public void run() {
                                             stepButton.setEnabled(true);
@@ -282,7 +282,7 @@ public class SwingView implements Watcher {
                                 }
                             }
                             
-                            if(!controller.ready())
+                            if (!controller.ready())
                                 SwingView.this.disableActions();
                         }
                       };   
@@ -296,7 +296,7 @@ public class SwingView implements Watcher {
                 public void actionPerformed(ActionEvent e) {
                     SwingView.this.showHaltedCPU();
                     
-                    if(runThread != null && runThread.isAlive())
+                    if (runThread != null && runThread.isAlive())
                         runThread.interrupt();
                     
                     javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -383,7 +383,7 @@ public class SwingView implements Watcher {
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
-            if(arg != null)
+            if (arg != null)
                 this.updateProgramDisplay((int)arg);
         }
 
@@ -395,7 +395,7 @@ public class SwingView implements Watcher {
                     StyledDocument doc = programTextPane.getStyledDocument();
 
                     String[] newText = formatProgram(ProgramPanel.this.program, nextInst);
-                    for(String aNewText : newText) {
+                    for (String aNewText : newText) {
                         try {
                             doc.insertString(doc.getLength(), aNewText, null);
                         } catch (BadLocationException e) {
@@ -411,9 +411,9 @@ public class SwingView implements Watcher {
         private String[] formatProgram(String[] text, int nextInst) {
             String[] tmp = new String[text.length];
 
-            for(int i = 0; i < text.length; i++) {
+            for (int i = 0; i < text.length; i++) {
                 tmp[i] = text[i] + System.lineSeparator();	
-                if(i == nextInst)
+                if (i == nextInst)
                     tmp[i] = "*" + tmp[i];
             }
 
@@ -653,13 +653,13 @@ public class SwingView implements Watcher {
 
                     String[] contents = null;
 
-                    if(!memoryContents.equals(""))
+                    if (!memoryContents.equals(""))
                         contents = memoryContents.split(" ");
 
-                    if(contents != null) {
+                    if (contents != null) {
                         model.setRowCount(0);
-                        for(int i = 0; i < contents.length - 1; i++)
-                            if( (i&1) == 0)
+                        for (int i = 0; i < contents.length - 1; i++)
+                            if ((i&1) == 0)
                                 MemoryPanel.this.model.addRow(new Object[]{contents[i], contents[i+1]});
                     }
                 }
@@ -725,7 +725,7 @@ public class SwingView implements Watcher {
         private void displayFile(final char[] cs) {
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
               public void run() {
-                  if(cs != null)
+                  if (cs != null)
                       inputTextArea.setText(String.valueOf(cs));
               }
             });   
@@ -735,7 +735,7 @@ public class SwingView implements Watcher {
         public void updateDisplays(Watchable o, Object arg) {
             Integer iChar = (int) arg;
 
-            if(iChar != -1)
+            if (iChar != -1)
                 inputPanel.updateInputDisplay(Character.toChars(iChar));
         }
 
@@ -749,8 +749,8 @@ public class SwingView implements Watcher {
                     char[] writtenText = inputTextArea.getText().toCharArray();
                     int j = 0;
 
-                    while( j < writtenText.length ) {
-                        if(writtenText[j] == c[0] && writtenText[j] != '\n') {
+                    while (j < writtenText.length) {
+                        if (writtenText[j] == c[0] && writtenText[j] != '\n') {
                             writtenText[j] = '*';
                             break;
                         }

@@ -51,19 +51,19 @@ public class TextController {
     void debug(String input) {
         CommandInterpreter debugCommand = CommandParser.parseCommand(input);
         
-        if(debugCommand == null) {
+        if (debugCommand == null) {
             textView.show(COMM_ERROR, true);
             return;
         }
         
-        if(cpu.isHalted() || input.equalsIgnoreCase(END_TOKEN))
+        if (cpu.isHalted() || input.equalsIgnoreCase(END_TOKEN))
             isHalted = true;
         
         try {
             debugCommand.executeCommand(cpu);
         } catch (Exception e) {}
         
-        if(cpu.isHalted())
+        if (cpu.isHalted())
             isHalted = true;
         
         try {
