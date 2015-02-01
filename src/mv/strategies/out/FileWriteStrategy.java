@@ -1,6 +1,6 @@
-package tp.pr5.mv.strategies.out;
+package mv.strategies.out;
 
-import tp.pr5.mv.strategies.OutStrategy;
+import mv.strategies.OutStrategy;
 
 import java.io.File;
 import java.io.FileWriter;

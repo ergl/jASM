@@ -1,12 +1,12 @@
-package tp.pr5.ui;
+package ui;
 
-import tp.pr5.commons.watcherPattern.Watcher;
-import tp.pr5.mv.command.CommandInterpreter;
-import tp.pr5.mv.command.CommandParser;
-import tp.pr5.mv.cpu.CPU;
-import tp.pr5.mv.cpu.ProgramMV;
-import tp.pr5.mv.strategies.InStrategy;
-import tp.pr5.mv.strategies.OutStrategy;
+import commons.watcherPattern.Watcher;
+import mv.command.CommandInterpreter;
+import mv.command.CommandParser;
+import mv.cpu.CPU;
+import mv.cpu.ProgramMV;
+import mv.strategies.InStrategy;
+import mv.strategies.OutStrategy;
 
 public class TextController {
 

@@ -1,7 +1,7 @@
-package tp.pr5.mv.strategies.out;
+package mv.strategies.out;
 
-import tp.pr5.commons.watcherPattern.Watchable;
-import tp.pr5.mv.strategies.OutStrategy;
+import commons.watcherPattern.Watchable;
+import mv.strategies.OutStrategy;
 
 public class WindowOut extends Watchable implements OutStrategy {
 

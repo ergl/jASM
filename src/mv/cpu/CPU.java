@@ -1,16 +1,16 @@
-package tp.pr5.mv.cpu;
+package mv.cpu;
 
-import tp.pr5.commons.Commons;
-import tp.pr5.commons.exceptions.RecoverableException;
-import tp.pr5.commons.exceptions.UnrecoverableException;
-import tp.pr5.commons.watcherPattern.Watchable;
-import tp.pr5.commons.watcherPattern.Watcher;
-import tp.pr5.mv.ins.Instruction;
-import tp.pr5.mv.ins.instList.stackModifiers.Push;
-import tp.pr5.mv.ins.instList.stackModifiers.Store;
-import tp.pr5.mv.ins.instList.summitModifiers.Pop;
-import tp.pr5.mv.strategies.InStrategy;
-import tp.pr5.mv.strategies.OutStrategy;
+import commons.Commons;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.UnrecoverableException;
+import commons.watcherPattern.Watchable;
+import commons.watcherPattern.Watcher;
+import mv.ins.Instruction;
+import mv.ins.instList.stackModifiers.Push;
+import mv.ins.instList.stackModifiers.Store;
+import mv.ins.instList.summitModifiers.Pop;
+import mv.strategies.InStrategy;
+import mv.strategies.OutStrategy;
 
 
 /**

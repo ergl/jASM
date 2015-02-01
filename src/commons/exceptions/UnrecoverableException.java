@@ -1,4 +1,4 @@
-package tp.pr5.commons.exceptions;
+package commons.exceptions;
 
 /**
  * Excepción de programa que finaliza la ejecución del programa

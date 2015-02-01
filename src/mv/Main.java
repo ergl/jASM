@@ -1,4 +1,4 @@
-package tp.pr5.mv;
+package mv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,24 +13,24 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import tp.pr5.commons.exceptions.EmptyFileException;
-import tp.pr5.commons.exceptions.UnrecoverableException;
-import tp.pr5.mv.cpu.CPU;
-import tp.pr5.mv.cpu.ProgramMV;
-import tp.pr5.mv.strategies.InStrategy;
-import tp.pr5.mv.strategies.OutStrategy;
-import tp.pr5.mv.strategies.in.ConsoleInputStrategy;
-import tp.pr5.mv.strategies.in.FileInputStrategy;
-import tp.pr5.mv.strategies.in.NullInputStrategy;
-import tp.pr5.mv.strategies.in.WindowIn;
-import tp.pr5.mv.strategies.out.ConsoleWriteStrategy;
-import tp.pr5.mv.strategies.out.FileWriteStrategy;
-import tp.pr5.mv.strategies.out.NullWriteStrategy;
-import tp.pr5.mv.strategies.out.WindowOut;
-import tp.pr5.ui.SwingController;
-import tp.pr5.ui.SwingView;
-import tp.pr5.ui.TextController;
-import tp.pr5.ui.TextView;
+import commons.exceptions.EmptyFileException;
+import commons.exceptions.UnrecoverableException;
+import mv.cpu.CPU;
+import mv.cpu.ProgramMV;
+import mv.strategies.InStrategy;
+import mv.strategies.OutStrategy;
+import mv.strategies.in.ConsoleInputStrategy;
+import mv.strategies.in.FileInputStrategy;
+import mv.strategies.in.NullInputStrategy;
+import mv.strategies.in.WindowIn;
+import mv.strategies.out.ConsoleWriteStrategy;
+import mv.strategies.out.FileWriteStrategy;
+import mv.strategies.out.NullWriteStrategy;
+import mv.strategies.out.WindowOut;
+import ui.SwingController;
+import ui.SwingView;
+import ui.TextController;
+import ui.TextView;
 
 /**
  * Ejecuta la interfaz de interaccion con la VM.
@@ -56,7 +56,7 @@ public class Main {
      * Encargado de distribuir las tareas de parsear los argumentos y determinar el modo de ejecución,
      * así como llamar a los métodos de ejecución dependiendo de los argumentos introducidos. 
      *  
-     * @see tp.pr5.mv.Main#optionSelector(String[])
+     * @see mv.Main#optionSelector(String[])
      * @param args los argumentos introducidos por el usuario
      */
     public static void main(String[] args) {

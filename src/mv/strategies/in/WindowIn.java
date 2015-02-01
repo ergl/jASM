@@ -1,9 +1,9 @@
-package tp.pr5.mv.strategies.in;
+package mv.strategies.in;
 
 import java.nio.file.Path;
 
-import tp.pr5.commons.watcherPattern.Watchable;
-import tp.pr5.mv.strategies.InStrategy;
+import commons.watcherPattern.Watchable;
+import mv.strategies.InStrategy;
 
 public class WindowIn extends Watchable implements InStrategy {
 

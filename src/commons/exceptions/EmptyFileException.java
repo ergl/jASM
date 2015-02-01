@@ -1,4 +1,4 @@
-package tp.pr5.commons.exceptions;
+package commons.exceptions;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package tp.pr5.mv.cpu;
+package mv.cpu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,10 +9,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.Vector;
 
-import tp.pr5.commons.exceptions.BadProgramException;
-import tp.pr5.commons.exceptions.UnrecoverableException;
-import tp.pr5.mv.ins.Instruction;
-import tp.pr5.mv.ins.InstructionParser;
+import commons.exceptions.BadProgramException;
+import commons.exceptions.UnrecoverableException;
+import mv.ins.Instruction;
+import mv.ins.InstructionParser;
 
 public class ProgramMV {
 

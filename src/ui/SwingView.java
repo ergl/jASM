@@ -1,4 +1,4 @@
-package tp.pr5.ui;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,8 +16,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import tp.pr5.commons.watcherPattern.Watchable;
-import tp.pr5.commons.watcherPattern.Watcher;
+import commons.watcherPattern.Watchable;
+import commons.watcherPattern.Watcher;
 
 /**
  * Vista de la interfaz gráfica Swing.

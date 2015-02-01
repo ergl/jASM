@@ -1,6 +1,6 @@
-package tp.pr5.mv.strategies.in;
+package mv.strategies.in;
 
-import tp.pr5.mv.strategies.InStrategy;
+import mv.strategies.InStrategy;
 
 import java.io.File;
 import java.io.FileNotFoundException;

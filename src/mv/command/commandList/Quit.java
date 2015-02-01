@@ -1,7 +1,7 @@
-package tp.pr5.mv.command.commandList;
+package mv.command.commandList;
 
-import tp.pr5.mv.command.CommandInterpreter;
-import tp.pr5.mv.cpu.CPU;
+import mv.command.CommandInterpreter;
+import mv.cpu.CPU;
 
 /**
  * Realiza la operación de Quit sobre la CPU.

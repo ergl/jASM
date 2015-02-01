@@ -1,9 +1,9 @@
-package tp.pr5.mv.command.commandList;
+package mv.command.commandList;
 
-import tp.pr5.commons.Commons;
-import tp.pr5.commons.exceptions.RecoverableException;
-import tp.pr5.mv.command.CommandInterpreter;
-import tp.pr5.mv.cpu.CPU;
+import commons.Commons;
+import commons.exceptions.RecoverableException;
+import mv.command.CommandInterpreter;
+import mv.cpu.CPU;
 
 /**
  * Realiza la operación Step N sobre la CPU.

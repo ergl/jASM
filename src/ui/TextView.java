@@ -1,11 +1,11 @@
-package tp.pr5.ui;
+package ui;
 
 import java.util.Scanner;
 
-import tp.pr5.commons.watcherPattern.Watchable;
-import tp.pr5.commons.watcherPattern.Watcher;
-import tp.pr5.mv.Main;
-import tp.pr5.mv.Main.ExecutionMode;
+import commons.watcherPattern.Watchable;
+import commons.watcherPattern.Watcher;
+import mv.Main;
+import mv.Main.ExecutionMode;
 
 public class TextView implements Watcher {
     

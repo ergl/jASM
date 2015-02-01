@@ -1,6 +1,6 @@
-package tp.pr5.commons.exceptions;
+package commons.exceptions;
 
-import tp.pr5.mv.ins.Instruction;
+import mv.ins.Instruction;
 
 /**
  * Excepción que ocurre cuando no existen elementos suficientes en la pila de operandos.

@@ -1,4 +1,4 @@
-package tp.pr5.mv.strategies;
+package mv.strategies;
 
 import java.nio.file.Path;
 

@@ -1,4 +1,4 @@
-package tp.pr5.commons;
+package commons;
 
 /**
  * Clase que proporciona servicios comunes a todos los paquetes.

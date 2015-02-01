@@ -1,10 +1,10 @@
-package tp.pr5.mv.ins;
+package mv.ins;
 
-import tp.pr5.mv.ins.instList.arithmetics.*;
-import tp.pr5.mv.ins.instList.branches.*;
-import tp.pr5.mv.ins.instList.misc.Halt;
-import tp.pr5.mv.ins.instList.stackModifiers.*;
-import tp.pr5.mv.ins.instList.summitModifiers.*;
+import mv.ins.instList.arithmetics.*;
+import mv.ins.instList.branches.*;
+import mv.ins.instList.misc.Halt;
+import mv.ins.instList.stackModifiers.*;
+import mv.ins.instList.summitModifiers.*;
 
 /**
  * Genera una instruccción a partir del input del usuario.

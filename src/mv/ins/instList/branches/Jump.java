@@ -1,8 +1,8 @@
-package tp.pr5.mv.ins.instList.branches;
+package mv.ins.instList.branches;
 
-import tp.pr5.mv.cpu.*;
-import tp.pr5.mv.ins.Instruction;
-import tp.pr5.mv.strategies.*;
+import mv.cpu.*;
+import mv.ins.Instruction;
+import mv.strategies.*;
 
 /**
  * Realiza la operación de salto incondicional.

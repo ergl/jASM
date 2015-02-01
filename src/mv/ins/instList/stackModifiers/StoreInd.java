@@ -1,13 +1,13 @@
-package tp.pr5.mv.ins.instList.stackModifiers;
+package mv.ins.instList.stackModifiers;
 
-import tp.pr5.commons.exceptions.*;
-import tp.pr5.mv.cpu.ExecutionManager;
-import tp.pr5.mv.cpu.Memory;
-import tp.pr5.mv.cpu.OperandStack;
-import tp.pr5.mv.ins.Instruction;
-import tp.pr5.mv.ins.instList.OneParamInst;
-import tp.pr5.mv.strategies.InStrategy;
-import tp.pr5.mv.strategies.OutStrategy;
+import commons.exceptions.*;
+import mv.cpu.ExecutionManager;
+import mv.cpu.Memory;
+import mv.cpu.OperandStack;
+import mv.ins.Instruction;
+import mv.ins.instList.OneParamInst;
+import mv.strategies.InStrategy;
+import mv.strategies.OutStrategy;
 
 
 /**

@@ -1,8 +1,8 @@
-package tp.pr5.mv.strategies.in;
+package mv.strategies.in;
 
 import java.nio.file.Path;
 
-import tp.pr5.mv.strategies.InStrategy;
+import mv.strategies.InStrategy;
 
 public class NullInputStrategy implements InStrategy {
 

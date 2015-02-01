@@ -1,10 +1,10 @@
-package tp.pr5.mv.cpu;
+package mv.cpu;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-import tp.pr5.commons.watcherPattern.Watchable;
+import commons.watcherPattern.Watchable;
 
 /**
  * La pila de operandos de la maquina virtual.

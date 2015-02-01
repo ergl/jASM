@@ -1,7 +1,7 @@
-package tp.pr5.mv.ins.instList.branches;
+package mv.ins.instList.branches;
 
-import tp.pr5.mv.cpu.ExecutionManager;
-import tp.pr5.mv.ins.Instruction;
+import mv.cpu.ExecutionManager;
+import mv.ins.Instruction;
 
 /**
  * Realiza la operación de salto relativo condicional false.

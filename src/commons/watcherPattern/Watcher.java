@@ -1,4 +1,4 @@
-package tp.pr5.commons.watcherPattern;
+package commons.watcherPattern;
 
 /**
  * Ver Observer

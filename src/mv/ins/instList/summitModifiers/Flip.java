@@ -1,10 +1,10 @@
-package tp.pr5.mv.ins.instList.summitModifiers;
+package mv.ins.instList.summitModifiers;
 
-import tp.pr5.commons.exceptions.*;
-import tp.pr5.mv.cpu.OperandStack;
-import tp.pr5.mv.ins.Instruction;
-import tp.pr5.mv.strategies.InStrategy;
-import tp.pr5.mv.strategies.OutStrategy;
+import commons.exceptions.*;
+import mv.cpu.OperandStack;
+import mv.ins.Instruction;
+import mv.strategies.InStrategy;
+import mv.strategies.OutStrategy;
 
 /**
  * Realiza la operación de Flip sobre la pila.

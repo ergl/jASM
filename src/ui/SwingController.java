@@ -1,12 +1,12 @@
-package tp.pr5.ui;
+package ui;
 
-import tp.pr5.commons.exceptions.RecoverableException;
-import tp.pr5.commons.watcherPattern.Watchable;
-import tp.pr5.commons.watcherPattern.Watcher;
-import tp.pr5.mv.cpu.CPU;
-import tp.pr5.mv.cpu.ProgramMV;
-import tp.pr5.mv.strategies.InStrategy;
-import tp.pr5.mv.strategies.OutStrategy;
+import commons.exceptions.RecoverableException;
+import commons.watcherPattern.Watchable;
+import commons.watcherPattern.Watcher;
+import mv.cpu.CPU;
+import mv.cpu.ProgramMV;
+import mv.strategies.InStrategy;
+import mv.strategies.OutStrategy;
 
 
 /**

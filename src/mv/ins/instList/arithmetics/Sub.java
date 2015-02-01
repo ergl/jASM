@@ -1,6 +1,6 @@
-package tp.pr5.mv.ins.instList.arithmetics;
+package mv.ins.instList.arithmetics;
 
-import tp.pr5.mv.ins.Instruction;
+import mv.ins.Instruction;
 
 /**
  * Realiza la operació de resta sobre la pila.

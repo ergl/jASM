@@ -1,4 +1,4 @@
-package tp.pr5.commons.exceptions;
+package commons.exceptions;
 
 /**
  * Excepción que ocurre cuando se accede a una posición ilegal de la memoria.

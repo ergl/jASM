@@ -1,6 +1,6 @@
-package tp.pr5.mv.command;
+package mv.command;
 
-import tp.pr5.mv.command.commandList.*;
+import mv.command.commandList.*;
 
 /**
  * Clase encargada de generar comandos a partir del input del usuario.

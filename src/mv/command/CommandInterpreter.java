@@ -1,8 +1,8 @@
-package tp.pr5.mv.command;
+package mv.command;
 
-import tp.pr5.commons.exceptions.RecoverableException;
-import tp.pr5.commons.exceptions.UnrecoverableException;
-import tp.pr5.mv.cpu.CPU;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.UnrecoverableException;
+import mv.cpu.CPU;
 
 /**
  * Clase abstracta común a todos los comandos de debug de la VM.

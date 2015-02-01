@@ -1,4 +1,4 @@
-package tp.pr5.commons.exceptions;
+package commons.exceptions;
 
 /**
  * Excepción que ocurre cuando no existen elementos en la memoria o se intenta cargar de una celda vacía.

@@ -1,6 +1,6 @@
-package tp.pr5.mv.strategies.out;
+package mv.strategies.out;
 
-import tp.pr5.mv.strategies.OutStrategy;
+import mv.strategies.OutStrategy;
 
 /**
  * Configuración de salida cuando no se especifica un archivo de salida

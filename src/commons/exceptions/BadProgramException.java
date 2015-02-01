@@ -1,4 +1,4 @@
-package tp.pr5.commons.exceptions;
+package commons.exceptions;
 
 /**
  * Excepción que ocurre cuando el programa ASM contiene sintaxis incorrecto.

@@ -1,6 +1,6 @@
-package tp.pr5.mv.cpu;
+package mv.cpu;
 
-import tp.pr5.commons.watcherPattern.Watchable;
+import commons.watcherPattern.Watchable;
 
 /**
  * Unidad de control de la CPU.

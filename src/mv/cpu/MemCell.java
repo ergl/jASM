@@ -1,4 +1,4 @@
-package tp.pr5.mv.cpu;
+package mv.cpu;
 
 /**
  * Unidad individual de la Memoria.
