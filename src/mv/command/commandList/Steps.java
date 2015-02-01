@@ -29,8 +29,7 @@ public class Steps extends Step {
         do {
             super.executeCommand(cpu);
             i++;
-        }
-        while (!cpu.isHalted() && i < this.steps);
+        } while (!cpu.isHalted() && i < this.steps);
     }
 
     @Override
@@ -43,8 +42,8 @@ public class Steps extends Step {
                 int param = Integer.parseInt(tokens[1]);
                 return (param >= 1) ? new Steps(param) : null;
             }
-            else return null;
         }
-        else return null;
+
+        return null;
     }
 }

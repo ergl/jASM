@@ -53,8 +53,7 @@ public class Memory extends Watchable {
         if (oldRef != -1) {
             memArray[oldRef].setVal(val);
             this.notifyViews(this.displayContent());
-        }
-        else if (!isFull()) {
+        } else if (!isFull()) {
             if (!isEmpty()) {
                 int i = elements - 1;
 
@@ -67,16 +66,15 @@ public class Memory extends Watchable {
                 elements++;
 
                 this.notifyViews(this.displayContent());
-            }
-
-            else {
+            } else {
                 memArray[elements] = new MemCell(val, ref);
                 elements++;
 
                 this.notifyViews(this.displayContent());
             }
-        } else
-            success =  false;
+        } else {
+            success = false;
+        }
 
         return success;
     }
@@ -104,19 +102,19 @@ public class Memory extends Watchable {
     private int busquedaBinariaRef(int ref, int ini, int fin) {
         int pos = -1;
 
-        if(ini > fin)
+        if(ini > fin) {
             return pos;
-
-        else {
+        } else {
             pos = (ini + fin)/2;
-            if(ref < this.memArray[pos].getPos() )
-                return busquedaBinariaRef(ref, ini, pos-1);
+            if(ref < this.memArray[pos].getPos()) {
+                return busquedaBinariaRef(ref, ini, pos - 1);
 
-            else if (ref  > this.memArray[pos].getPos() )	
-                return busquedaBinariaRef(ref, pos+1, fin);
+            } else if (ref  > this.memArray[pos].getPos() ) {
+                return busquedaBinariaRef(ref, pos + 1, fin);
 
-            else
+            } else {
                 return pos;
+            }
         }
     }
 
@@ -127,8 +125,9 @@ public class Memory extends Watchable {
                 formattedMem += memArray[i].getPos() + " " + memArray[i].getVal() + " "; 
 
             return formattedMem;
+        } else {
+            return "";
         }
-        else return "";
     }
 
     @Override
@@ -139,8 +138,8 @@ public class Memory extends Watchable {
                 formattedMem += "[" + memArray[i].getPos()+ "]" + ":" + memArray[i].getVal() + " ";
 
             return "Memoria: " + formattedMem;
+        } else {
+            return "Memoria: <vacía>";
         }
-
-        else return "Memoria: <vacía>";
     }
 }

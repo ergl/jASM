@@ -24,6 +24,6 @@ public class Run extends Step {
         input = input.trim();
         String[] tokens = input.split("\\ ");
 
-        return ( (tokens.length == 1) && (tokens[0].equalsIgnoreCase("RUN")) ) ? new Run() : null;
+        return ((tokens.length == 1) && (tokens[0].equalsIgnoreCase("RUN"))) ? new Run() : null;
     }
 }

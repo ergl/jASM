@@ -73,8 +73,7 @@ public class CPU extends Watchable {
                     stop();
                     this.notifyViews(ue.getMessage());
                 }
-            }
-            else {
+            } else {
                 System.err.println("No existe instrucción");
                 stop();
             }
@@ -101,24 +100,23 @@ public class CPU extends Watchable {
      * @param param1 - Parámetro 1 de la instrucción a ejecutar
      */
     public void debugInstruction(String param, String param1) {
-        if(param == null)
+        if(param == null) {
             cpuDebug(new Pop());
-        
-        else {
+        } else {
             if(param1 == null) {
-                if(Commons.isInteger(param))
+                if(Commons.isInteger(param)) {
                     cpuDebug(new Push((Integer.parseInt(param))));
-                else {
+                } else {
                     this.setChanged();
                     this.notifyViews(NUM_ERROR);
                 }
-            }
-            else {
+            } else {
                 if(!Commons.isInteger(param) || !Commons.isInteger(param1)) {
                     this.setChanged();
                     this.notifyViews(NUM_ERROR);
                     return;
                 }
+
                 if(Integer.parseInt(param) < 0) {
                     this.setChanged();
                     this.notifyViews(FORMAT_ERROR);

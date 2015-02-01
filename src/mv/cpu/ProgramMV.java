@@ -42,11 +42,11 @@ public class ProgramMV {
 
         while (!input.equalsIgnoreCase(END_TOKEN)) {
             Instruction inst = InstructionParser.parse(input);
-            if(inst != null)
+            if(inst != null) {
                 addInstruction(inst);
-            else
+            } else {
                 System.out.println(MSG_ERROR);
-
+            }
             System.out.print(MSG_PROMPT);
             input = scanner.nextLine();
         }
@@ -73,20 +73,19 @@ public class ProgramMV {
                 line = line.trim();
                 
                 if (!line.startsWith(";")) {
-                    
                     String[] tmp = line.split(";");
                     StringBuilder sb = new StringBuilder();
                     sb.append(tmp[0]);
 
                     if (!sb.toString().isEmpty()) {
                         inst = InstructionParser.parse(sb.toString());
-                        if (inst != null)
+                        if(inst != null) {
                             addInstruction(inst);
-                        else
+                        } else {
                             throw new BadProgramException(sb.toString());
+                        }
                     }
                 }
-                
                 line = bf.readLine();
             }
 
@@ -117,10 +116,11 @@ public class ProgramMV {
      * @return Devuelve la instrucción en la posición definida, si la posición no existe, devolverá una instrucción nula
      */
     public Instruction getInstructionAt(int i) {
-        if (i >= 0 || i < MAX_PROGRAM_SIZE) 
+        if (i >= 0 || i < MAX_PROGRAM_SIZE) {
             return program.elementAt(i);
-        else
+        } else {
             return null;
+        }
     }
 
     /**

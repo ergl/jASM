@@ -38,9 +38,8 @@ public class DebugWrite extends CommandInterpreter {
                 int param2 = Integer.parseInt(tokens[2]);
                 return new DebugWrite(param1, param2);
             }
-            else return null; 
-
         }
-        else return null;
+
+        return null;
     }
 }

@@ -58,9 +58,9 @@ public class OperandStack extends Watchable {
             if(firstValue) {
                 sb.append(n);
                 firstValue = false;
-            }
-            else
+            } else {
                 sb.append("\n").append(n);
+            }
         }
 
         return sb.toString();

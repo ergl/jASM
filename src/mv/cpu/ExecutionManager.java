@@ -74,9 +74,9 @@ public class ExecutionManager extends Watchable {
 
             this.setChanged();
             this.notifyViews(this.currentPc);
-        }
-        else
+        } else {
             this.halt = true;
+        }
     }
 
     /**

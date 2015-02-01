@@ -123,11 +123,11 @@ public class Main {
         if (inFileString != null) {
             try {
                 inFilePath = Paths.get(inFileString);
-                if(Files.exists(inFilePath))
+                if(Files.exists(inFilePath)) {
                     inStr.open(inFilePath);
-                else
+                } else {
                     throw new FileNotFoundException();
-            
+                }
             } catch (FileNotFoundException e) {
                 System.err.println(ERR_NO_IN + inFileString + ")" + SHOW_CLI_HELP);
                 System.exit(1);
@@ -143,14 +143,14 @@ public class Main {
                 asmFile = new File(inFilePath.toString());
 
                 if (Files.exists(inFilePath)) {
-                    if (asmFile.length() != 0)
+                    if (asmFile.length() != 0) {
                         program.readProgram(asmFileString);
-                    else
+                    } else {
                         throw new EmptyFileException(asmFile);
-                }
-                else
+                    }
+                } else {
                     throw new FileNotFoundException();
-            
+                }
             } catch (FileNotFoundException e) {
                 System.err.println(ERR_ASM_NOT_FOUND);
                 System.exit(1);
@@ -163,9 +163,9 @@ public class Main {
                 System.err.println(ure.getMessage());
                 System.exit(1);
             }
-        }
-        else
+        } else {
             program.readProgram(sc);
+        }
 
         controller = new TextController(cpu, program, inStr, outStr);
         view = new TextView(controller, ExecutionMode.INTERACTIVE);
@@ -204,11 +204,11 @@ public class Main {
             try {
                 inFilePath = Paths.get(inFileString);
 
-                if(Files.exists(inFilePath))
+                if(Files.exists(inFilePath)) {
                     inStr.open(inFilePath);
-                else
+                } else {
                     throw new FileNotFoundException();
-            
+                }
             } catch (FileNotFoundException e) {
                 System.err.println(ERR_NO_IN + inFileString + ")");
                 System.exit(1);
@@ -224,14 +224,14 @@ public class Main {
                 asmFile = new File(inFilePath.toString());
 
                 if(Files.exists(inFilePath)) {
-                    if (asmFile.length() != 0)
+                    if (asmFile.length() != 0) {
                         program.readProgram(asmFileString);
-                    else
+                    } else {
                         throw new EmptyFileException(asmFile);
-                }
-                else
+                    }
+                } else {
                     throw new FileNotFoundException();
-
+                }
             } catch (FileNotFoundException e) {
                 System.err.println(ERR_ASM_NOT_FOUND);
                 System.exit(1);
@@ -281,11 +281,11 @@ public class Main {
             try {
                 inFilePath = Paths.get(inFileString);
                 
-                if(Files.exists(inFilePath))
+                if(Files.exists(inFilePath)) {
                     inStr.open(inFilePath);
-                else
+                } else {
                     throw new FileNotFoundException();
-            
+                }
             } catch (FileNotFoundException e) {
                 System.err.println(ERR_NO_IN + inFileString + ")" + SHOW_CLI_HELP);
                 System.exit(1);
@@ -301,14 +301,14 @@ public class Main {
                 asmFile = new File(inFilePath.toString());
 
                 if (Files.exists(inFilePath)) {
-                    if (asmFile.length() != 0)
+                    if (asmFile.length() != 0) {
                         program.readProgram(asmFileString);
-                    else
+                    } else {
                         throw new EmptyFileException(asmFile);
-                }
-                else
+                    }
+                } else {
                     throw new FileNotFoundException();
-            
+                }
             } catch (FileNotFoundException e) {
                 System.err.println(ERR_ASM_NOT_FOUND);
                 System.exit(1);
@@ -381,16 +381,16 @@ public class Main {
 
         if (line.hasOption("m")) {
             String s = line.getOptionValue("m");
-            if (s.equalsIgnoreCase(ExecutionMode.BATCH.name()))
+            if (s.equalsIgnoreCase(ExecutionMode.BATCH.name())) {
                 return setupMode(ExecutionMode.BATCH, line);
 
-            else if (s.equalsIgnoreCase(ExecutionMode.INTERACTIVE.name()))
+            } else if (s.equalsIgnoreCase(ExecutionMode.INTERACTIVE.name())) {
                 return setupMode(ExecutionMode.INTERACTIVE, line);
 
-            else if(s.equalsIgnoreCase(ExecutionMode.WINDOW.name()))
+            } else if(s.equalsIgnoreCase(ExecutionMode.WINDOW.name())) {
                 return setupMode(ExecutionMode.WINDOW, line);
 
-            else {
+            } else {
                 System.err.println(ERR_MODE);
                 return null;
             }
@@ -419,13 +419,11 @@ public class Main {
             
             if (line.hasOption("o"))
                 outFile = line.getOptionValue("o");
-        }
-        else {
+        } else {
             if (mode == ExecutionMode.BATCH || mode == ExecutionMode.WINDOW) {
                 System.err.println(ERR_NO_ASM);
                 System.exit(1);
-            }
-            else {
+            } else {
                 if (line.hasOption("i"))
                     inFile = line.getOptionValue("i");
                 if (line.hasOption("o"))
@@ -461,28 +459,28 @@ public class Main {
         }
 
         private InStrategy getInputStrategy() {
-            if (_inFile != null)
+            if (_inFile != null) {
                 _inStrategy = new FileInputStrategy();
-
-            else {
-                if (_mode == Main.ExecutionMode.INTERACTIVE || _mode == Main.ExecutionMode.WINDOW)
+            } else {
+                if (_mode == Main.ExecutionMode.INTERACTIVE || _mode == Main.ExecutionMode.WINDOW) {
                     _inStrategy = new NullInputStrategy();
-                else
+                } else {
                     _inStrategy = new ConsoleInputStrategy();
+                }
             }
 
             return new WindowIn(_inStrategy);
         }
 
         private OutStrategy getOutputStrategy() {
-            if (_outFile != null)
+            if (_outFile != null) {
                 _outStrategy = new FileWriteStrategy(_outFile);
-
-            else {
-                if (_mode == Main.ExecutionMode.INTERACTIVE || _mode == Main.ExecutionMode.WINDOW)
+            } else {
+                if(_mode == Main.ExecutionMode.INTERACTIVE || _mode == Main.ExecutionMode.WINDOW) {
                     _outStrategy = new NullWriteStrategy();
-                else
+                } else {
                     _outStrategy = new ConsoleWriteStrategy();
+                }
             }
 
             return new WindowOut(_outStrategy);

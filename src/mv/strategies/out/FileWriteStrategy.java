@@ -43,8 +43,7 @@ public class FileWriteStrategy implements OutStrategy {
             } catch(IOException e) {
                 System.exit(2);
             }
-        }
-        else {
+        } else {
             this.outFile = new File(this.fileName);
             try {
                 this.writer = new PrintWriter(new FileWriter(this.outFile));
