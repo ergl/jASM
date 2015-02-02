@@ -22,6 +22,13 @@ public class Memory extends Watchable {
         this.elements = 0;
     }
 
+    void flush() {
+        memArray = new MemCell[MAX_MEMPOS];
+        elements = 0;
+        this.setChanged();
+        this.notifyViews(this.displayContent());
+    }
+
     public boolean isEmpty() {
         return elements == 0;
     }

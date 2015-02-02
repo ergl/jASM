@@ -1,6 +1,8 @@
 package mv.ins.instList.summitModifiers;
 
-import commons.exceptions.*;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.StackException;
+
 import mv.cpu.OperandStack;
 import mv.ins.Instruction;
 import mv.strategies.InStrategy;

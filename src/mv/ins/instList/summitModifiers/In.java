@@ -3,6 +3,7 @@ package mv.ins.instList.summitModifiers;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
@@ -15,8 +16,6 @@ import mv.strategies.OutStrategy;
  * @author Chaymae
  */
 public class In extends SummitModifiers {
-
-    private int value;
 
     public In() {
         super("IN");
@@ -32,12 +31,8 @@ public class In extends SummitModifiers {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) {
         stack.pushValue(in.read());
 
-    }
-
-    public int getValue() {
-        return this.value;
     }
 }

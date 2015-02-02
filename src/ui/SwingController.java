@@ -8,7 +8,6 @@ import mv.cpu.ProgramMV;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-
 /**
  * Controlador del Vista Swing
  * Accede directamen a la CPU, y es observado por SwingView
@@ -33,15 +32,14 @@ public class SwingController {
         this.outStr = _outStr;
     }
 
-
     public void addView(SwingView view) {
         this.swingView = view;
     }
 
     void init(Watcher w) {
         cpu.addWatcher(w);
+        char[] inFileContents = null;
 
-        char[] inFileContents;
         inFileContents = this.inStr.showFile();
         cpu.loadProgram(program);
         this.swingView.init(inFileContents, cpu.showProgram());
@@ -52,10 +50,41 @@ public class SwingController {
         ((Watchable) outStr).addWatcher(outStrWatcher);
     }
 
-    void addCpuWatchers(Watcher programWatcher, Watcher stackWatcher, Watcher memoryWatcher) {
-        cpu.addEMWatcher(programWatcher);
+    void addCpuWatchers(Watcher programWatcher, Watcher stackWatcher,
+    		Watcher memoryWatcher, Watcher registerWatcher) {
+        
+    	cpu.addEMWatcher(programWatcher);
         cpu.addStackWatcher(stackWatcher);
         cpu.addMemoryWatcher(memoryWatcher);
+        cpu.addRegisterWatcher(registerWatcher);
+    }
+
+    void reset() {
+        inStr.close();
+        outStr.close();
+        inStr.open(inStr.getFilePath());
+        outStr.open();
+        cpu.reset();
+    }
+
+    void enableBreakpoints() {
+        cpu.enableBreakpoints();
+    }
+    
+    void disableBreakpoints() {
+        cpu.disableBreakpoints();
+    }
+    
+    void addBreakpointAt(int i) {
+        cpu.setBreakpoint(i);
+    }
+    
+    void deleteBreakpointAt(int i) {
+        cpu.deleteBreakpoint(i);
+    }
+    
+    boolean breakpointsEnabled() {
+        return cpu.breakpointsEnabled();
     }
 
     void stepEvent() {

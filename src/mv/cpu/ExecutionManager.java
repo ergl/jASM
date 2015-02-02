@@ -2,6 +2,8 @@ package mv.cpu;
 
 import commons.watcherPattern.Watchable;
 
+import java.util.ArrayList;
+
 /**
  * Unidad de control de la CPU.
  * Realiza todas las operaciones relacionadas con el contador de programa y el estado de la CPU.
@@ -16,15 +18,65 @@ public class ExecutionManager extends Watchable {
     private int programCont;
     private boolean halt;
 
+    private ArrayList<Integer> breakpoints;
+    private boolean enableBreakpoints;
+
     public ExecutionManager() {
         this.currentPc = 0;
         this.nextPc = this.currentPc + 1;
         this.halt = false;
+        this.enableBreakpoints = true;
+        this.breakpoints = new ArrayList<Integer>();
+    }
+
+    boolean onBreakpoint() {
+        return breakpoints.contains(currentPc);
+    }
+
+    void addBreakpoint(Integer i) {
+        if(!breakpoints.contains(i))
+            breakpoints.add(i);
+    }
+
+    void deleteBreakpoint(Integer i) {
+        if(breakpoints.contains(i))
+            breakpoints.remove(i);
+    }
+
+    void clearBreakpoints() {
+        breakpoints.clear();
+    }
+
+    void enableBreakpoints() {
+        this.enableBreakpoints = true;
+    }
+
+    void disableBreakpoints() {
+        this.enableBreakpoints = false;
+    }
+
+    boolean breakpointsEnabled() {
+        return this.enableBreakpoints;
+    }
+
+    void reset() {
+        currentPc = 0;
+        nextPc = currentPc + 1;
+        halt = false;
+        this.setChanged();
+        this.notifyViews(currentPc);
     }
 
     /**
      * Establece el número de instrucciones del programa.
+<<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
      *
+=======
+     * 
+<<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
+>>>>>>> af02449... Fixed bug preventing pausing/resetting program when pressing Run button multiple times. Changed package structure to new standard:src/mv/cpu/ExecutionManager.java
+=======
+>>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/cpu/ExecutionManager.java
      * @param programCont el número de instrucciones a ejecutar
      */
     public void configureExecutionManager(int programCont) {
@@ -70,7 +122,14 @@ public class ExecutionManager extends Watchable {
      * Éste método se ejecuta con cada step de la CPU
      */
     public void onNextInstruction() {
-        if (this.nextPc < this.programCont) {
+        /*
+    	if(enableBreakpoints && breakpoints.contains(currentPc)) {
+    		this.setChanged();
+    		this.notifyViews(currentPc);
+    		return;
+    	}
+    	*/
+    	if (this.nextPc < this.programCont) {
             this.currentPc = this.nextPc;
             this.nextPc = this.currentPc + 1;
 

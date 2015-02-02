@@ -21,7 +21,7 @@ public class Step extends CommandInterpreter {
     public void executeCommand(CPU cpu) throws RecoverableException {
         Instruction nextInstruction = cpu.nextInstruction();
 
-        if (nextInstruction != null) {
+        if(nextInstruction != null) {
             System.out.println(INST_MSG_BEGIN + nextInstruction.toString());
             cpu.step();
             System.out.println(EXEC_END + cpu.toString());

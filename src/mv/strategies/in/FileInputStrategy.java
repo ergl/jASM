@@ -21,11 +21,14 @@ public class FileInputStrategy implements InStrategy {
 
     private FileReader fr;
     private File inFile;
+    private Path inFilePath;
 
     @Override
     public void open(Path filePath) {
         try {
-            this.inFile = filePath.toFile();
+            this.inFilePath = filePath;
+
+            this.inFile = inFilePath.toFile();
             this.fr = new FileReader(this.inFile);
         } catch (FileNotFoundException e) {
             // do nothing, already checked
@@ -76,5 +79,10 @@ public class FileInputStrategy implements InStrategy {
         } catch (FileNotFoundException e) {
             return "".toCharArray();
         }
+    }
+
+    @Override
+    public Path getFilePath() {
+        return this.inFilePath;
     }
 }

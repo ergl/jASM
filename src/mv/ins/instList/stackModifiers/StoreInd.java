@@ -1,14 +1,18 @@
 package mv.ins.instList.stackModifiers;
 
-import commons.exceptions.*;
+import commons.exceptions.OutOfBoundMemoryException;
+import commons.exceptions.RecoverableException;
+import commons.exceptions.StackException;
+import commons.exceptions.UnrecoverableException;
+
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.ins.instList.OneParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
-
 
 /**
  * Realiza la operación de STORE del valor de la cima de la pila en la referencia indicada por la subcima de la pila.
@@ -29,7 +33,8 @@ public class StoreInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         if (stack.elements() >= 2) {
             int value = stack.popValue();

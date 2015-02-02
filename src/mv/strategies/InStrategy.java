@@ -16,4 +16,5 @@ public interface InStrategy {
     abstract char[] showFile();
 
     abstract void close();
+    abstract Path getFilePath();
 }

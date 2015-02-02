@@ -4,11 +4,11 @@ import commons.exceptions.*;
 import mv.cpu.ExecutionManager;
 import mv.cpu.Memory;
 import mv.cpu.OperandStack;
+import mv.cpu.RegisterBank;
 import mv.ins.Instruction;
 import mv.ins.instList.OneParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
-
 
 /**
  * Realiza una operación de LOAD con referencia indicada por la cima de la pila.
@@ -29,7 +29,8 @@ public class LoadInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         if (!stack.isEmpty()) {
             int read = stack.popValue();

@@ -11,8 +11,7 @@ import mv.cpu.CPU;
  */
 public class Quit extends CommandInterpreter {
 
-    public Quit() {
-    }
+    public Quit() {}
 
     @Override
     public void executeCommand(CPU cpu) {

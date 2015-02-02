@@ -1,8 +1,8 @@
 package mv.strategies.in;
 
-import java.nio.file.Path;
-
 import mv.strategies.InStrategy;
+
+import java.nio.file.Path;
 
 public class NullInputStrategy implements InStrategy {
 
@@ -24,6 +24,11 @@ public class NullInputStrategy implements InStrategy {
     @Override
     public char[] showFile() {
         /* There is no file to show */
+        return null;
+    }
+
+    @Override
+    public Path getFilePath() {
         return null;
     }
 }
