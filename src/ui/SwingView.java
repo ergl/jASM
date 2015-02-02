@@ -385,10 +385,10 @@ public class SwingView implements Watcher {
     		r2Field.setEditable(false);
     		r3Field.setEditable(false);
 
-    		r0Field.setPreferredSize(new Dimension(60,20));
-    		r1Field.setPreferredSize(new Dimension(60,20));
-    		r2Field.setPreferredSize(new Dimension(60,20));
-    		r3Field.setPreferredSize(new Dimension(60,20));
+    		r0Field.setPreferredSize(new Dimension(60, 20));
+    		r1Field.setPreferredSize(new Dimension(60, 20));
+    		r2Field.setPreferredSize(new Dimension(60, 20));
+    		r3Field.setPreferredSize(new Dimension(60, 20));
 
     		add(this.r0Label);
     		add(this.r0Field);
@@ -601,28 +601,21 @@ public class SwingView implements Watcher {
 
             pushButton = new JButton();
             pushButton.setText("Push");
-            pushButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    SwingView.this.uncheckMemoryBox();
-                    SwingView.this.uncheckStackBox();
-                    controller.pushEvent(pushValueField.getText().trim());
-                    pushValueField.setText(null);
-                }
-
+            pushButton.addActionListener(e -> {
+                SwingView.this.uncheckMemoryBox();
+                SwingView.this.uncheckStackBox();
+                controller.pushEvent(pushValueField.getText().trim());
+                pushValueField.setText(null);
             });
 
             topRowPanel.add(pushButton);
 
             popButton =  new JButton();
             popButton.setText("Pop");
-            popButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    SwingView.this.uncheckMemoryBox();
-                    SwingView.this.uncheckStackBox();
-                    controller.popEvent();
-                }
+            popButton.addActionListener(e -> {
+                SwingView.this.uncheckMemoryBox();
+                SwingView.this.uncheckStackBox();
+                controller.popEvent();
             });
 
             bottomRowPanel.add(popButton);		
@@ -644,32 +637,24 @@ public class SwingView implements Watcher {
         }
 
         private void updateStackDisplay(final String stackContents) {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    stackTextArea.setText(stackContents);
-                }
-            });
+            javax.swing.SwingUtilities.invokeLater(() -> stackTextArea.setText(stackContents));
         }
 
         private void enableActions() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    StackPanel.this.pushValueField.setText(null);
-                    StackPanel.this.pushValueField.setEditable(true);
-                    StackPanel.this.popButton.setEnabled(true);
-                    StackPanel.this.pushButton.setEnabled(true);
-                }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                StackPanel.this.pushValueField.setText(null);
+                StackPanel.this.pushValueField.setEditable(true);
+                StackPanel.this.popButton.setEnabled(true);
+                StackPanel.this.pushButton.setEnabled(true);
             });
         }
 
         private void disableActions() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    StackPanel.this.pushValueField.setText(null);
-                    StackPanel.this.pushValueField.setEditable(false);
-                    StackPanel.this.popButton.setEnabled(false);
-                    StackPanel.this.pushButton.setEnabled(false);
-                }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                StackPanel.this.pushValueField.setText(null);
+                StackPanel.this.pushValueField.setEditable(false);
+                StackPanel.this.popButton.setEnabled(false);
+                StackPanel.this.pushButton.setEnabled(false);
             });
         }
     }
@@ -747,19 +732,15 @@ public class SwingView implements Watcher {
 
             writeButton = 				new JButton();
             writeButton.setText("Write");
-            writeButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    SwingView.this.uncheckMemoryBox();
-                    SwingView.this.uncheckStackBox();
-                    String pos = positionField.getText().trim(),
-                            val = valueField.getText().trim();
+            writeButton.addActionListener(e -> {
+                SwingView.this.uncheckMemoryBox();
+                SwingView.this.uncheckStackBox();
+                String pos = positionField.getText().trim(),
+                        val = valueField.getText().trim();
 
-                    positionField.setText(null);
-                    valueField.setText(null);
-                    controller.writeEvent(pos, val);
-                }
-
+                positionField.setText(null);
+                valueField.setText(null);
+                controller.writeEvent(pos, val);
             });
 
             bottomRowPanel.add(writeButton);
@@ -784,45 +765,39 @@ public class SwingView implements Watcher {
         }
 
         private void updateMemoryTable(final String memoryContents) {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
+            javax.swing.SwingUtilities.invokeLater(() -> {
 
-                    String[] contents = null;
+                String[] contents = null;
 
-                    if(!memoryContents.equals(""))
-                        contents = memoryContents.split(" ");
+                if(!memoryContents.equals(""))
+                    contents = memoryContents.split(" ");
 
-                    if(contents != null) {
-                        model.setRowCount(0);
-                        for(int i = 0; i < contents.length - 1; i++)
-                            if( (i&1) == 0)
-                                MemoryPanel.this.model.addRow(new Object[]{contents[i], contents[i+1]});
-                    }
+                if(contents != null) {
+                    model.setRowCount(0);
+                    for(int i = 0; i < contents.length - 1; i++)
+                        if( (i&1) == 0)
+                            MemoryPanel.this.model.addRow(new Object[]{contents[i], contents[i+1]});
                 }
             });
         }
 
         private void enableActions() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    MemoryPanel.this.positionField.setText(null);
-                    MemoryPanel.this.valueField.setText(null);
-                    MemoryPanel.this.positionField.setEditable(true);
-                    MemoryPanel.this.valueField.setEditable(true);
-                    MemoryPanel.this.writeButton.setEnabled(true);
-                }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                MemoryPanel.this.positionField.setText(null);
+                MemoryPanel.this.valueField.setText(null);
+                MemoryPanel.this.positionField.setEditable(true);
+                MemoryPanel.this.valueField.setEditable(true);
+                MemoryPanel.this.writeButton.setEnabled(true);
             });
         }
 
         private void disableActions() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    MemoryPanel.this.positionField.setText(null);
-                    MemoryPanel.this.valueField.setText(null);
-                    MemoryPanel.this.positionField.setEditable(false);
-                    MemoryPanel.this.valueField.setEditable(false);
-                    MemoryPanel.this.writeButton.setEnabled(false);
-                }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                MemoryPanel.this.positionField.setText(null);
+                MemoryPanel.this.valueField.setText(null);
+                MemoryPanel.this.positionField.setEditable(false);
+                MemoryPanel.this.valueField.setEditable(false);
+                MemoryPanel.this.writeButton.setEnabled(false);
             });
         }
     }
@@ -860,12 +835,10 @@ public class SwingView implements Watcher {
 
         /* Llamado al inicio de la aplicación. Para cada acción, se llama updayeInputText */
         private void displayFile(final char[] cs) {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    if(cs != null)
-                        inputTextArea.setText(String.valueOf(cs));
-                }
-            });   
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                if (cs != null)
+                    inputTextArea.setText(String.valueOf(cs));
+            });
         }
 
         private void flushContent() {
@@ -884,22 +857,20 @@ public class SwingView implements Watcher {
          * Usamos char[] porque no se puede convertir de int a char, sólo a char[] 
          */
         private void updateInputDisplay(final char[] c) {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
+            javax.swing.SwingUtilities.invokeLater(() -> {
 
-                    char[] writtenText = inputTextArea.getText().toCharArray();
-                    int j = 0;
+                char[] writtenText = inputTextArea.getText().toCharArray();
+                int j = 0;
 
-                    while( j < writtenText.length ) {
-                        if(writtenText[j] == c[0] && writtenText[j] != '\n') {
-                            writtenText[j] = '*';
-                            break;
-                        }
-                        j++;
+                while( j < writtenText.length ) {
+                    if(writtenText[j] == c[0] && writtenText[j] != '\n') {
+                        writtenText[j] = '*';
+                        break;
                     }
-
-                    inputTextArea.setText(String.valueOf(writtenText));
+                    j++;
                 }
+
+                inputTextArea.setText(String.valueOf(writtenText));
             });
         }
     }
@@ -947,11 +918,9 @@ public class SwingView implements Watcher {
         }
 
         private void updateOutputDisplay(final Character arg) {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    if(arg != null)
-                        OutputPanel.this.outputTextArea.append(String.valueOf(arg));
-                }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                if(arg != null)
+                    OutputPanel.this.outputTextArea.append(String.valueOf(arg));
             });
         }
     }
@@ -1006,70 +975,41 @@ public class SwingView implements Watcher {
         }
 
         private void showHaltedCPU() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    haltedCPULabel.setText("Máquina Parada");
-                }
-            });
+            javax.swing.SwingUtilities.invokeLater(() -> haltedCPULabel.setText("Máquina Parada"));
         }
 
         private void hideHaltedCPU() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    haltedCPULabel.setText(null);
-
-                }
-            });
+            javax.swing.SwingUtilities.invokeLater(() -> haltedCPULabel.setText(null));
         }
 
         private void updateExecutedInstructions() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    executedInstructions++;
-                    executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
-                }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                executedInstructions++;
+                executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
             });
         }
 
         private void resetExecutedInstructions() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    executedInstructions = -1;
-                    executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
-                }
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                executedInstructions = -1;
+                executedInstructionsNumberLabel.setText(String.valueOf(executedInstructions));
             });
         }
         
         private void checkMemoryBox() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    modifiedMemoryCheckBox.setSelected(true);
-                }
-            });
+            javax.swing.SwingUtilities.invokeLater(() -> modifiedMemoryCheckBox.setSelected(true));
         }
 
         private void uncheckMemoryBox() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    modifiedMemoryCheckBox.setSelected(false);
-                }
-            });
+            javax.swing.SwingUtilities.invokeLater(() -> modifiedMemoryCheckBox.setSelected(false));
         }
 
         private void checkStackBox() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    modifiedStackCheckBox.setSelected(true);
-                }
-            });
+            javax.swing.SwingUtilities.invokeLater(() -> modifiedStackCheckBox.setSelected(true));
         }
 
         private void uncheckStackBox() {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    modifiedStackCheckBox.setSelected(false); 
-                }
-            });
+            javax.swing.SwingUtilities.invokeLater(() -> modifiedStackCheckBox.setSelected(false));
         }
     }
 }

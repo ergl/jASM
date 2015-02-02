@@ -13,11 +13,7 @@ public class CommandParser {
     /**
      * Array que contiene todos los comandos disponibles al usuario.
      */
-    private static CommandInterpreter[] commands = {
-        new Step(),         new Steps(),    new Run(),  new Quit(),
-        new DebugPush(),    new DebugPop(), new DebugWrite(),
-        new Reset()
-    };
+    private static CommandInterpreter[] commands = {new Step(), new Steps(), new Run(), new Quit(), new DebugPush(), new DebugPop(), new DebugWrite(), new Reset()};
 
     /**
      * Devuelve un objeto CommandInterpreter que podra ser procesado por la cpu.

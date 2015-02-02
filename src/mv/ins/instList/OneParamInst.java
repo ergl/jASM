@@ -34,8 +34,7 @@ public abstract class OneParamInst implements Instruction {
     /**
      * Método encargado de ejecutar la operación sobre la CPU.
      */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
-            throws UnrecoverableException, RecoverableException;
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException;
 
     /**
      * Analiza el input del usuario.

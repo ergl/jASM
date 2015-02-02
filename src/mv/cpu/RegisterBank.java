@@ -37,7 +37,7 @@ public class RegisterBank extends Watchable {
         StringBuilder sb = new StringBuilder();
         while (li.hasNext()) {
             Register n = li.next();
-            sb.append(n.getContent() + " ");
+            sb.append(n.getContent()).append(" ");
         }
 
         return sb.toString();
@@ -52,7 +52,7 @@ public class RegisterBank extends Watchable {
 
         while (li.hasNext()) {
             Register n = li.next();
-            sb.append("[R" + registerList.indexOf(n) + "]: " + n + " ");
+            sb.append("[R").append(registerList.indexOf(n)).append("]: ").append(n).append(" ");
         }
 
         return sb.toString();

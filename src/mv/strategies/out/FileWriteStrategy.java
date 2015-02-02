@@ -18,10 +18,10 @@ import java.nio.file.Paths;
  */
 public class FileWriteStrategy implements OutStrategy {
 
-    private String fileName;
-    private PrintWriter writer;
-    private Path outFilePath;
     private File outFile;
+    private String fileName;
+    private Path outFilePath;
+    private PrintWriter writer;
 
     public FileWriteStrategy(String file) {
         this.fileName = file;

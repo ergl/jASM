@@ -38,9 +38,9 @@ public class CPU extends Watchable {
 
     private static final String LOG_FILE = "status.log";
 
+    private File logFile;
     private Path logFilePath;
     private PrintWriter logWriter;
-    private File logFile;
 
     private Memory memory;
     private OperandStack stack;

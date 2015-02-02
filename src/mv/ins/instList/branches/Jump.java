@@ -35,7 +35,8 @@ public class Jump extends Branches {
     }
 
     @Override
-    protected void operation(ExecutionManager controlUnit, int value) {}
+    protected void operation(ExecutionManager controlUnit, int value) {
+    }
 
     /**
      * Método encargado de ejecutar la operación sobre la CPU.

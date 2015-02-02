@@ -40,22 +40,22 @@ public abstract class TwoParamInst implements Instruction {
     }
 
     public TwoParamInst(String orden, String register, int param) {
-    	this.orden = orden;
-    	this.register = register;
-    	this.param = param;
+        this.orden = orden;
+        this.register = register;
+        this.param = param;
     }
+
     public TwoParamInst(String orden, String register, int param, int param1) {
-    	this.orden = orden;
-    	this.register = register;
-    	this.param = param;
-    	this.auxParam = param1;
-	}
+        this.orden = orden;
+        this.register = register;
+        this.param = param;
+        this.auxParam = param1;
+    }
 
     /**
      * Método encargado de ejecutar la operación sobre la CPU.
      */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
-            throws UnrecoverableException, RecoverableException;
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException;
 
     /**
      * Crea un objeto de la operación correspondiente.
@@ -93,10 +93,12 @@ public abstract class TwoParamInst implements Instruction {
      */
     @Override
     public String toString() {
-    	if(this.register == null)
+        if (this.register == null) {
             return this.orden.toUpperCase() + " " + this.param.toString();
-    	if(this.auxParam == null)
-    		return this.orden.toUpperCase() + " " + this.register + this.param.toString();
-    	return this.orden.toUpperCase() + " " + this.register + this.param + " " + this.auxParam;
+        }
+        if (this.auxParam == null) {
+            return this.orden.toUpperCase() + " " + this.register + this.param.toString();
+        }
+        return this.orden.toUpperCase() + " " + this.register + this.param + " " + this.auxParam;
     }
 }
