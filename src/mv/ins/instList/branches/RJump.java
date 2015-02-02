@@ -42,7 +42,7 @@ public class RJump extends Branches {
      * Método encargado de ejecutar la operación sobre la CPU.
      */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers){
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) {
         executionManager.incrementPc(this.param);
     }
 }

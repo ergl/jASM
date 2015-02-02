@@ -14,47 +14,49 @@ import mv.strategies.OutStrategy;
 
 public class Move extends TwoParamInst {
 
-	public Move() {
-		super("MOVE");
-	}
+    public Move() {
+        super("MOVE");
+    }
 
-	public Move(String register, int number) {
-		super("MOVE", register, number);
-	}
-	
-	@Override
-	public void execute(ExecutionManager executionManager, Memory memory,
-						 OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
-							throws UnrecoverableException, RecoverableException {
-		
-		if(stack.isEmpty())
-			throw new StackException(this, stack.elements());
-		
-		registers.store(param, stack.popValue());
-	}
+    public Move(String register, int number) {
+        super("MOVE", register, number);
+    }
 
-	@Override
-	public Instruction parse(String input) {
-		input = input.trim();
+    @Override
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
+
+        if (stack.isEmpty()) {
+            throw new StackException(this, stack.elements());
+        }
+
+        registers.store(param, stack.popValue());
+    }
+
+    @Override
+    public Instruction parse(String input) {
+        input = input.trim();
         String[] tokens = input.split("\\s");
-        
-        if (tokens.length != 2)
+
+        if (tokens.length != 2) {
             return null;
+        }
 
         char[] register = tokens[1].toCharArray();
-        
-        if(!Character.isDigit(register[1]))
-        	return null;
-        
+
+        if (!Character.isDigit(register[1])) {
+            return null;
+        }
+
         int param = Character.getNumericValue(register[1]);
-        if (tokens[0].equalsIgnoreCase(orden))
-        	return getInst(param);
-        
+        if (tokens[0].equalsIgnoreCase(orden)) {
+            return getInst(param);
+        }
+
         return null;
-	}
-	
-	@Override
-	protected Instruction getInst(int param) {
-		return new Move("R", param);
-	}
+    }
+
+    @Override
+    protected Instruction getInst(int param) {
+        return new Move("R", param);
+    }
 }

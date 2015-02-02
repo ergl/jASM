@@ -34,13 +34,15 @@ public class ExecutionManager extends Watchable {
     }
 
     void addBreakpoint(Integer i) {
-        if(!breakpoints.contains(i))
+        if (!breakpoints.contains(i)) {
             breakpoints.add(i);
+        }
     }
 
     void deleteBreakpoint(Integer i) {
-        if(breakpoints.contains(i))
+        if (breakpoints.contains(i)) {
             breakpoints.remove(i);
+        }
     }
 
     void clearBreakpoints() {
@@ -69,14 +71,15 @@ public class ExecutionManager extends Watchable {
 
     /**
      * Establece el número de instrucciones del programa.
-<<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
+     * <<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
+     * <p>
+     * =======
+     * <p>
+     * <<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
+     * >>>>>>> af02449... Fixed bug preventing pausing/resetting program when pressing Run button multiple times. Changed package structure to new standard:src/mv/cpu/ExecutionManager.java
+     * =======
+     * >>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/cpu/ExecutionManager.java
      *
-=======
-     * 
-<<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
->>>>>>> af02449... Fixed bug preventing pausing/resetting program when pressing Run button multiple times. Changed package structure to new standard:src/mv/cpu/ExecutionManager.java
-=======
->>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/cpu/ExecutionManager.java
      * @param programCont el número de instrucciones a ejecutar
      */
     public void configureExecutionManager(int programCont) {
@@ -123,13 +126,13 @@ public class ExecutionManager extends Watchable {
      */
     public void onNextInstruction() {
         /*
-    	if(enableBreakpoints && breakpoints.contains(currentPc)) {
+        if(enableBreakpoints && breakpoints.contains(currentPc)) {
     		this.setChanged();
     		this.notifyViews(currentPc);
     		return;
     	}
     	*/
-    	if (this.nextPc < this.programCont) {
+        if (this.nextPc < this.programCont) {
             this.currentPc = this.nextPc;
             this.nextPc = this.currentPc + 1;
 

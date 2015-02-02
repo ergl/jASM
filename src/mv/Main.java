@@ -78,23 +78,26 @@ public class Main {
             System.exit(1);
         }
 
-        mode    =   setupConfiguration.getMode();
-        asmFile =   setupConfiguration.getAsm();
-        inFile  =   setupConfiguration.getIn();
-        outFile =   setupConfiguration.getOut();
-        inStr   =   setupConfiguration.getInputStrategy();
-        outStr  =   setupConfiguration.getOutputStrategy();
-        writeLog =  setupConfiguration.getLogOption();
+        mode = setupConfiguration.getMode();
+        asmFile = setupConfiguration.getAsm();
+        inFile = setupConfiguration.getIn();
+        outFile = setupConfiguration.getOut();
+        inStr = setupConfiguration.getInputStrategy();
+        outStr = setupConfiguration.getOutputStrategy();
+        writeLog = setupConfiguration.getLogOption();
 
-        switch(mode) {
+        switch (mode) {
             case INTERACTIVE:
-                doInteractive(asmFile, inFile, outFile, inStr, outStr, writeLog); break;
+                doInteractive(asmFile, inFile, outFile, inStr, outStr, writeLog);
+                break;
 
             case WINDOW:
-                doVisual(asmFile, inFile, outFile, inStr, outStr, writeLog); break;
+                doVisual(asmFile, inFile, outFile, inStr, outStr, writeLog);
+                break;
 
             case BATCH:
-                doBatch(asmFile, inFile, outFile, inStr, outStr, writeLog); break;
+                doBatch(asmFile, inFile, outFile, inStr, outStr, writeLog);
+                break;
 
             default:
                 doBatch(asmFile, inFile, outFile, inStr, outStr, writeLog);
@@ -121,7 +124,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         ProgramMV program = new ProgramMV();
-        CPU cpu =           new CPU(inStr, outStr, writeLog);
+        CPU cpu = new CPU(inStr, outStr, writeLog);
         Path inFilePath;
         File asmFile;
 
@@ -203,7 +206,7 @@ public class Main {
         File asmFile;
 
         ProgramMV program = new ProgramMV();
-        CPU cpu =           new CPU(inStr, outStr, writeLog);
+        CPU cpu = new CPU(inStr, outStr, writeLog);
 
         if (inFileString != null) {
             try {
@@ -282,7 +285,7 @@ public class Main {
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
 
-        if(inFileString != null) {
+        if (inFileString != null) {
             try {
                 inFilePath = Paths.get(inFileString);
 
@@ -366,12 +369,12 @@ public class Main {
         Options options = new Options();
         boolean writeLog = false;
 
-        options.addOption("a", "asm",   true,   "Fichero con el codigo en ASM del programa a ejecutar. Obligatorio en modo batch.");
-        options.addOption("h", "help",  false,  "Muestra esta ayuda");
-        options.addOption("i", "in",    true,   "Entrada del programa de la maquina-p.");
-        options.addOption("m", "mode",  true,   "Modo de funcionamiento (batch | interactive). Por defecto, batch.");
-        options.addOption("o", "out",   true,   "Fichero donde se guarda la salida del programa de la maquina-p.");
-        options.addOption("l", "log", 	false, 	"Guarda a un log el estado de la cpu a lo largo de la ejecución del programa");
+        options.addOption("a", "asm", true, "Fichero con el codigo en ASM del programa a ejecutar. Obligatorio en modo batch.");
+        options.addOption("h", "help", false, "Muestra esta ayuda");
+        options.addOption("i", "in", true, "Entrada del programa de la maquina-p.");
+        options.addOption("m", "mode", true, "Modo de funcionamiento (batch | interactive). Por defecto, batch.");
+        options.addOption("o", "out", true, "Fichero donde se guarda la salida del programa de la maquina-p.");
+        options.addOption("l", "log", false, "Guarda a un log el estado de la cpu a lo largo de la ejecución del programa");
 
         try {
             line = parser.parse(options, args);
@@ -404,8 +407,9 @@ public class Main {
                 System.err.println(ERR_MODE);
                 return null;
             }
-        } else
+        } else {
             return setupMode(ExecutionMode.BATCH, line, writeLog);
+        }
     }
 
     /**
@@ -468,10 +472,10 @@ public class Main {
         private static boolean _writeLog;
 
         private SetupConfigurator(ExecutionMode mode, String asmFile, String inFile, String outFile, boolean writeLog) {
-            _mode    =  mode;
-            _asmFile =  asmFile;
-            _inFile  =  inFile;
-            _outFile =  outFile;
+            _mode = mode;
+            _asmFile = asmFile;
+            _inFile = inFile;
+            _outFile = outFile;
             _writeLog = writeLog;
         }
 

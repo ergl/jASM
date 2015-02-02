@@ -57,13 +57,15 @@ public class CPU extends Watchable {
         this.memory = new Memory();
         this.stack = new OperandStack();
         this.executionManager = new ExecutionManager();
-        this.registerList =     new RegisterBank();
+        this.registerList = new RegisterBank();
         setLogOption(_writeLog);
     }
 
     private void setLogOption(boolean _writeLog) {
         this.writeLog = _writeLog;
-        if(writeLog) configureLog();
+        if (writeLog) {
+            configureLog();
+        }
     }
 
     public void reset() {
@@ -103,7 +105,7 @@ public class CPU extends Watchable {
     public boolean breakpointsEnabled() {
         return this.executionManager.breakpointsEnabled();
     }
-    
+
     public void enableBreakpoints() {
         this.executionManager.enableBreakpoints();
     }
@@ -148,9 +150,13 @@ public class CPU extends Watchable {
         if (!this.isHalted()) {
             if (inst != null) {
                 try {
-                    if(executionManager.breakpointsEnabled() && executionManager.onBreakpoint()) throw new BreakpointException("Breakpoint reached");
+                    if (executionManager.breakpointsEnabled() && executionManager.onBreakpoint()) {
+                        throw new BreakpointException("Breakpoint reached");
+                    }
                     inst.execute(executionManager, memory, stack, inStr, outStr, registerList);
-                    if(writeLog) log(inst.toString());
+                    if (writeLog) {
+                        log(inst.toString());
+                    }
                     this.executionManager.onNextInstruction();
                 } catch (RecoverableException re) {
                     this.notifyViews(re.getMessage());
@@ -173,8 +179,9 @@ public class CPU extends Watchable {
      */
     public void runProgram() {
         try {
-            if(!executionManager.breakpointsEnabled() && !executionManager.onBreakpoint())
+            if (!executionManager.breakpointsEnabled() && !executionManager.onBreakpoint()) {
                 step();
+            }
             while (!this.isHalted() && !executionManager.breakpointsEnabled() && !executionManager.onBreakpoint())
                 step();
         } catch (RecoverableException e) {
@@ -289,7 +296,7 @@ public class CPU extends Watchable {
     }
 
     public void addRegisterWatcher(Watcher w) {
-    	this.registerList.addWatcher(w);
+        this.registerList.addWatcher(w);
     }
 
     public void deleteAsignedWatchers() {
@@ -313,7 +320,7 @@ public class CPU extends Watchable {
     @Override
     public String toString() {
         return System.lineSeparator() + memory.toString() +
-        	   System.lineSeparator() + stack.toString()  +
-        	   System.lineSeparator() + registerList.toString();
+                System.lineSeparator() + stack.toString() +
+                System.lineSeparator() + registerList.toString();
     }
 }

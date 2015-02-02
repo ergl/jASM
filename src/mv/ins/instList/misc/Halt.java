@@ -24,19 +24,19 @@ public class Halt extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
-            throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
 
         executionManager.stop();
     }
 
     /**
      * Crea un objeto de la operación correspondiente.
-<<<<<<< HEAD:src/mv/ins/instList/misc/Halt.java
+     * <<<<<<< HEAD:src/mv/ins/instList/misc/Halt.java
+     * <p>
+     * =======
+     * <p>
+     * >>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/ins/instList/misc/Halt.java
      *
-=======
-     * 
->>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/ins/instList/misc/Halt.java
      * @return el objeto operación determinado
      */
     @Override

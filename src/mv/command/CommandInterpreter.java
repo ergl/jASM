@@ -13,7 +13,7 @@ public abstract class CommandInterpreter {
     protected static final String INST_MSG_BEGIN = "Comienza la ejecución de: ";
     protected static final String EXEC_END = "El estado de la máquina tras ejecutar la instrucción es: ";
 
-	protected static CPU cpu;
+    protected static CPU cpu;
 
     /**
      * Establece la cpu sobre la que actuarán los diversos comandos.
