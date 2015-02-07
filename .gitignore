@@ -3,6 +3,12 @@
 # Project Specifics #
 src/ui/res/
 !src/mv/strategies/out
+# ASM source code files
+*.asm
+# input files
+*.in
+# output files
+*.out
 
 ### Windows ###
 # Windows image file caches
