@@ -2,12 +2,6 @@ package mv.ins.instList.arithmetics;
 
 import mv.ins.Instruction;
 
-/**
- * Realiza la operación de multipicación sobre la pila.
- *
- * @author Borja
- * @author Chaymae
- */
 public class Mul extends Arithmetics {
 
     public Mul() {

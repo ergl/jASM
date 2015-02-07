@@ -10,12 +10,9 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 /**
- * Configuración de entrada cuando se especifica un archivo de entrada.
- * Dado que todas las posibles excepciones que pueden darse ya habrán sido lanzadas y
- * solucionadas antes de ejecutar los métodos de esta clase, no hacemos nada con ellas aquí.
+ * Input configuration when an input file has been given
  *
  * @author Borja
- * @author Chaymae
  */
 public class FileInputStrategy implements InStrategy {
 
@@ -35,9 +32,6 @@ public class FileInputStrategy implements InStrategy {
         }
     }
 
-    /**
-     * Si por algún motivo no puede leerse de fichero, o ya se ha llegado al final de él, devolveremos -1 (marca de final de fichero)
-     */
     @Override
     public int read() {
         int value;

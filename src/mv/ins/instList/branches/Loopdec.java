@@ -13,6 +13,7 @@ import mv.ins.instList.TwoParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
+// TODO: Check wtf is this supposing to do
 public class Loopdec extends TwoParamInst {
 
     public Loopdec() {
@@ -26,8 +27,9 @@ public class Loopdec extends TwoParamInst {
 
     @Override
     public Instruction parse(String input) {
+
         input = input.trim();
-        String[] tokens = input.split("\\s");
+        String[] tokens = input.split("\\s"); // TODO: wtf is \\s for
 
         if (tokens.length != 3) {
             return null;
@@ -39,12 +41,11 @@ public class Loopdec extends TwoParamInst {
         }
 
         int param = Character.getNumericValue(register[1]);
-
         if (!Commons.isInteger(tokens[2])) {
             return null;
         }
-        int auxparam = Integer.parseInt(tokens[2]);
 
+        int auxparam = Integer.parseInt(tokens[2]);
         if (tokens[0].equalsIgnoreCase(orden)) {
             return new Loopdec("R", param, auxparam);
         }
@@ -53,7 +54,8 @@ public class Loopdec extends TwoParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         registers.store(param, registers.load(param) - 1);
 
@@ -70,5 +72,4 @@ public class Loopdec extends TwoParamInst {
     protected Instruction getInst(int param) {
         return null;
     }
-
 }

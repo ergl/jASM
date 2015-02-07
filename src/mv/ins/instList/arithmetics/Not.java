@@ -12,12 +12,6 @@ import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-/**
- * Realiza la operación de Not sobre la cima de la pila.
- *
- * @author Borja
- * @author Chaymae
- */
 public class Not extends Arithmetics {
 
     public Not() {
@@ -35,7 +29,8 @@ public class Not extends Arithmetics {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         if (!stack.isEmpty()) {
             int tmp = stack.popValue();

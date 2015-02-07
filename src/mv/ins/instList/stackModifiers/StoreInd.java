@@ -15,11 +15,9 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Realiza la operación de STORE del valor de la cima de la pila en la referencia indicada por la subcima de la pila.
- * En caso de que sea una operación imposible, vuelve a apilar los valores en la pila.
+ * Stores the value of the summit of the stack on the reference given by the second to first element on the stack
  *
  * @author Borja
- * @author Chaymae
  */
 public class StoreInd extends OneParamInst {
 
@@ -33,7 +31,8 @@ public class StoreInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         if (stack.elements() >= 2) {
             int value = stack.popValue();

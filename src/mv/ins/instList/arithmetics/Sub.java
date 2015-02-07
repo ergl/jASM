@@ -2,12 +2,6 @@ package mv.ins.instList.arithmetics;
 
 import mv.ins.Instruction;
 
-/**
- * Realiza la operació de resta sobre la pila.
- *
- * @author Borja
- * @author Chaymae
- */
 public class Sub extends Arithmetics {
 
     public Sub() {

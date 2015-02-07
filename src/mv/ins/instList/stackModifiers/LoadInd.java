@@ -11,11 +11,9 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Realiza una operación de LOAD con referencia indicada por la cima de la pila.
- * En caso de que sea una operación ilegal, vuelve a apilar dicho valor.
+ * Loads the summit of the stack on the given reference
  *
  * @author Borja
- * @author Chaymae
  */
 public class LoadInd extends OneParamInst {
 
@@ -29,7 +27,8 @@ public class LoadInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         if (!stack.isEmpty()) {
             int read = stack.popValue();
@@ -39,10 +38,10 @@ public class LoadInd extends OneParamInst {
                     if (pos != -1) {
                         stack.pushValue(memory.loadValue(pos));
                     } else {
-                        throw new MemoryException("La celda seleccionada está vacía.");
+                        throw new MemoryException("Error: Selected cell is empty");
                     }
                 } else {
-                    throw new MemoryException("La celda seleccionada está vacía.");
+                    throw new MemoryException("Error: Memory is empty");
                 }
             } else {
                 stack.pushValue(read);

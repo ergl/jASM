@@ -13,10 +13,9 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Clase abstracta común a todas las operaciones aritméticas en la pila
+ * Arithmetic operations instruction superclass
  *
  * @author Borja
- * @author Chaymae
  */
 public abstract class Arithmetics extends OneParamInst {
 
@@ -28,7 +27,8 @@ public abstract class Arithmetics extends OneParamInst {
     protected abstract Instruction getInst();
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         int tmp1, tmp2;
         if (stack.elements() >= 2) {

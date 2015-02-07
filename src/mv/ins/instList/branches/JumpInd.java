@@ -12,11 +12,10 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Realiza la operación de salto dependiendo del valor de la cima de la pila.
- * En caso de que sea imposible el salto, vuelve a apilar el valor en la pila.
+ * Inconditonal Jump to the stack heap.
+ * If the stack heap is an impossible value to jump to, pushes again to the stack
  *
  * @author Borja
- * @author Chaymae
  */
 public class JumpInd extends OneParamInst {
 
@@ -30,12 +29,15 @@ public class JumpInd extends OneParamInst {
     }
 
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws RecoverableException {
+
         if (!stack.isEmpty()) {
             int value = stack.popValue();
             executionManager.setPc(value);
         } else {
             throw new StackException(this, stack.elements());
+            // TODO: push to the stack again?
         }
     }
 }

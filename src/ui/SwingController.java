@@ -8,13 +8,6 @@ import mv.cpu.ProgramMV;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-/**
- * Controlador del Vista Swing
- * Accede directamen a la CPU, y es observado por SwingView
- *
- * @author Borja
- * @author Chaymae
- */
 public class SwingController {
 
     private CPU cpu;
@@ -25,11 +18,11 @@ public class SwingController {
 
     private SwingView swingView;
 
-    public SwingController(CPU _cpu, ProgramMV _program, InStrategy _inStr, OutStrategy _outStr) {
-        this.cpu = _cpu;
-        this.program = _program;
-        this.inStr = _inStr;
-        this.outStr = _outStr;
+    public SwingController(CPU cpu, ProgramMV program, InStrategy inStr, OutStrategy outStr) {
+        this.cpu = cpu;
+        this.program = program;
+        this.inStr = inStr;
+        this.outStr = outStr;
     }
 
     public void addView(SwingView view) {

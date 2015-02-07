@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * Configuración de entrada cuando no se especifica un archivo de entrada.
+ * Input configuration when no input file has been given
  *
  * @author Borja
- * @author Chaymae
  */
 public class ConsoleInputStrategy implements InStrategy {
 
@@ -34,7 +33,7 @@ public class ConsoleInputStrategy implements InStrategy {
 
     @Override
     public char[] showFile() {
-        /* There is no file to show */
+        // There is no file to show
         return null;
     }
 

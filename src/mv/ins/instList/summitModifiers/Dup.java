@@ -5,12 +5,6 @@ import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-/**
- * Realiza la operación de Dup sobre la pila.
- *
- * @author Bora
- * @author Chaymae
- */
 public class Dup extends SummitModifiers {
 
     public Dup() {

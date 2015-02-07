@@ -5,12 +5,6 @@ import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-/**
- * Realiza la operación de Neg sobre la pila.
- *
- * @author Borja
- * @author Chaymae
- */
 public class Neg extends SummitModifiers {
 
     public Neg() {

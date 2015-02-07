@@ -11,7 +11,7 @@ import mv.strategies.OutStrategy;
 public class TextController {
 
     private static final String END_TOKEN = "QUIT";
-    private static final String COMM_ERROR = "Error: Comando no reconocido";
+    private static final String COMM_ERROR = "Error: Unknown command";
 
     private CPU cpu;
     private ProgramMV program;
@@ -25,14 +25,14 @@ public class TextController {
 
     private TextView textView;
 
-    public TextController(CPU _cpu, ProgramMV _program, InStrategy _inStr, OutStrategy _outStr) {
-        this.cpu = _cpu;
-        this.program = _program;
+    public TextController(CPU cpu, ProgramMV program, InStrategy inStr, OutStrategy outStr) {
+        this.cpu = cpu;
+        this.program = program;
 
         this.isHalted = false;
 
-        this.inStr = _inStr;
-        this.outStr = _outStr;
+        this.inStr = inStr;
+        this.outStr = outStr;
 
         CommandInterpreter.configureCommandInterpreter(cpu);
     }

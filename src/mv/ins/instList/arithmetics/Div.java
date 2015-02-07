@@ -12,24 +12,15 @@ import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-/**
- * Realiza la operación de división sobre la pila.
- *
- * @author Borja
- * @author Chaymae
- */
 public class Div extends Arithmetics {
 
     public Div() {
         super("DIV");
     }
 
-    /**
-     * Ejecuta la división sobre la pila.
-     * Comprueba que la cima no sea cero.
-     */
     @Override
-    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException {
+    public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException {
 
         int tmp1, tmp2;
         if (stack.elements() >= 2) {
@@ -41,7 +32,7 @@ public class Div extends Arithmetics {
             } catch (ArithmeticException ae) {
                 stack.pushValue(tmp2);
                 stack.pushValue(tmp1);
-                throw new RecoverableException("Error ejecutando: " + this + ": " + "División por cero");
+                throw new RecoverableException("Error: On instruction: " + this + ": " + "Division by zero");
             }
         } else {
             throw new StackException(this, stack.elements());

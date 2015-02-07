@@ -4,11 +4,9 @@ import mv.cpu.ExecutionManager;
 import mv.ins.Instruction;
 
 /**
- * Realiza la operación de salto condicional true.
- * Salta si el valor de la pila es distinto de cero.
+ * Conditional jump to X if stack heap is != 0 (true)
  *
  * @author Borja
- * @author Chaymae
  */
 public class Bt extends Branches {
 
@@ -20,22 +18,11 @@ public class Bt extends Branches {
         super("BT", param);
     }
 
-    /**
-     * Crea un objeto de la operación correspondiente.
-     *
-     * @return el objeto operación determinado
-     */
     @Override
     protected Instruction getInst(int param) {
         return new Bt(param);
     }
 
-    /**
-     * Realiza la operación de salto sobre la unidad de control.
-     *
-     * @param controlUnit la unidad de control sobre la que se opera
-     * @param value valor al que se quiere saltar
-     */
     @Override
     protected void operation(ExecutionManager controlUnit, int value) {
         if (value != 0) {

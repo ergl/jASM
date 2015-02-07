@@ -3,10 +3,9 @@ package mv.strategies.out;
 import mv.strategies.OutStrategy;
 
 /**
- * Configuración de salida cuando no se especifica un archivo de salida
+ * Output configuration when no output file has been given
  *
  * @author Borja
- * @author Chaymae
  */
 public class ConsoleWriteStrategy implements OutStrategy {
 

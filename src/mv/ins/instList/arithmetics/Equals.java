@@ -2,13 +2,6 @@ package mv.ins.instList.arithmetics;
 
 import mv.ins.Instruction;
 
-/**
- * Realiza la operación de Equals sobre la pila.
- * Apila un 1 en la pila si la cima anterior es igual a la subcima.
- *
- * @author Borja
- * @author Chaymae
- */
 public class Equals extends Arithmetics {
 
     public Equals() {

@@ -9,13 +9,13 @@ import java.util.Scanner;
 
 public class TextView implements Watcher {
 
+    private Scanner sc;
     private ExecutionMode mode;
     private TextController controller;
-    private Scanner sc;
 
-    public TextView(TextController _cont, Main.ExecutionMode _mode) {
-        this.mode = _mode;
-        this.controller = _cont;
+    public TextView(TextController cont, Main.ExecutionMode mode) {
+        this.mode = mode;
+        this.controller = cont;
         this.sc = new Scanner(System.in);
     }
 

@@ -7,43 +7,46 @@ import mv.ins.instList.stackModifiers.*;
 import mv.ins.instList.summitModifiers.*;
 
 /**
- * Genera una instruccción a partir del input del usuario.
+ * Parses user input into instruction objects
  *
  * @author Borja
- * @author Chaymae
  */
 public class InstructionParser {
 
     private static Instruction[] instructionList = {
         /* Arithmetics */
-            new Add(), new Sub(), new Mul(), new Div(), new And(), new Equals(), new GreaterThan(), new LessEqual(), new LessThan(), new Not(), new Or(),
+            new Add(), new Sub(), new Mul(),
+            new Div(), new And(), new Equals(),
+            new GreaterThan(), new LessEqual(),
+            new LessThan(), new Not(), new Or(),
         
         /* Branches */
-            new Bf(), new Bt(), new Jump(), new JumpInd(), new RBf(), new RBt(), new RJump(),
+            new Bf(), new Bt(), new Jump(),
+            new JumpInd(), new RBf(), new RBt(), new RJump(),
         
         /* Stack Modifiers */
-            new Push(), new Store(), new Load(), new LoadInd(), new StoreInd(),
+            new Push(), new Store(), new Load(),
+            new LoadInd(), new StoreInd(),
         
         /* Summit Modifiers */
-            new Pop(), new Dup(), new Flip(), new Neg(), new In(), new Out(),
+            new Pop(), new Dup(), new Flip(),
+            new Neg(), new In(), new Out(),
         
-        /* Misc */
+        /* Meta */
             new Halt(),
         
-        /* Examen */
-            new Move(), new Loopdec()
-
-
+        /* TODO: ??? */
+            new Move(),
+            new Loopdec()
     };
 
     /**
-     * Devuelve un objeto Instruction que podra ser procesado por la cpu.
-     * El input debe estar correctamente formateado o de lo contrario ignorara
-     * la orden y se interpretara como un error.
+     * Parses user input and creates an Instruction object that can be processed by the CPU
+     * If the input is wrongly formatted it will ignore the order and it will be parsed as an error
      *
-     * @param input string describiendo una instrucción
+     * @param input user input describing an instruction
      *
-     * @return instrucción correctamente formateado
+     * @return Parsed instruction or null
      */
     public static Instruction parse(String input) {
         for (Instruction inst : instructionList) {

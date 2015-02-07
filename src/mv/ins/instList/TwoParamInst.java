@@ -12,11 +12,11 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Clase abstracta común a todas las instrucciones que reciben un parámetro del usuario.
+ * Describes all instructions that get a parameter (store, load...)
  *
  * @author Borja
- * @author Chaymae
  */
+// TODO: Refactor into separate classes -> OneParam to NoParam, TwoParam to OneParam, and come up with new classes for instructions with more than one parameter
 public abstract class TwoParamInst implements Instruction {
 
     protected String orden;
@@ -52,24 +52,11 @@ public abstract class TwoParamInst implements Instruction {
         this.auxParam = param1;
     }
 
-    /**
-     * Método encargado de ejecutar la operación sobre la CPU.
-     */
-    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) throws UnrecoverableException, RecoverableException;
+    public abstract void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers)
+            throws UnrecoverableException, RecoverableException;
 
-    /**
-     * Crea un objeto de la operación correspondiente.
-     *
-     * @return el objeto operación determinado
-     */
     protected abstract Instruction getInst(int param);
 
-    /**
-     * Analiza el input del usuario.
-     * Necesita un parámetro.
-     *
-     * @return la instrucción defindia por el usuario. Si la instrucción no existe devolverá una instrucción nula.
-     */
     public Instruction parse(String input) {
         input = input.trim();
         String[] tokens = input.split("\\ ");
@@ -88,9 +75,6 @@ public abstract class TwoParamInst implements Instruction {
         return null;
     }
 
-    /**
-     * Devuelve una versión imprimible de la operación.
-     */
     @Override
     public String toString() {
         if (this.register == null) {

@@ -8,12 +8,6 @@ import mv.ins.Instruction;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-/**
- * Realiza la operación de Flip sobre la pila.
- *
- * @author Borja
- * @author Chaymae
- */
 public class Flip extends SummitModifiers {
 
     public Flip() {

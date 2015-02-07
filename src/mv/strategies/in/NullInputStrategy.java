@@ -23,7 +23,7 @@ public class NullInputStrategy implements InStrategy {
 
     @Override
     public char[] showFile() {
-        /* There is no file to show */
+        // There is no file to show
         return null;
     }
 

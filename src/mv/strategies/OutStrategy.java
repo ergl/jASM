@@ -1,10 +1,9 @@
 package mv.strategies;
 
 /**
- * Describe la configuración de salida.
+ * Describes the output configuration
  *
  * @author Borja
- * @author Chaymae
  */
 public interface OutStrategy {
     abstract void open();

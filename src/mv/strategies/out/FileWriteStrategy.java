@@ -11,10 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Configuración de salida cuando se especifica un archivo de salida
+ * Output configuration when an output file has been given
  *
  * @author Borja
- * @author Chaymae
  */
 public class FileWriteStrategy implements OutStrategy {
 
@@ -27,12 +26,6 @@ public class FileWriteStrategy implements OutStrategy {
         this.fileName = file;
     }
 
-    /**
-     * Abre el archivo de salida.
-     * En caso de que el archivo no exista, crea un archivo TXT con el nombre indicado por el parámetro -o de la aplicación.
-     * Dado que todas las posibles excepciones que pueden darse ya habrán sido lanzadas y
-     * solucionadas antes de ejecutar éste método, no hacemos nada con ellas aquí.
-     */
     @Override
     public void open() {
         this.outFilePath = Paths.get(this.fileName);

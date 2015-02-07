@@ -6,11 +6,9 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Realiza la operación OUT
- * Muestra por consola o escribe a fichero el valor indicado por la cima de la pila
+ * Pops the summit of the stack and sends it to output (stdout or file)
  *
  * @author Borja
- * @author Chaymae
  */
 public class Out extends SummitModifiers {
 

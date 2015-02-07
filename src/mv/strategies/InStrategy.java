@@ -3,10 +3,9 @@ package mv.strategies;
 import java.nio.file.Path;
 
 /**
- * Describe la configuración de entrada.
+ * Describes the input configuration
  *
  * @author Borja
- * @author Chaymae
  */
 public interface InStrategy {
     abstract void open(Path filePath);

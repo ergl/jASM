@@ -9,10 +9,9 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Realiza la operación de salto relativo incondicional.
+ * Relative jump to X
  *
  * @author Borja
- * @author Chaymae
  */
 public class RJump extends Branches {
 
@@ -24,11 +23,6 @@ public class RJump extends Branches {
         super("RJUMP", param);
     }
 
-    /**
-     * Crea un objeto de la operación correspondiente.
-     *
-     * @return el objeto operación determinado
-     */
     @Override
     protected Instruction getInst(int param) {
         return new RJump(param);
@@ -38,9 +32,6 @@ public class RJump extends Branches {
     protected void operation(ExecutionManager controlUnit, int value) {
     }
 
-    /**
-     * Método encargado de ejecutar la operación sobre la CPU.
-     */
     @Override
     public void execute(ExecutionManager executionManager, Memory memory, OperandStack stack, InStrategy in, OutStrategy out, RegisterBank registers) {
         executionManager.incrementPc(this.param);

@@ -9,11 +9,10 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Realiza la operación IN, apilando un valor input en la cima de la pila.
- * Apila -1 en caso de que no exista input o se haya llegado al final de fichero.
+ * Pushes onto the stack a value from input (stdin or file).
+ * If no value exists, pushes -1
  *
  * @author Borja
- * @author Chaymae
  */
 public class In extends SummitModifiers {
 
