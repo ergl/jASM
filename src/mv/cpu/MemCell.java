@@ -1,12 +1,10 @@
 package mv.cpu;
 
 /**
- * Unidad individual de la Memoria.
- * La celula de memoria se compone de un valor y una referencia asociada
- * que podria compararse a su direccion de memoria.
+ * Individual Memory Cell
+ * Each cell has a value and a reference (memory address)
  *
  * @author Borja
- * @author Chaymae
  */
 public class MemCell {
 

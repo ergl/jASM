@@ -1,12 +1,10 @@
 package commons.exceptions;
 
 /**
- * Excepción de programa que el usuario puede solucionar mediante Debug.
+ * Error in the ASM execution or any other error that can be corrected by the user.
  *
  * @author Borja
- * @author Chaymae
  */
-@SuppressWarnings("serial")
 public class RecoverableException extends Exception {
 
     public RecoverableException(String message) {

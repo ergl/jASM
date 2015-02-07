@@ -4,47 +4,46 @@ import commons.exceptions.RecoverableException;
 import mv.cpu.CPU;
 
 /**
- * Clase abstracta común a todos los comandos de debug de la VM.
+ * Sets up the debug environment and describes common commands methods
  *
  * @author Borja
- * @author Chaymae
  */
 public abstract class CommandInterpreter {
-    protected static final String INST_MSG_BEGIN = "Comienza la ejecución de: ";
-    protected static final String EXEC_END = "El estado de la máquina tras ejecutar la instrucción es: ";
+
+    protected static final String EXEC_END = "CPU state after step: ";
+    protected static final String INST_MSG_BEGIN = "Executing: ";
 
     protected static CPU cpu;
 
-    /**
-     * Establece la cpu sobre la que actuarán los diversos comandos.
-     */
-    public static void configureCommandInterpreter(CPU _cpu) {
-        cpu = _cpu;
+    // Which CPU are we debugging?
+    public static void configureCommandInterpreter(CPU cpu) {
+        CommandInterpreter.cpu = cpu;
     }
 
     /**
-     * Analiza el input de un usuario y lo transforma en comando.
+     * Parses user input and returns the appropriate Command object
      *
-     * @param input input del usuario
+     * @param input user input
      *
-     * @return objeto comando correctamente formateado
+     * @return Appropriate Command object
      */
     public abstract CommandInterpreter parseComm(String input);
 
     /**
-     * Método encargado de ejecutar el comando sobre la CPU.
+     * Executes the command
+     *
+     * @param cpu CPU in which to execute the command
      *
      * @throws RecoverableException TODO
      */
     public abstract void executeCommand(CPU cpu) throws RecoverableException;
 
     /**
-     * Método que determina si la CPU está apagada.
+     * Is the CPU off?
      *
-     * @return el estado de la CPU
+     * @return CPU state
      */
     public static boolean isQuit() {
         return cpu.isHalted();
     }
-
 }

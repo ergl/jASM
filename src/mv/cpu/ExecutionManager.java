@@ -5,16 +5,15 @@ import commons.watcherPattern.Watchable;
 import java.util.ArrayList;
 
 /**
- * Unidad de control de la CPU.
- * Realiza todas las operaciones relacionadas con el contador de programa y el estado de la CPU.
+ * CPU control unit
+ * Executes all instructions related with the program counter or CPU state
  *
  * @author Borja
- * @author Chaymae
  */
 public class ExecutionManager extends Watchable {
 
-    private int currentPc;
     private int nextPc;
+    private int currentPc;
     private int programCont;
     private boolean halt;
 
@@ -29,38 +28,46 @@ public class ExecutionManager extends Watchable {
         this.breakpoints = new ArrayList<Integer>();
     }
 
+    // are we on a breakpoint?
     boolean onBreakpoint() {
         return breakpoints.contains(currentPc);
     }
 
+    // adds a breakpoint on the given instruction
     void addBreakpoint(Integer i) {
         if (!breakpoints.contains(i)) {
             breakpoints.add(i);
         }
     }
 
+    // deletes the breakpoint on i
     void deleteBreakpoint(Integer i) {
         if (breakpoints.contains(i)) {
             breakpoints.remove(i);
         }
     }
 
+    // Delete all breakpoints
     void clearBreakpoints() {
         breakpoints.clear();
     }
 
+    // Enable all breakpoints
     void enableBreakpoints() {
         this.enableBreakpoints = true;
     }
 
+    // Disable all breakpoints
     void disableBreakpoints() {
         this.enableBreakpoints = false;
     }
 
+    // Are breakpoints enables?
     boolean breakpointsEnabled() {
         return this.enableBreakpoints;
     }
 
+    // Reset the program counter
     void reset() {
         currentPc = 0;
         nextPc = currentPc + 1;
@@ -70,50 +77,24 @@ public class ExecutionManager extends Watchable {
     }
 
     /**
-     * Establece el número de instrucciones del programa.
-     * <<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
-     * <p>
-     * =======
-     * <p>
-     * <<<<<<< HEAD:src/mv/cpu/ExecutionManager.java
-     * >>>>>>> af02449... Fixed bug preventing pausing/resetting program when pressing Run button multiple times. Changed package structure to new standard:src/mv/cpu/ExecutionManager.java
-     * =======
-     * >>>>>>> 2fdcfe6... Changed package hierarchy and fixed some code style issues:src/mv/cpu/ExecutionManager.java
+     * Sets the number of instructions on the program
      *
-     * @param programCont el número de instrucciones a ejecutar
+     * @param programCont instruction counter
      */
     public void configureExecutionManager(int programCont) {
         this.programCont = programCont;
     }
 
-    /**
-     * Devuelve el contador de programa.
-     *
-     * @return el contador de programa
-     */
     public int getPc() {
         return this.currentPc;
     }
 
-    /**
-     * Cambia el valor del contador de programa.
-     * La CPU debe estár activa y el nuevo valor debe ser válido.
-     * Éste método se ejecuta al realizar una operación Branch
-     *
-     * @param newPc el nuevo valor del contador de programa
-     */
     public void setPc(int newPc) {
         if (!this.halt && newPc >= 0) {
             this.nextPc = newPc;
         }
     }
 
-    /**
-     * Aumenta el valor del contador de programa.
-     * Éste método se ejecuta al realizar una operación RBranch
-     *
-     * @param increment la cantidad que debe aumentar el contador de programa
-     */
     public void incrementPc(int increment) {
         if (!this.halt && (this.nextPc + increment - 1 >= 0)) {
             this.nextPc += increment - 1;
@@ -121,12 +102,12 @@ public class ExecutionManager extends Watchable {
     }
 
     /**
-     * Sitúa el contador de programa en la siguiente operación a ejecutar.
-     * Éste método se ejecuta con cada step de la CPU
+     * Sets the program counter on the next instruction to be executed.
+     * Will be called on each CPU step
      */
     public void onNextInstruction() {
-        /*
-        if(enableBreakpoints && breakpoints.contains(currentPc)) {
+        /* TODO: Why is this commented out?
+        if(breakpointsEnabled() && breakpoints.contains(currentPc)) {
     		this.setChanged();
     		this.notifyViews(currentPc);
     		return;
@@ -143,18 +124,10 @@ public class ExecutionManager extends Watchable {
         }
     }
 
-    /**
-     * Apaga la CPU y la VM
-     */
     public void stop() {
         this.halt = true;
     }
 
-    /**
-     * Devuelve el estado de la CPU.
-     *
-     * @return el estado de la CPU
-     */
     public boolean isHalted() {
         return this.halt;
     }

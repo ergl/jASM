@@ -1,12 +1,10 @@
 package commons.exceptions;
 
 /**
- * Excepción de programa que finaliza la ejecución del programa
+ * Any error that causes jASM to exit
  *
  * @author Borja
- * @author Chaymae
  */
-@SuppressWarnings("serial")
 public class UnrecoverableException extends Exception {
 
     public UnrecoverableException(String message) {

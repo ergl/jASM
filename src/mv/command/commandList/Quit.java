@@ -4,15 +4,11 @@ import mv.command.CommandInterpreter;
 import mv.cpu.CPU;
 
 /**
- * Realiza la operación de Quit sobre la CPU.
- *
- * @author Borja
- * @author Chaymae
+ * Shuts down the debugger.
  */
 public class Quit extends CommandInterpreter {
 
-    public Quit() {
-    }
+    public Quit() {}
 
     @Override
     public void executeCommand(CPU cpu) {

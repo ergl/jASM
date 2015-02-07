@@ -19,10 +19,10 @@ public class ProgramMV {
     private static char COMMENT_DELIMITER = '@';
 
     private static final int MAX_PROGRAM_SIZE = 100;
-    private static final String MSG_INTRO = "Introduce el programa fuente: ";
+    private static final String MSG_INTRO = "Input your program here\n(END to stop): ";
     private static final String MSG_PROMPT = "> ";
-    private static final String MSG_ERROR = "Error: Instruccion incorrecta";
-    private static final String MSG_SHOW = "El programa introducido es: ";
+    private static final String MSG_ERROR = "Error: Syntax error";
+    private static final String MSG_SHOW = "Program to be executed: ";
     private static final String END_TOKEN = "END";
 
     private Vector<Instruction> program;
@@ -32,11 +32,12 @@ public class ProgramMV {
     }
 
     /**
-     * Método encargado de leer el programa, mostrando al usuario el prompt y los mensajes de información o error.
-     * La ejecución termina cuando el usuario introduce el valor definido por PR_END_TOKEN. Al terminar de leer se muestra el programa cargado.
+     * Parse the source code from stdin
      *
-     * @param scanner de entrada desde Main
-     */
+     * Will be executed until user inputs the END_TOKEN
+     *
+     * @param scanner open stdin scanner
+    */
     public void readProgram(Scanner scanner) {
         System.out.println(MSG_INTRO);
         System.out.print(MSG_PROMPT);
@@ -55,17 +56,17 @@ public class ProgramMV {
     }
 
     /**
-     * Lee el programa desde un fichero. Admite comentarios en el fichero
-     * Dado que las excepciones de fichero no existente ya han sido comprobadas y solucionadas antes,
-     * no hacemos nada con ellas aquí
+     * Parse the source code from a file
      *
-     * @param file fichero donde se encuentra el programa
+     * Will be executed until user inputs the END_TOKEN
+     *
+     * @param file source code file
+     * @throws commons.exceptions.UnrecoverableException
      */
     public void readProgram(String file) throws UnrecoverableException {
-
+        Instruction inst;
         BufferedReader bf = null;
         Path input = Paths.get(file);
-        Instruction inst;
 
         try {
             bf = Files.newBufferedReader(input, Charset.defaultCharset());
@@ -106,24 +107,12 @@ public class ProgramMV {
         }
     }
 
-    /**
-     * Añade una instrucción al programa.
-     *
-     * @param inst Instrucción a introducir
-     */
     private void addInstruction(Instruction inst) {
         if (this.program.size() < MAX_PROGRAM_SIZE) {
             this.program.add(inst);
         }
     }
 
-    /**
-     * Devuelve la instrucción en la posición definida.
-     *
-     * @param i posición de una instrucción en el programa
-     *
-     * @return Devuelve la instrucción en la posición definida, si la posición no existe, devolverá una instrucción nula
-     */
     public Instruction getInstructionAt(int i) {
         if (i >= 0 || i < MAX_PROGRAM_SIZE) {
             return program.elementAt(i);
@@ -132,11 +121,7 @@ public class ProgramMV {
         }
     }
 
-    /**
-     * Devuelve el número de instrucciones del programa.
-     *
-     * @return el número de instrucciones en el programa
-     */
+    // Get the number of instructions in the program
     public int getCont() {
         return program.size();
     }

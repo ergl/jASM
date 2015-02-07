@@ -1,16 +1,14 @@
 package commons.exceptions;
 
 /**
- * Excepción que ocurre cuando se accede a una posición ilegal de la memoria.
+ * Trying to read or write in an illegal memory address
  *
  * @author Borja
- * @author Chaymae
  */
-@SuppressWarnings("serial")
 public class OutOfBoundMemoryException extends UnrecoverableException {
 
     public OutOfBoundMemoryException(int illegalReference) {
-        super("Acceso a memoria fuera de rango. (Acceso a referencia " + illegalReference + ")");
+        super("Error: Memory address is out of bounds. (Trying to read from / write to address: " + illegalReference + ")");
     }
 
     public String getMessage() {

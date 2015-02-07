@@ -5,11 +5,7 @@ import mv.command.CommandInterpreter;
 import mv.cpu.CPU;
 
 /**
- * Realiza la operación Run sobre la CPU.
- * Realiza la operación step tantas veces como operaciones tenga el programa a ejecutar.
- *
- * @author Borja
- * @author Chaymae
+ * Runs the target ASM program
  */
 public class Run extends Step {
 
@@ -24,6 +20,10 @@ public class Run extends Step {
         input = input.trim();
         String[] tokens = input.split("\\ ");
 
-        return ((tokens.length == 1) && (tokens[0].equalsIgnoreCase("RUN"))) ? new Run() : null;
+        if ((tokens.length == 1) && (tokens[0].equalsIgnoreCase("RUN"))) {
+            return new Run();
+        } else {
+            return null;
+        }
     }
 }

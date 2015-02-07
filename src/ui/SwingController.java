@@ -134,7 +134,7 @@ public class SwingController {
             this.cpu.stop();
             this.inStr.close();
             this.outStr.close();
-            this.cpu.deleteAsignedWatchers();
+            this.cpu.deleteAssignedWatchers();
         } catch (NullPointerException e) { /* Ignore */ }
     }
 }

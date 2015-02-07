@@ -5,18 +5,16 @@ import mv.command.CommandInterpreter;
 import mv.cpu.CPU;
 
 /**
- * Realiza la operación de Write sobre la CPU.
- * Esta operación es independiente del programa y existe con fines de debug.
+ * Executes a Store Instruction on the CPU
  *
- * @author Borja
- * @author Chaymae
+ * @see mv.ins.instList.stackModifiers.Store
  */
 public class DebugWrite extends CommandInterpreter {
+
     private int ref;
     private int val;
 
-    public DebugWrite() {
-    }
+    public DebugWrite() {}
 
     public DebugWrite(int _ref, int _val) {
         this.ref = _ref;

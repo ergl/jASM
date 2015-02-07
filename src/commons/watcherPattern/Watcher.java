@@ -1,11 +1,7 @@
 package commons.watcherPattern;
 
 /**
- * Ver Observer
- * Implementación propia de la clase Observer del patrón Observer.
- *
- * @author Borja
- * @author Chaymae
+ * @see java.util.Observer
  */
 public interface Watcher {
 

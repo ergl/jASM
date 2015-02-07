@@ -1,12 +1,10 @@
 package commons.exceptions;
 
 /**
- * Excepción que ocurre cuando no existen elementos en la memoria o se intenta cargar de una celda vacía.
+ * Trying to read from an empty memory cell, or if the memory is empty.
  *
  * @author Borja
- * @author Chaymae
  */
-@SuppressWarnings("serial")
 public class MemoryException extends RecoverableException {
 
     public MemoryException(String message) {

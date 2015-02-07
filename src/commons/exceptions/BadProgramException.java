@@ -1,16 +1,14 @@
 package commons.exceptions;
 
 /**
- * Excepción que ocurre cuando el programa ASM contiene sintaxis incorrecto.
+ * Syntax error in ASM source code
  *
  * @author Borja
- * @author Chaymae
  */
-@SuppressWarnings("serial")
 public class BadProgramException extends UnrecoverableException {
 
     public BadProgramException(String badInstruction) {
-        super("Error en el programa. Línea: " + badInstruction);
+        super("Error: Syntax error. In line: " + badInstruction);
     }
 
     public String getMessage() {

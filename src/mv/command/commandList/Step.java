@@ -6,16 +6,11 @@ import mv.cpu.CPU;
 import mv.ins.Instruction;
 
 /**
- * Realiza la operación Step sobre la CPU.
- * Sienta las bases para otras clase que usarán sus métodos.
- *
- * @author Borja
- * @author Chaymae
+ * Executes a Step in the debugger
  */
 public class Step extends CommandInterpreter {
 
-    public Step() {
-    }
+    public Step() {}
 
     @Override
     public void executeCommand(CPU cpu) throws RecoverableException {

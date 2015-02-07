@@ -48,7 +48,7 @@ public class RegisterBank extends Watchable {
         ListIterator<Register> li = registerList.listIterator();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Registros: ");
+        sb.append("Register: ");
 
         while (li.hasNext()) {
             Register n = li.next();

@@ -22,19 +22,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Ejecuta las instrucciones especificadas por el usuario.
- * Llama a sus observadores cuando se realiza una acción. Ver CPUMessage
+ * Main component of the VM. It executes the instructions and commands given by the user.
+ * Each change is broadcasted to its observers
  *
  * @author Borja
- * @author Chaymae
  */
 public class CPU extends Watchable {
 
-    private static final String SHOW_STATUS = "El estado de la máquina tras ejecutar la instrucción es: ";
-    private static final String INST_MSG_BEGIN = "Comienza la ejecución de: ";
+    private static final String SHOW_STATUS = "CPU state after step: ";
+    private static final String INST_MSG_BEGIN = "Executing: ";
 
-    private static final String NUM_ERROR = "El valor introducido debe ser un número";
-    private static final String FORMAT_ERROR = "La posición no puede ser negativa";
+    private static final String ERR_NUM = "Error: Input must be a number";
+    private static final String ERR_FORMAT = "Error: Value can't be negative";
 
     private static final String LOG_FILE = "status.log";
 
@@ -46,32 +45,25 @@ public class CPU extends Watchable {
     private OperandStack stack;
     private ExecutionManager executionManager;
     private ProgramMV program;
-    private InStrategy inStr;
+    private InStrategy inStr; //TODO: Check if strategies are needed
     private OutStrategy outStr;
     private RegisterBank registerList;
 
     private boolean writeLog;
 
 
-    public CPU(InStrategy _in, OutStrategy _out, boolean _writeLog) {
+    public CPU(InStrategy in, OutStrategy out, boolean writeLog) {
         this.memory = new Memory();
         this.stack = new OperandStack();
         this.executionManager = new ExecutionManager();
         this.registerList = new RegisterBank();
-        setLogOption(_writeLog);
+        setLogOption(writeLog);
     }
 
-    private void setLogOption(boolean _writeLog) {
-        this.writeLog = _writeLog;
-        if (writeLog) {
+    private void setLogOption(boolean writeLog) {
+        if (this.writeLog = writeLog) {
             configureLog();
         }
-    }
-
-    public void reset() {
-        memory.flush();
-        stack.flush();
-        executionManager.reset();
     }
 
     private void configureLog() {
@@ -82,7 +74,7 @@ public class CPU extends Watchable {
                 logWriter = new PrintWriter(new FileWriter(logFilePath.toFile()));
                 logFile = logFilePath.toFile();
             } catch (IOException e) {
-                System.exit(2);
+                System.exit(2); //TODO
             }
         } else {
             logFile = new File(LOG_FILE);
@@ -92,6 +84,12 @@ public class CPU extends Watchable {
                 System.exit(2);
             }
         }
+    }
+
+    public void reset() {
+        memory.flush();
+        stack.flush();
+        executionManager.reset();
     }
 
     private void log(String instruction) {
@@ -127,9 +125,9 @@ public class CPU extends Watchable {
     }
 
     /**
-     * Inicializa el programa a ejecutar por la CPU.
+     * Loads the program that will be executed
      *
-     * @param program el programa a ejecutar por la CPU
+     * @param program Program object to be executed
      */
     public void loadProgram(ProgramMV program) {
         this.program = program;
@@ -137,9 +135,9 @@ public class CPU extends Watchable {
     }
 
     /**
-     * Ejecuta una de las instrucciones del programa.
-     * Necesita que la VM esté encendida y que exista un programa válido.
-     * La instrucción a ejecutar viene determinada por el contador de programa.
+     * Executes a single Instruction, to be determined by the program counter
+     *
+     * @throws commons.exceptions.RecoverableException //TODO
      */
     public void step() throws RecoverableException {
         int pc = executionManager.getPc();
@@ -168,14 +166,14 @@ public class CPU extends Watchable {
                     this.notifyViews(be.getMessage());
                 }
             } else {
-                System.err.println("No existe instrucción");
+                System.err.println("Error: No instruction");
                 stop();
             }
         }
     }
 
     /**
-     * Ejecuta todas las instrucciones del programa.
+     * Runs the user program
      */
     public void runProgram() {
         try {
@@ -190,12 +188,10 @@ public class CPU extends Watchable {
     }
 
     /**
-     * Permite el debug de la CPU.
-     * Permite al usuario realizar una operación sobre la pila de operandos
-     * o la memoria desde la interfaz de debug del programa.
+     * Executes a debug instruction on the CPU
      *
-     * @param param - Parámetro 0 de la instrucción a ejecutar
-     * @param param1 - Parámetro 1 de la instrucción a ejecutar
+     * @param param param 0 of the instruction to be executed
+     * @param param1 param 1 of the instruction to be executed
      */
     public void debugInstruction(String param, String param1) {
         if (param == null) {
@@ -206,18 +202,18 @@ public class CPU extends Watchable {
                     cpuDebug(new Push((Integer.parseInt(param))));
                 } else {
                     this.setChanged();
-                    this.notifyViews(NUM_ERROR);
+                    this.notifyViews(ERR_NUM);
                 }
             } else {
                 if (!Commons.isInteger(param) || !Commons.isInteger(param1)) {
                     this.setChanged();
-                    this.notifyViews(NUM_ERROR);
+                    this.notifyViews(ERR_NUM);
                     return;
                 }
 
                 if (Integer.parseInt(param) < 0) {
                     this.setChanged();
-                    this.notifyViews(FORMAT_ERROR);
+                    this.notifyViews(ERR_FORMAT);
                     return;
                 }
 
@@ -227,11 +223,9 @@ public class CPU extends Watchable {
     }
 
     /**
-     * Permite el debug de la CPU.
-     * Permite al usuario realizar una operación sobre la pila de operandos
-     * o la memoria desde la interfaz de debug del programa.
+     * Allows the user to debug the CPU
      *
-     * @param inst Instrucción a ejecutar sobre la pila
+     * @param inst Debug instruction to be executed
      */
     private void cpuDebug(Instruction inst) {
         this.setChanged();
@@ -245,10 +239,9 @@ public class CPU extends Watchable {
     }
 
     /**
-     * Permite conocer la siguiente operación a ejecutar.
-     * Ésta viene determinada por el contador de programa en ese momento.
+     * Get the next instruction to be executed, determined by the program counter
      *
-     * @return La operación delimitada por el contador de programa. En caso de que no exista devolverá null
+     * @return The next Instruction to be executed. If there are no more instructions, shuts down the CPU //TODO: shouldn't be this way
      */
     public Instruction nextInstruction() {
         Instruction inst = this.program.getInstructionAt(this.executionManager.getPc());
@@ -259,7 +252,7 @@ public class CPU extends Watchable {
     }
 
     /**
-     * Apaga la CPU.
+     * Shuts down the CPU
      */
     public void stop() {
         this.executionManager.stop();
@@ -267,39 +260,46 @@ public class CPU extends Watchable {
     }
 
     /**
-     * Devuelve el estado de la CPU.
+     * Is the CPU off?
      *
-     * @return si la CPU se encuentra encendida o apagada
+     * @return CPU state
      */
     public boolean isHalted() {
         return this.executionManager.isHalted();
     }
 
+    // Displays the ASM source code to be executed
     public String printProgram() {
         return this.program.toString();
     }
 
+    // TODO: Diff between print and showProgram?
     public String[] showProgram() {
         return this.program.displayContent();
     }
 
+    // Add observer to the Execution Manager
     public void addEMWatcher(Watcher w) {
         this.executionManager.addWatcher(w);
     }
 
+    // Add observer to the Stack
     public void addStackWatcher(Watcher w) {
         this.stack.addWatcher(w);
     }
 
+    // Add observer to the Memory
     public void addMemoryWatcher(Watcher w) {
         this.memory.addWatcher(w);
     }
 
+    // Add observer to the Register list
     public void addRegisterWatcher(Watcher w) {
         this.registerList.addWatcher(w);
     }
 
-    public void deleteAsignedWatchers() {
+    // Deletes all observers and closes any open resources
+    public void deleteAssignedWatchers() {
         this.deleteWatchers();
         this.executionManager.deleteWatchers();
         this.stack.deleteWatchers();
@@ -309,13 +309,19 @@ public class CPU extends Watchable {
         closeResources();
     }
 
+    /**
+     * Prints CPU status after instruction execution
+     *
+     * @param instruction Instructions that has been executed
+     *
+     * @return CPU status info
+     */
     public String printStatus(String instruction) {
         return INST_MSG_BEGIN + instruction + System.lineSeparator() + SHOW_STATUS + this.toString();
     }
 
     /**
-     * Devuelve una version imprimible del estado de la maquina.
-     * Muestra el estado de la pila de operandos y de la memoria.
+     * @return Prints Memory, Stack and Register list status
      */
     @Override
     public String toString() {

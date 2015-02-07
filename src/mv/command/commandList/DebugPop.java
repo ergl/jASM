@@ -4,16 +4,13 @@ import mv.command.CommandInterpreter;
 import mv.cpu.CPU;
 
 /**
- * Realiza la operación de Pop sobre la CPU.
- * Esta operación es independiente del programa y existe con fines de debug.
+ * Executes a Pop Instruction on the CPU
  *
- * @author Borja
- * @author Chaymae
+ * @see mv.ins.instList.summitModifiers.Pop
  */
 public class DebugPop extends CommandInterpreter {
 
-    public DebugPop() {
-    }
+    public DebugPop() {}
 
     @Override
     public void executeCommand(CPU cpu) {

@@ -3,26 +3,25 @@ package mv.command;
 import mv.command.commandList.*;
 
 /**
- * Clase encargada de generar comandos a partir del input del usuario.
+ * Parses user input into debug commands
  *
  * @author Borja
- * @author Chaymae
  */
 public class CommandParser {
 
-    /**
-     * Array que contiene todos los comandos disponibles al usuario.
-     */
-    private static CommandInterpreter[] commands = {new Step(), new Steps(), new Run(), new Quit(), new DebugPush(), new DebugPop(), new DebugWrite(), new Reset()};
+    private static CommandInterpreter[] commands = {
+            new Step(), new Steps(), new Run(), new DebugPush(),
+            new DebugPop(), new DebugWrite(), new Reset(),
+            new Quit()
+    };
 
     /**
-     * Devuelve un objeto CommandInterpreter que podra ser procesado por la cpu.
-     * El input debe estar correctamente formateado o de lo contrario ignorara
-     * la orden y se interpretara como un error.
+     * Parses user input and creates a Command object that can be processed by the CPU
+     * If the input is wrongly formatted it will ignore the order and it will be parsed as an error
      *
-     * @param input string describiendo un comando
+     * @param input user input describing a command
      *
-     * @return comando correctamente formateado
+     * @return Parsed command or null
      */
     public static CommandInterpreter parseCommand(String input) {
         for (CommandInterpreter comm : commands) {

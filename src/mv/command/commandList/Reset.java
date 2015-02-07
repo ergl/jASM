@@ -4,6 +4,9 @@ import commons.exceptions.RecoverableException;
 import mv.command.CommandInterpreter;
 import mv.cpu.CPU;
 
+/**
+ * Resets the CPU
+ */
 public class Reset extends CommandInterpreter {
 
     @Override

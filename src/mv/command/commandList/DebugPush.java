@@ -5,17 +5,14 @@ import mv.command.CommandInterpreter;
 import mv.cpu.CPU;
 
 /**
- * Realiza la operación de Push sobre la CPU.
- * Esta operación es independiente del programa y existe con fines de debug.
+ * Executes a Push Instruction on the CPU
  *
- * @author Borja
- * @author Chaymae
+ * @see mv.ins.instList.stackModifiers.Push
  */
 public class DebugPush extends CommandInterpreter {
     private int value;
 
-    public DebugPush() {
-    }
+    public DebugPush() {}
 
     public DebugPush(int param) {
         this.value = param;

@@ -7,10 +7,9 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 /**
- * La pila de operandos de la maquina virtual.
+ * VM Stack
  *
  * @author Borja
- * @author Chaymae
  */
 public class OperandStack extends Watchable {
 
@@ -76,11 +75,11 @@ public class OperandStack extends Watchable {
     public String toString() {
         Iterator<Integer> it = stack.iterator();
         if (!it.hasNext()) {
-            return "Pila de Operandos: <vacía>";
+            return "Operand Stack: <empty>";
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Pila de Operandos: ");
+        sb.append("Operand Stack: ");
 
         do {
             sb.append(it.next());

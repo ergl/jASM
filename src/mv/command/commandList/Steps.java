@@ -6,18 +6,13 @@ import mv.command.CommandInterpreter;
 import mv.cpu.CPU;
 
 /**
- * Realiza la operación Step N sobre la CPU.
- * N es el número de veces que se ejecuta la instrucción Step, de la que deriva.
- *
- * @author Borja
- * @author Chaymae
+ * Executes N steps in the debugger
  */
 public class Steps extends Step {
 
     private int steps;
 
-    public Steps() {
-    }
+    public Steps() {}
 
     public Steps(int steps) {
         this.steps = steps;

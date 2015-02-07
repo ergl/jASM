@@ -3,12 +3,11 @@ package mv.cpu;
 import commons.watcherPattern.Watchable;
 
 /**
- * Memoria fisica de la maquina virtual.
- * Cien posiciones no ampliables, memoria ilimitada simulada por
- * un rango ilimitado de direcciones de memoria.
+ * Memory Array.
+ * Non-dynamic array of Memory Cells
+ * @see mv.cpu.MemCell
  *
  * @author Borja
- * @author Chaymae
  */
 public class Memory extends Watchable {
 
@@ -42,14 +41,11 @@ public class Memory extends Watchable {
     }
 
     /**
-     * Carga en la direccion de memoria dada un valor indicado.
-     * Las inserciones se realizan de manera ordenada, por direccion de memoria,
-     * y de menor a mayor.
-     * <p>
-     * Las direcciones son sobreescribibles, en cuyo caso solo se actualiza el valor.
+     * Stores a value on the first memory position.
+     * Cells can be overwritten
      *
-     * @param val valor a cargar en memoria
-     * @param ref direccion de memoria en la que sera cargado el valor
+     * @param val value to be written
+     * @param ref memory reference in which that value will be stored
      */
     public boolean storeValue(int val, int ref) {
         boolean success = true;
@@ -87,29 +83,28 @@ public class Memory extends Watchable {
     }
 
     /**
-     * Devuelve la posicion en memoria de una direccion dada.
-     * Devuelve -1 en caso de no existir la direccion especificada.
+     * Gets the position in the memory array of a given reference.
      *
-     * @param ref direccion de memoria que quiere situarse
+     * @param ref reference to be found
      *
-     * @return posicion en memoria de la direccion
+     * @return position of said reference in the array, -1 if not found
      *
-     * @see #busquedaBinariaRef(int, int, int)
+     * @see #binaryRefSearch(int, int, int)
      */
     public int getMemoryReference(int ref) {
-        return busquedaBinariaRef(ref, 0, elements - 1);
+        return binaryRefSearch(ref, 0, elements - 1);
     }
 
     /**
-     * Implementacion de la busqueda de inMemory.
+     * Searches for a reference in the array
      *
-     * @param ref direccion de memoria que quiere situarse
-     * @param ini punto de inicio de la busqueda
-     * @param fin punto de finalizacion de la busqueda
+     * @param ref reference to be found
+     * @param ini initial search point
+     * @param fin final search point
      *
-     * @return posicion de la direccion. Devuelve -1 si no existe
+     * @return position of said reference in the array, -1 if not found
      */
-    private int busquedaBinariaRef(int ref, int ini, int fin) {
+    private int binaryRefSearch(int ref, int ini, int fin) {
         int pos = -1;
 
         if (ini > fin) {
@@ -117,10 +112,10 @@ public class Memory extends Watchable {
         } else {
             pos = (ini + fin) / 2;
             if (ref < this.memArray[pos].getPos()) {
-                return busquedaBinariaRef(ref, ini, pos - 1);
+                return binaryRefSearch(ref, ini, pos - 1);
 
             } else if (ref > this.memArray[pos].getPos()) {
-                return busquedaBinariaRef(ref, pos + 1, fin);
+                return binaryRefSearch(ref, pos + 1, fin);
 
             } else {
                 return pos;
@@ -147,9 +142,9 @@ public class Memory extends Watchable {
             for (int i = 0; i < elements; i++)
                 formattedMem += "[" + memArray[i].getPos() + "]" + ":" + memArray[i].getVal() + " ";
 
-            return "Memoria: " + formattedMem;
+            return "Memory: " + formattedMem;
         } else {
-            return "Memoria: <vacía>";
+            return "Memory: <empty>";
         }
     }
 }

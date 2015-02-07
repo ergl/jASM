@@ -2,16 +2,12 @@ package commons.watcherPattern;
 
 import java.util.ArrayList;
 
+// TODO: Why can't we use the built-in class Obervable?
+
 /**
- * Ver Observable.
- * Implementación propia de la clase Observable en el patrón Observer.
- * Thread safe
- *
- * @author Borja
- * @author Chaymae
+ * @see java.util.Observable
  */
 public class Watchable {
-
     private boolean changedFlag = false;
     private ArrayList<Watcher> watcherList;
 
