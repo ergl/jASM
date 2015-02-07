@@ -2,8 +2,6 @@
 
 - Breakpoint support for CLI interface
 - Breakpoints are ignored -> why?
-- Reimplementing the internal structure of the virtual machine following the current ARM standard
-- Implementing the full ARM instruction set
 - Add displacement jumps
 
 ### Major
@@ -18,31 +16,33 @@
 No bugs found as of yet. For future bugs refer to the issue tracker
 
 ## Instructions to support
-- ### Arithmetics  
-    Structure: `<op>{<cond>}{S}Rd,Rn,Operand2`  
+- ### Arithmetics
+    Structure: `<op>{<cond>}{S}Rd,Rn,Operand2`
     
-    Operations:  
-    * `ADD op1 + op2`  
-    * `ADC op1 + op2 + carry`  
-    * `SUB op1 - op2`  
-    * `SBC op1 - op2 + carry - 1`  
+    Operations:
+
+    * `ADC op1 + op2 + carry`
+    * `SBC op1 - op2 + carry - 1`
     * `RSB op2 - op1`  
     * `RSC op2 - op1 + carry - 1`  
     
-    Usage:  
+    Usage:
+
     * `ADD r0,r1,r2`  
     * `SUBGT r3,r3,#1` 
 
 - ### Comparisons  
     Structure: `<op>{<cond>}Rn,Operand2`  
     
-    Operations:  
+    Operations:
+
     * `CMP op1 - op2`  
     * `CMN op1 + op2`  
     * `TST op1 && op2`  
     * `TEQ op1 EOR op2` 
      
-    Usage:  
+    Usage:
+
     - `CMP r0,r1`  
     - `TSTEQ r2,#5`
 
@@ -50,13 +50,15 @@ No bugs found as of yet. For future bugs refer to the issue tracker
 - ### Logical Ops  
     Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
     
-    Operations:  
+    Operations:
+
     * `AND op1 && op2`  
     * `EOR op1 EOR op2`  
     * `ORR op1 || op2`  
     * `BIC op1 && !op2`  
 
-    Usage:  
+    Usage:
+
     - `AND r0,r1,r2`  
     - `BICEQ r2,r3,#7`  
     - `EORS r1,r3,r0`  
@@ -65,36 +67,16 @@ No bugs found as of yet. For future bugs refer to the issue tracker
 - ### Data Movement  
      Structure: `<op>{<cond>}{S}Rd,Operand2`  
      
-     Operations:  
+     Operations:
+
      * `MOV op2`  
      * `MVN !op2`  
      
-     Usage:  
+     Usage:
+
      - `MOV r0,r1`  
      - `MOVS r2,#10`  
      - `MVNEQ r1,#0`  
-
-- ### Multiplication  
-    * `MUL{<cond>}{S}Rd,Rm,Rs : Rd = Rm * Rs`  
-    * `MLA{<cond>}{S}Rd,Rm,Rs : Rd = (Rm*Rs) + Rn [Multiply Accumulate]`
-
-    Restrictions:
-
-        * Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
-        * Cannot use PC as operand
-
-        - Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
-        - Cannot use PC as operand
-
-    Restrictions:
-
-        - Rd and Rm cannot be the same register (can be avoided by swapping Rm and Rs around)
-        - Cannot use PC as operand
-
-- ### Load / Store
-    (See documentation)  
-    Obs: Must move data into register before using them.
-    
 
 - ### Barrel Shift
 
