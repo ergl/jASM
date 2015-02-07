@@ -31,19 +31,19 @@ _Bad_:
 
 If you need to indent a method or function call, it should be double indented.
 
-Don't put multiple statements and / or asignments on a single line.
+Don't put multiple statements and / or assignments on a single line.
 Strip all trailing whitespace at the end of lines.
 
 ### Breaking long lines and strings
 
 Line length will be a maximum of 100 characters, with an usual length of 80.
 Statements longer than 80-100 columns will be broken into sensible chunks, unless
-exceeding the above limit significanlty decreases readability and does not hide 
+exceeding the above limit significantly decreases readability and does not hide
 information. However, never break user-visible strings such as `println`.
 
 ### Braces
 
-All non-emtpy code blocks will have the opening brace trailing the block statement:
+All non-empty code blocks will have the opening brace trailing the block statement:
 
 ```java
     if (x is true) {
@@ -62,7 +62,7 @@ All non-emtpy code blocks will have the opening brace trailing the block stateme
     }
 ```
 
-Note that the closing brace is empty on a line of its own, except in the cases where it is followed by a continueation of the same statement, ie a `while` or
+Note that the closing brace is empty on a line of its own, except in the cases where it is followed by a continuation of the same statement, ie a `while` or
 `else`, like this:
 
 ```java
@@ -114,10 +114,10 @@ Use a space after:
 
 `if, switch, case, for, do, while`
 
-but not after funtion names.
+but not after function names.
 
 Don't add spaces around (inside) parenthesized expressions.
-Use spaces around most binary and ternary operatos, but not after unary
+Use spaces around most binary and ternary operator, but not after unary
 operators.
 
 No space before or after the postfix and prefix increment & decrement unary operators.
@@ -156,7 +156,7 @@ Apply exceptions with sound judgement.
 
 ### Caught exceptions: not ignored
 
-When it truly is appropiate to take no actions whatsoever in a catch block, the
+When it truly is appropriate to take no actions whatsoever in a catch block, the
 reason is justified and explained in a comment:
 
 ```java
@@ -181,7 +181,7 @@ the method under test _does_ throw an exception of the expected type:
     }
 ```
 
-### Static memebers: qualified using class
+### Static members: qualified using class
 
 ```java
     Foo aFoo = ...;

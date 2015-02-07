@@ -13,12 +13,12 @@ import mv.strategies.OutStrategy;
 
 public abstract class Branches extends TwoParamInst {
 
-    public Branches(String orden) {
-        super(orden);
+    public Branches(String order) {
+        super(order);
     }
 
-    public Branches(String orden, int param) {
-        super(orden, param);
+    public Branches(String order, int param) {
+        super(order, param);
     }
 
     protected abstract Instruction getInst(int param);

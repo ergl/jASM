@@ -19,34 +19,34 @@ import mv.strategies.OutStrategy;
 // TODO: Refactor into separate classes -> OneParam to NoParam, TwoParam to OneParam, and come up with new classes for instructions with more than one parameter
 public abstract class TwoParamInst implements Instruction {
 
-    protected String orden;
+    protected String order;
     protected String register = null;
     protected Integer param = null;
     protected Integer auxParam = null;
 
-    public TwoParamInst(String orden) {
-        this.orden = orden;
+    public TwoParamInst(String order) {
+        this.order = order;
     }
 
-    public TwoParamInst(String orden, int param) {
-        this.orden = orden;
+    public TwoParamInst(String order, int param) {
+        this.order = order;
         this.param = param;
     }
 
-    public TwoParamInst(String orden, int param, int param1) {
-        this.orden = orden;
+    public TwoParamInst(String order, int param, int param1) {
+        this.order = order;
         this.param = param;
         this.auxParam = param1;
     }
 
-    public TwoParamInst(String orden, String register, int param) {
-        this.orden = orden;
+    public TwoParamInst(String order, String register, int param) {
+        this.order = order;
         this.register = register;
         this.param = param;
     }
 
-    public TwoParamInst(String orden, String register, int param, int param1) {
-        this.orden = orden;
+    public TwoParamInst(String order, String register, int param, int param1) {
+        this.order = order;
         this.register = register;
         this.param = param;
         this.auxParam = param1;
@@ -67,7 +67,7 @@ public abstract class TwoParamInst implements Instruction {
 
         if (Commons.isInteger(tokens[1])) {
             int param = Integer.parseInt(tokens[1]);
-            if (tokens[0].equalsIgnoreCase(orden)) {
+            if (tokens[0].equalsIgnoreCase(order)) {
                 return getInst(param);
             }
         }
@@ -78,11 +78,11 @@ public abstract class TwoParamInst implements Instruction {
     @Override
     public String toString() {
         if (this.register == null) {
-            return this.orden.toUpperCase() + " " + this.param.toString();
+            return this.order.toUpperCase() + " " + this.param.toString();
         }
         if (this.auxParam == null) {
-            return this.orden.toUpperCase() + " " + this.register + this.param.toString();
+            return this.order.toUpperCase() + " " + this.register + this.param.toString();
         }
-        return this.orden.toUpperCase() + " " + this.register + this.param + " " + this.auxParam;
+        return this.order.toUpperCase() + " " + this.register + this.param + " " + this.auxParam;
     }
 }

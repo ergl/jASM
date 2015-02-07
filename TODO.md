@@ -1,5 +1,7 @@
 ## TODO
 
+- Breakpoint support for CLI interface
+- Breakpoints are ignored -> why?
 - Reimplementing the internal structure of the virtual machine following the current ARM standard
 - Implementing the full ARM instruction set
 - Add displacement jumps

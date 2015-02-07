@@ -46,7 +46,7 @@ public class Loopdec extends TwoParamInst {
         }
 
         int auxparam = Integer.parseInt(tokens[2]);
-        if (tokens[0].equalsIgnoreCase(orden)) {
+        if (tokens[0].equalsIgnoreCase(order)) {
             return new Loopdec("R", param, auxparam);
         }
 

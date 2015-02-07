@@ -14,7 +14,7 @@ import java.net.URL;
 public class SwingView implements Watcher {
 
     /*
-     * TODO: Breakpoint mark dissappears when program update happens
+     * TODO: Breakpoint mark disappears when program update happens
      * Change + with another characters when "Skip all breakpoints" is enabled
      */
 
@@ -801,7 +801,7 @@ public class SwingView implements Watcher {
             add(inputScrollable);
         }
 
-        // Llamado al inicio de la aplicación. Para cada acción, se llama updayeInputText
+        // Llamado al inicio de la aplicación. Para cada acción, se llama updateInputText
         private void displayFile(final char[] cs) {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 if (cs != null)
@@ -946,7 +946,7 @@ public class SwingView implements Watcher {
         }
 
         private void showHaltedCPU() {
-            javax.swing.SwingUtilities.invokeLater(() -> haltedCPULabel.setText("Máquina Parada"));
+            javax.swing.SwingUtilities.invokeLater(() -> haltedCPULabel.setText("VM off"));
         }
 
         private void hideHaltedCPU() {

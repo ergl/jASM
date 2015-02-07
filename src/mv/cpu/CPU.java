@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 
 /**
  * Main component of the VM. It executes the instructions and commands given by the user.
- * Each change is broadcasted to its observers
+ * Each change is broadcast to its observers
  *
  * @author Borja
  */

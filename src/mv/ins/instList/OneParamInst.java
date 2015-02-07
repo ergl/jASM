@@ -17,10 +17,10 @@ import mv.strategies.OutStrategy;
  */
 public abstract class OneParamInst implements Instruction {
 
-    protected String orden;
+    protected String order;
 
-    public OneParamInst(String orden) {
-        this.orden = orden;
+    public OneParamInst(String order) {
+        this.order = order;
     }
 
     protected abstract Instruction getInst();
@@ -36,7 +36,7 @@ public abstract class OneParamInst implements Instruction {
             return null;
         }
 
-        if (tokens[0].equalsIgnoreCase(orden)) {
+        if (tokens[0].equalsIgnoreCase(order)) {
             return getInst();
         }
 
@@ -45,6 +45,6 @@ public abstract class OneParamInst implements Instruction {
 
     @Override
     public String toString() {
-        return this.orden.toUpperCase();
+        return this.order.toUpperCase();
     }
 }

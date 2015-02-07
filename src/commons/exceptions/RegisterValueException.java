@@ -8,7 +8,7 @@ import mv.ins.Instruction;
 public class RegisterValueException extends UnrecoverableException {
 	 	
 	public RegisterValueException(Instruction inst, int n) {
-        super("Error: Couldn't execute " + inst + ": Valor negativo en registro R" + n);
+        super("Error: Couldn't execute " + inst + ": Can't have a negative value in register R" + n);
 	}
 	
 	public String getMessage() {

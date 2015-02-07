@@ -3,16 +3,14 @@ package commons.exceptions;
 import mv.ins.Instruction;
 
 /**
- * Excepción que ocurre cuando no existen elementos suficientes en la pila de operandos.
+ * When there aren't enough elements if the stack to perform an operation
  *
  * @author Borja
- * @author Chaymae
  */
-@SuppressWarnings("serial")
 public class StackException extends RecoverableException {
 
     public StackException(Instruction inst, int n) {
-        super("Error ejecutando " + inst + ": faltan operandos en la pila (hay " + n + ")");
+        super("Error: Execution " + inst + ": not enough elements in the stack (" + n + " elements)");
     }
 
     public String getMessage() {

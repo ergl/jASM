@@ -12,7 +12,7 @@ import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
 /**
- * Inconditonal Jump to the stack heap.
+ * Unconditional Jump to the stack heap.
  * If the stack heap is an impossible value to jump to, pushes again to the stack
  *
  * @author Borja

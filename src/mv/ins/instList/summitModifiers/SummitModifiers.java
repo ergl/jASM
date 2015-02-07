@@ -15,8 +15,8 @@ import mv.strategies.OutStrategy;
 
 public abstract class SummitModifiers extends OneParamInst {
 
-    public SummitModifiers(String orden) {
-        super(orden);
+    public SummitModifiers(String order) {
+        super(order);
     }
 
     protected abstract Instruction getInst();

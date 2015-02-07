@@ -49,7 +49,7 @@ public class Move extends TwoParamInst {
         }
 
         int param = Character.getNumericValue(register[1]);
-        if (tokens[0].equalsIgnoreCase(orden)) {
+        if (tokens[0].equalsIgnoreCase(order)) {
             return getInst(param);
         }
 

@@ -19,8 +19,8 @@ import mv.strategies.OutStrategy;
  */
 public abstract class Arithmetics extends OneParamInst {
 
-    public Arithmetics(String orden) {
-        super(orden);
+    public Arithmetics(String order) {
+        super(order);
     }
 
     @Override
