@@ -32,36 +32,31 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-
 /**
- * Ejecuta la interfaz de interaccion con la VM.
+ * jASM
  *
  * @author Borja
- * @author Chaymae
  */
 public class Main {
 
-    private static final String SHOW_CLI_HELP = "\nUse -h|--help para más detalles.";
-    private static final String ERR_MODE = "Uso incorrecto: Modo incorrecto (parametro -m|--mode)" + SHOW_CLI_HELP;
-    private static final String ERR_ASM_NOT_FOUND = "Uso incorrecto: Error al acceder al fichero ASM (no existe el fichero)" + SHOW_CLI_HELP;
-    private static final String ERR_NO_IN = "Uso incorrecto: Error al acceder al fichero de entrada (";
-    private static final String ERR_NO_ASM = "Uso incorrecto: Fichero ASM no especificado." + SHOW_CLI_HELP;
+    private static final String ERR_CLI_HEAD = "Wrong usage: ";
+    private static final String SHOW_CLI_HELP = "\nUse -h|--help for more details.";
+    private static final String ERR_BAD_MODE = ERR_CLI_HEAD + "unknown execution mode (-m|--mode)" + SHOW_CLI_HELP;
+
+    private static final String ERR_NO_IN = "Error: Couldn't open input file";
+    private static final String ERR_NO_ASM = "Error: No ASM source file given" + SHOW_CLI_HELP;
+    private static final String ERR_ASM_NOT_FOUND = "Error: Couldn't open ASM source file (file not found)" + SHOW_CLI_HELP;
 
 
     public static enum ExecutionMode {
         INTERACTIVE, BATCH, WINDOW
     }
 
-
     /**
-     * Encargado de distribuir las tareas de parsear los argumentos y determinar el modo de ejecución,
-     * así como llamar a los métodos de ejecución dependiendo de los argumentos introducidos.
-     *
-     * @param args los argumentos introducidos por el usuario
+     * Processes execution mode arguments and starts the program
      *
      * @see mv.Main#optionSelector(String[])
      */
-
     public static void main(String[] args) {
 
         SetupConfigurator setupConfiguration;
@@ -71,8 +66,10 @@ public class Main {
         OutStrategy outStr;
         boolean writeLog;
 
-        /* Determina el modo de ejecución y las estrategias de entrada y salida, así como los contenidos de los archivos */
-        setupConfiguration = optionSelector(args);
+        /**
+         * @see mv.Main#optionSelector(String[])
+         */
+        setupConfiguration = optionSelector(args); // parses all input arguments
 
         if (setupConfiguration == null) {
             System.exit(1);
@@ -105,28 +102,27 @@ public class Main {
     }
 
     /**
-     * Ejecuta el sistema en modo Interactivo.
-     * Inicializa los Paths de los ficheros introducidos y ejecuta el programa de manera similar a la anterior pr&aacute;ctica.
-     * Si no existe archivo ASM, se da la opci&oacute;n de introducir el programa por consola.
-     * <p>
-     * Todas las excepciones lanzadas por fallos en ficheros (porque no existan, etc) son capturadas y solucionadas a este nivel.
+     * Starts the program in interactive mode.
      *
-     * @param asmFileString nombre del archivo ASM que contiene el código del programa
-     * @param inFileString nombre del archivo TXT que contiene el input del programa
-     * @param outFileString nombre del archivo TXT que sirve de output del programa
-     * @param inStr configuraci&oacute;n del modo de entrada del programa
-     * @param outStr configuraci&oacute;n del modo de salida del programa
+     * @param asmFileString ASM source code filename
+     * @param inFileString input filename (for IN instructions)
+     * @param outFileString output filename (for OUT instructions)
+     * @param inStr input mode configuration
+     * @param outStr output mode configuration
+     * @param writeLog write to log file?
      */
     private static void doInteractive(String asmFileString, String inFileString, String outFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
         TextView view;
         TextController controller;
 
+        File asmFile;
+        Path inFilePath;
         Scanner sc = new Scanner(System.in);
+
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
-        Path inFilePath;
-        File asmFile;
+
 
         if (inFileString != null) {
             try {
@@ -137,7 +133,7 @@ public class Main {
                     throw new FileNotFoundException();
                 }
             } catch (FileNotFoundException e) {
-                System.err.println(ERR_NO_IN + inFileString + ")" + SHOW_CLI_HELP);
+                System.err.println(ERR_NO_IN + "(" + inFileString + ")" + SHOW_CLI_HELP);
                 System.exit(1);
             }
         }
@@ -184,26 +180,24 @@ public class Main {
     }
 
     /**
-     * Ejecuta la aplicación en modo visual.
-     * La inicialización de todos los streams de entrada se llevan a cabo en el SwingController.
-     * <p>
-     * La vista tiene al controlador como atributo.
-     * La cpu y el controlador tienen una referencia a la vista mediante el método addObserver
-     * El borrado de observadores y el cierre de las Strategies se lleva a cabo en el controlador cuando se produce una
-     * UnRecoverableException, cuando el usuario acaba de ejecutar el programa o cuando cierra la aplicación.
+     * Starts the program in visual mode (GUI).
      *
-     * @param asmFileString nombre del archivo ASM que contiene el código del programa
-     * @param inFileString nombre del archivo TXT que contiene el input del programa
-     * @param outFileString nombre del archivo TXT que sirve de output del programa
-     * @param inStr configuración del modo de entrada del programa
-     * @param outStr configuración del modo de salida del programa
+     * All i/o streams get initialized in SwingController
+     *
+     * @param asmFileString ASM source code filename
+     * @param inFileString input filename (for IN instructions)
+     * @param outFileString output filename (for OUT instructions)
+     * @param inStr input mode configuration
+     * @param outStr output mode configuration
+     * @param writeLog write to log file?
      */
     private static void doVisual(String asmFileString, String inFileString, String outFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+
         SwingView view;
         SwingController controller;
 
-        Path inFilePath;
         File asmFile;
+        Path inFilePath;
 
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
@@ -218,7 +212,7 @@ public class Main {
                     throw new FileNotFoundException();
                 }
             } catch (FileNotFoundException e) {
-                System.err.println(ERR_NO_IN + inFileString + ")");
+                System.err.println(ERR_NO_IN + "(" + inFileString + ")");
                 System.exit(1);
             }
         }
@@ -264,23 +258,22 @@ public class Main {
     }
 
     /**
-     * Ejecuta el sistema en modo Batch (Transparente al usuario).
-     * Inicializa los Paths de los ficheros introducidos y ejecuta todo el programa
-     * <p>
-     * Todas las excepciones lanzadas por fallos en ficheros (porque no existan, etc) son capturadas y solucionadas a este nivel.
+     * Starts the program in batch mode (Takes the ASM source code and runs it).
      *
-     * @param asmFileString nombre del archivo ASM que contiene el código del programa
-     * @param inFileString nombre del archivo TXT que contiene el input del programa
-     * @param outFileString nombre del archivo TXT que sirve de output del programa
-     * @param inStr configuración del modo de entrada del programa
-     * @param outStr configuración del modo de salida del programa
+     * @param asmFileString ASM source code filename
+     * @param inFileString input filename (for IN instructions)
+     * @param outFileString output filename (for OUT instructions)
+     * @param inStr input mode configuration
+     * @param outStr output mode configuration
+     * @param writeLog write to log file?
      */
     private static void doBatch(String asmFileString, String inFileString, String outFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+
         TextView view;
         TextController controller;
 
-        Path inFilePath;
         File asmFile;
+        Path inFilePath;
 
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
@@ -295,7 +288,7 @@ public class Main {
                     throw new FileNotFoundException();
                 }
             } catch (FileNotFoundException e) {
-                System.err.println(ERR_NO_IN + inFileString + ")" + SHOW_CLI_HELP);
+                System.err.println(ERR_NO_IN + "(" + inFileString + ")" + SHOW_CLI_HELP);
                 System.exit(1);
             }
         }
@@ -339,47 +332,45 @@ public class Main {
         view.enable();
     }
 
-    /**
-     * Muestra el modo de uso del programa, indicando los parámetros disponibles y sus valores.
-     */
     private static void showHelp() {
-        System.out.println("usage: mv.Main [-a <asmfile>] [-h] [-i <infile>] [-m <mode>] [-o <outfile>]");
-        System.out.println(" -a,--asm <asmfile>  Fichero con el codigo en ASM del programa a ejecutar. " + "\n\t\t     Obligatorio en modo batch.");
-        System.out.println(" -h,--help           Muestra esta ayuda ");
-        System.out.println(" -i,--in <infile>    Entrada del programa de la maquina-p.");
-        System.out.println(" -m,--mode <mode>    Modo de funcionamiento (batch | interactive). " + "Por defecto, batch. ");
-        System.out.println(" -o,--out <outfile>  Fichero donde se guarda la salida del programa " + "de la maquina-p. ");
-        System.out.println(" -d, --debug		  Genera un log con los estados de la cpu");
+        System.out.println("usage: jASM -a <asmfile> [-h] [-i <infile>] [-m <mode>] [-o <outfile>]");
+        System.out.println(" -a,--asm <asmfile>  ASM source code file. Can be omitted in interactive mode");
+        System.out.println(" -h,--help           Shows this help");
+        System.out.println(" -i,--in <infile>    Program input file");
+        System.out.println(" -m,--mode <mode>    Execution mode (batch | interactive | visual). Batch is the default mode");
+        System.out.println(" -o,--out <outfile>  Program output file");
+        System.out.println(" -d, --debug		 Prints cpu state to log file. Check status.log");
     }
 
     /**
-     * Crea las opciones de parámetros que el usuario puede introducir.
-     * Además, parsea los parámetros del sistema y llama a submétodos que ejecutan las acciones necesarias.
-     * <p>
-     * Todas las excepciones lanzadas por falta de parámetros o por errores al introducirlos son recogidas
-     * y solucionadas a este nivel.
+     * Sets up the command line options and parses the user arguments
      *
-     * @param args los argumentos introducidos por el usuario. Vienen desde main
+     * TODO: Check if null is needed. Didn't we say that the mode was optional?
+     * TODO: Limit program exit points to a single place. Replace sysexits with exceptions
      *
-     * @return una configuración de ejecución debidamente inicializada
+     * @param args User input arguments
+     *
+     * @return SetupConfigurator object with all arguments set. Returns null if a parsing error happens
+     * @see mv.Main.SetupConfigurator
      */
     private static SetupConfigurator optionSelector(String[] args) {
+
         CommandLine line = null;
         CommandLineParser parser = new BasicParser();
         Options options = new Options();
         boolean writeLog = false;
 
-        options.addOption("a", "asm", true, "Fichero con el codigo en ASM del programa a ejecutar. Obligatorio en modo batch.");
-        options.addOption("h", "help", false, "Muestra esta ayuda");
-        options.addOption("i", "in", true, "Entrada del programa de la maquina-p.");
-        options.addOption("m", "mode", true, "Modo de funcionamiento (batch | interactive). Por defecto, batch.");
-        options.addOption("o", "out", true, "Fichero donde se guarda la salida del programa de la maquina-p.");
-        options.addOption("l", "log", false, "Guarda a un log el estado de la cpu a lo largo de la ejecución del programa");
+        options.addOption("a", "asm", true, "ASM source code file. Can be omitted in interactive mode");
+        options.addOption("h", "help", false, "Shows this help");
+        options.addOption("i", "in", true, "Program input file");
+        options.addOption("m", "mode", true, "Execution mode (batch | interactive | visual). Batch is the default mode");
+        options.addOption("o", "out", true, "Program output file");
+        options.addOption("l", "log", false, "Prints cpu state to log file. Check status.log");
 
         try {
             line = parser.parse(options, args);
         } catch (ParseException exp) {
-            System.err.println("Uso incorrecto: " + exp.getMessage() + "\nUse -h|--help para más detalles.");
+            System.err.println("Wrong usage: " + exp.getMessage() + SHOW_CLI_HELP);
             System.exit(0);
         }
 
@@ -404,7 +395,7 @@ public class Main {
                 return setupMode(ExecutionMode.WINDOW, line, writeLog);
 
             } else {
-                System.err.println(ERR_MODE);
+                System.err.println(ERR_BAD_MODE);
                 return null;
             }
         } else {
@@ -413,18 +404,20 @@ public class Main {
     }
 
     /**
-     * Determina el valor de los parámetros del programa, como ficheros de código, entrada y salida.
-     * Además avisa de errores por incompatibildad entre valores de parámetros.
+     * Parses the execution mode and the other io arguments. Shows error message if those arguments are incompatible.
      *
-     * @param mode modo de ejecución del programa
-     * @param line string que contiene el valor del resto de parámetros
+     * TODO: Limit program exit points to a single place. Replace sysexits with exceptions
      *
-     * @return una configuración de ejecución debidamente inicializada
+     * @param mode execution mode
+     * @param line rest of the user input
+     * @param writeLog write to log file?
+     *
+     * @return SetupConfigurator object with all arguments set.
      */
     private static SetupConfigurator setupMode(ExecutionMode mode, CommandLine line, boolean writeLog) {
-        String asmFile = null,
-                inFile = null,
-                outFile = null;
+
+        String asmFile, inFile, outFile;
+        asmFile = inFile = outFile = null;
 
         if (line.hasOption("a")) {
             asmFile = line.getOptionValue("a");
@@ -453,78 +446,76 @@ public class Main {
     }
 
     /**
-     * Determina la estrategia de entrada y de salida.
-     * Encapsula todos los parámetros de ejecución en un objeto para mejor organización.
+     * Sets the I/O strategy
      *
-     * @author Borja
-     * @author Chaymae
+     * Different input args combinations will give different IO strategies.
      */
     private static class SetupConfigurator {
 
-        private static ExecutionMode _mode;
-        private static String _asmFile;
-        private static String _inFile;
-        private static String _outFile;
+        private static ExecutionMode mode;
+        private static String asmFile;
+        private static String inFile;
+        private static String outFile;
 
-        private static InStrategy _inStrategy;
-        private static OutStrategy _outStrategy;
+        private static InStrategy inStrategy;
+        private static OutStrategy outStrategy;
 
-        private static boolean _writeLog;
+        private static boolean writeLog;
 
         private SetupConfigurator(ExecutionMode mode, String asmFile, String inFile, String outFile, boolean writeLog) {
-            _mode = mode;
-            _asmFile = asmFile;
-            _inFile = inFile;
-            _outFile = outFile;
-            _writeLog = writeLog;
+            SetupConfigurator.mode = mode;
+            SetupConfigurator.asmFile = asmFile;
+            SetupConfigurator.inFile = inFile;
+            SetupConfigurator.outFile = outFile;
+            SetupConfigurator.writeLog = writeLog;
         }
 
         private InStrategy getInputStrategy() {
-            if (_inFile != null) {
-                _inStrategy = new FileInputStrategy();
+            if (inFile != null) {
+                inStrategy = new FileInputStrategy();
             } else {
-                if (_mode == Main.ExecutionMode.INTERACTIVE || _mode == Main.ExecutionMode.WINDOW) {
-                    _inStrategy = new NullInputStrategy();
+                if (mode == Main.ExecutionMode.INTERACTIVE || mode == Main.ExecutionMode.WINDOW) {
+                    inStrategy = new NullInputStrategy();
                 } else {
-                    _inStrategy = new ConsoleInputStrategy();
+                    inStrategy = new ConsoleInputStrategy();
                 }
             }
 
-            return new WindowIn(_inStrategy);
+            return new WindowIn(inStrategy);
         }
 
         private OutStrategy getOutputStrategy() {
-            if (_outFile != null) {
-                _outStrategy = new FileWriteStrategy(_outFile);
+            if (outFile != null) {
+                outStrategy = new FileWriteStrategy(outFile);
             } else {
-                if (_mode == Main.ExecutionMode.INTERACTIVE || _mode == Main.ExecutionMode.WINDOW) {
-                    _outStrategy = new NullWriteStrategy();
+                if (mode == Main.ExecutionMode.INTERACTIVE || mode == Main.ExecutionMode.WINDOW) {
+                    outStrategy = new NullWriteStrategy();
                 } else {
-                    _outStrategy = new ConsoleWriteStrategy();
+                    outStrategy = new ConsoleWriteStrategy();
                 }
             }
 
-            return new WindowOut(_outStrategy);
+            return new WindowOut(outStrategy);
         }
 
         private ExecutionMode getMode() {
-            return _mode;
+            return mode;
         }
 
         private String getAsm() {
-            return _asmFile;
+            return asmFile;
         }
 
         private String getIn() {
-            return _inFile;
+            return inFile;
         }
 
         private String getOut() {
-            return _outFile;
+            return outFile;
         }
 
         private boolean getLogOption() {
-            return _writeLog;
+            return writeLog;
         }
     }
 }
