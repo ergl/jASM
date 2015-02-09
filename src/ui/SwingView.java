@@ -801,7 +801,7 @@ public class SwingView implements Watcher {
             add(inputScrollable);
         }
 
-        // Llamado al inicio de la aplicación. Para cada acción, se llama updateInputText
+        // Called when program starts. For each action, we call updateInputText
         private void displayFile(final char[] cs) {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 if (cs != null)
@@ -821,9 +821,9 @@ public class SwingView implements Watcher {
                 inputPanel.updateInputDisplay(Character.toChars(iChar));
         }
 
-        /* Llamado al ejecutarse una instrucción IN. Busca el carácter parámetro y lo sustituye por '*'
-         * Usamos char[] porque no se puede convertir de int a char, sólo a char[] 
-         */
+        // Called whenever an IN instruction is executed. Searches for first non-* character that matches
+        // the IN parameter and changes it to *
+        // We use char[] because we can't cast int -> char, only int -> char[]
         private void updateInputDisplay(final char[] c) {
             javax.swing.SwingUtilities.invokeLater(() -> {
 

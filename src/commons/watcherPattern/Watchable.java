@@ -2,7 +2,7 @@ package commons.watcherPattern;
 
 import java.util.ArrayList;
 
-// TODO: Why can't we use the built-in class Obervable?
+// TODO: Why can't we use the built-in class Observable?
 
 /**
  * @see java.util.Observable
