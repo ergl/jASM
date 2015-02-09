@@ -365,7 +365,7 @@ public class Main {
         options.addOption("i", "in", true, "Program input file");
         options.addOption("m", "mode", true, "Execution mode (batch | interactive | visual). Batch is the default mode");
         options.addOption("o", "out", true, "Program output file");
-        options.addOption("l", "log", false, "Prints cpu state to log file. Check status.log");
+        options.addOption("d", "debug", false, "Prints cpu state to log file. Check status.log");
 
         try {
             line = parser.parse(options, args);
@@ -379,7 +379,7 @@ public class Main {
             System.exit(0);
         }
 
-        if (line.hasOption("l")) {
+        if (line.hasOption("d")) {
             writeLog = true;
         }
 
