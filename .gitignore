@@ -9,6 +9,8 @@ src/ui/res/
 *.in
 # output files
 *.out
+# log files
+*.log
 
 ### Windows ###
 # Windows image file caches
