@@ -106,13 +106,13 @@ public class ExecutionManager extends Watchable {
      * Will be called on each CPU step
      */
     public void onNextInstruction() {
-        /* TODO: Why is this commented out?
+        // TODO: Reset status buttons to correct state
         if(breakpointsEnabled() && breakpoints.contains(currentPc)) {
     		this.setChanged();
     		this.notifyViews(currentPc);
     		return;
     	}
-    	*/
+
         if (this.nextPc < this.programCont) {
             this.currentPc = this.nextPc;
             this.nextPc = this.currentPc + 1;
