@@ -36,6 +36,7 @@
 
 ## Instructions to support
 - ### Arithmetics
+    
     Structure: `<op>{<cond>}{S}Rd,Rn,Operand2`
     
     Operations:
@@ -50,7 +51,8 @@
     * `ADD r0,r1,r2`  
     * `SUBGT r3,r3,#1` 
 
-- ### Comparisons  
+- ### Comparisons
+
     Structure: `<op>{<cond>}Rn,Operand2`  
     
     Operations:
@@ -66,7 +68,8 @@
     - `TSTEQ r2,#5`
 
  
-- ### Logical Ops  
+- ### Logical Ops
+    
     Structure:  `<op>{<cond>}{S}Rd,Rn,Operand2`  
     
     Operations:
@@ -83,7 +86,8 @@
     - `EORS r1,r3,r0`  
 
 
-- ### Data Movement  
+- ### Data Movement
+     
      Structure: `<op>{<cond>}{S}Rd,Operand2`  
      
      Operations:
