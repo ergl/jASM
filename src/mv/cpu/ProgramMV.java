@@ -16,7 +16,7 @@ import java.util.Vector;
 
 public class ProgramMV {
 
-    private static char COMMENT_DELIMITER = '@';
+    private static char COMMENT_DELIMITER = ';';
 
     private static final int MAX_PROGRAM_SIZE = 100;
     private static final String MSG_INTRO = "Input your program here\n(END to stop): ";
