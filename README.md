@@ -1,8 +1,7 @@
-# jARM: Java-built ARM executer, debugger and IDE
+# jARM: Java-built ASM emulator and debugger
 
-### How?
-This started as a project for the Programming Theory course at Complutense University of Madrid, 2014.
+Please check out the syntax [documentation]().
 
-The original idea was to do a virtual machine for executing a pseudo-asm language, but I quickly thought of implementing all of the ARM instruction set and making a quick and easy to use development environment for my Hardware Fundamentals course.
+Interested in contributing? Check out the [TODO]() and the [coding style]()
 
 [//]: # (This is a comment ✓)
