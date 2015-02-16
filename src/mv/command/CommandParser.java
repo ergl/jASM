@@ -12,7 +12,7 @@ public class CommandParser {
     private static CommandInterpreter[] commands = {
             new Step(), new Steps(), new Run(), new DebugPush(),
             new DebugPop(), new DebugWrite(), new Reset(),
-            new Quit()
+            new SetBreakpoint(), new Quit()
     };
 
     /**
