@@ -7,6 +7,8 @@
     * Expected: When running the program, reaching a breakpoint pauses the CPU, in visual and in interactive
     * Happens: In interactive, the CPU continues to execute the same instruction over and over. In visual, I have no idea
 
+
+- Check cli arguments conflicts
 - Breakpoint support for CLI interface
 - Reset buttons to correct state after a breakpoint is reached
 - Add displacement jumps
