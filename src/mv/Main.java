@@ -160,13 +160,10 @@ public class Main {
                 System.err.println(ERR_ASM_NOT_FOUND);
                 System.exit(1);
 
-            } catch (EmptyFileException efe) {
-                System.err.println(efe.getMessage());
-                System.exit(2);
-
-            } catch (UnrecoverableException ure) {
-                System.err.println(ure.getMessage());
+            } catch (EmptyFileException | UnrecoverableException e) {
+                System.err.println(e.getMessage());
                 System.exit(1);
+
             }
         } else {
             program.readProgram(sc);
@@ -239,14 +236,9 @@ public class Main {
                 System.err.println(ERR_ASM_NOT_FOUND);
                 System.exit(1);
 
-            } catch (EmptyFileException efe) {
-                System.err.println(efe.getMessage());
-                System.exit(2);
-
-            } catch (UnrecoverableException ure) {
-                System.err.println(ure.getMessage());
+            } catch (EmptyFileException | UnrecoverableException e) {
+                System.err.println(e.getMessage());
                 System.exit(1);
-
             }
         }
 
@@ -315,12 +307,8 @@ public class Main {
                 System.err.println(ERR_ASM_NOT_FOUND);
                 System.exit(1);
 
-            } catch (EmptyFileException efe) {
-                System.err.println(efe.getMessage());
-                System.exit(2);
-
-            } catch (UnrecoverableException ure) {
-                System.err.println(ure.getMessage());
+            } catch (EmptyFileException | UnrecoverableException e) {
+                System.err.println(e.getMessage());
                 System.exit(1);
             }
         }
@@ -345,9 +333,6 @@ public class Main {
     /**
      * Sets up the command line options and parses the user arguments
      *
-     * TODO: Check if null is needed. Didn't we say that the mode was optional?
-     * TODO: Limit program exit points to a single place. Replace sysexits with exceptions
-     *
      * @param args User input arguments
      *
      * @return SetupConfigurator object with all arguments set. Returns null if a parsing error happens
@@ -355,7 +340,7 @@ public class Main {
      */
     private static SetupConfigurator optionSelector(String[] args) {
 
-        CommandLine line = null;
+        CommandLine line;
         CommandLineParser parser = new BasicParser();
         Options options = new Options();
         boolean writeLog = false;
@@ -371,12 +356,12 @@ public class Main {
             line = parser.parse(options, args);
         } catch (ParseException exp) {
             System.err.println("Wrong usage: " + exp.getMessage() + SHOW_CLI_HELP);
-            System.exit(0);
+            return null;
         }
 
         if (line.hasOption("h")) {
             showHelp();
-            System.exit(0);
+            return null;
         }
 
         if (line.hasOption("d")) {
@@ -406,8 +391,6 @@ public class Main {
     /**
      * Parses the execution mode and the other io arguments. Shows error message if those arguments are incompatible.
      *
-     * TODO: Limit program exit points to a single place. Replace sysexits with exceptions
-     *
      * @param mode execution mode
      * @param line rest of the user input
      * @param writeLog write to log file?
@@ -431,7 +414,7 @@ public class Main {
         } else {
             if (mode == ExecutionMode.BATCH || mode == ExecutionMode.WINDOW) {
                 System.err.println(ERR_NO_ASM);
-                System.exit(1);
+                return null;
             } else {
                 if (line.hasOption("i")) {
                     inFile = line.getOptionValue("i");
