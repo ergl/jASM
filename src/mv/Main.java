@@ -47,7 +47,6 @@ public class Main {
     private static final String ERR_NO_ASM = "Error: No ASM source file given" + SHOW_CLI_HELP;
     private static final String ERR_ASM_NOT_FOUND = "Error: Couldn't open ASM source file (file not found)" + SHOW_CLI_HELP;
 
-
     public static enum ExecutionMode {
         INTERACTIVE, BATCH, WINDOW
     }
@@ -111,7 +110,9 @@ public class Main {
      * @param outStr output mode configuration
      * @param writeLog write to log file?
      */
-    private static void doInteractive(String asmFileString, String inFileString, String outFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+    // TODO: Check if you can merge preliminary checks on files
+    private static void doInteractive(String asmFileString, String inFileString, String outFileString,
+                                      InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
         TextView view;
         TextController controller;
@@ -188,7 +189,8 @@ public class Main {
      * @param outStr output mode configuration
      * @param writeLog write to log file?
      */
-    private static void doVisual(String asmFileString, String inFileString, String outFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+    private static void doVisual(String asmFileString, String inFileString, String outFileString,
+                                 InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
         SwingView view;
         SwingController controller;
@@ -202,14 +204,13 @@ public class Main {
         if (inFileString != null) {
             try {
                 inFilePath = Paths.get(inFileString);
-
                 if (Files.exists(inFilePath)) {
                     inStr.open(inFilePath);
                 } else {
                     throw new FileNotFoundException();
                 }
             } catch (FileNotFoundException e) {
-                System.err.println(ERR_NO_IN + "(" + inFileString + ")");
+                System.err.println(ERR_NO_IN + "(" + inFileString + ")" + SHOW_CLI_HELP);
                 System.exit(1);
             }
         }
@@ -259,7 +260,8 @@ public class Main {
      * @param outStr output mode configuration
      * @param writeLog write to log file?
      */
-    private static void doBatch(String asmFileString, String inFileString, String outFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+    private static void doBatch(String asmFileString, String inFileString, String outFileString,
+                                InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
         TextView view;
         TextController controller;
@@ -273,7 +275,6 @@ public class Main {
         if (inFileString != null) {
             try {
                 inFilePath = Paths.get(inFileString);
-
                 if (Files.exists(inFilePath)) {
                     inStr.open(inFilePath);
                 } else {
