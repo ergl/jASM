@@ -82,21 +82,25 @@ public class Main {
         outStr = setupConfiguration.getOutputStrategy();
         writeLog = setupConfiguration.getLogOption();
 
+        if (!setupIO(inFile, outFile, inStr, outStr)) {
+            System.exit(1);
+        }
+
         switch (mode) {
             case INTERACTIVE:
-                doInteractive(asmFile, inFile, outFile, inStr, outStr, writeLog);
+                doInteractive(asmFile, inStr, outStr, writeLog);
                 break;
 
             case WINDOW:
-                doVisual(asmFile, inFile, outFile, inStr, outStr, writeLog);
+                doVisual(asmFile, inStr, outStr, writeLog);
                 break;
 
             case BATCH:
-                doBatch(asmFile, inFile, outFile, inStr, outStr, writeLog);
+                doBatch(asmFile, inStr, outStr, writeLog);
                 break;
 
             default:
-                doBatch(asmFile, inFile, outFile, inStr, outStr, writeLog);
+                doBatch(asmFile, inStr, outStr, writeLog);
         }
     }
 
@@ -104,67 +108,26 @@ public class Main {
      * Starts the program in interactive mode.
      *
      * @param asmFileString ASM source code filename
-     * @param inFileString input filename (for IN instructions)
-     * @param outFileString output filename (for OUT instructions)
      * @param inStr input mode configuration
      * @param outStr output mode configuration
      * @param writeLog write to log file?
      */
-    // TODO: Check if you can merge preliminary checks on files
-    private static void doInteractive(String asmFileString, String inFileString, String outFileString,
-                                      InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+    private static void doInteractive(String asmFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
         TextView view;
         TextController controller;
 
-        File asmFile;
-        Path inFilePath;
         Scanner sc = new Scanner(System.in);
 
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
 
-
-        if (inFileString != null) {
+        if (setupProgramFile(asmFileString)) {
             try {
-                inFilePath = Paths.get(inFileString);
-                if (Files.exists(inFilePath)) {
-                    inStr.open(inFilePath);
-                } else {
-                    throw new FileNotFoundException();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println(ERR_NO_IN + "(" + inFileString + ")" + SHOW_CLI_HELP);
-                System.exit(1);
-            }
-        }
-
-        if (outFileString != null) {
-            outStr.open();
-        }
-
-        if (asmFileString != null) {
-            try {
-                inFilePath = Paths.get(asmFileString);
-                asmFile = new File(inFilePath.toString());
-
-                if (Files.exists(inFilePath)) {
-                    if (asmFile.length() != 0) {
-                        program.readProgram(asmFileString);
-                    } else {
-                        throw new EmptyFileException(asmFile);
-                    }
-                } else {
-                    throw new FileNotFoundException();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println(ERR_ASM_NOT_FOUND);
-                System.exit(1);
-
-            } catch (EmptyFileException | UnrecoverableException e) {
+                program.readProgram(asmFileString);
+            } catch (UnrecoverableException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);
-
             }
         } else {
             program.readProgram(sc);
@@ -183,61 +146,22 @@ public class Main {
      * All i/o streams get initialized in SwingController
      *
      * @param asmFileString ASM source code filename
-     * @param inFileString input filename (for IN instructions)
-     * @param outFileString output filename (for OUT instructions)
      * @param inStr input mode configuration
      * @param outStr output mode configuration
      * @param writeLog write to log file?
      */
-    private static void doVisual(String asmFileString, String inFileString, String outFileString,
-                                 InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+    private static void doVisual(String asmFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
         SwingView view;
         SwingController controller;
 
-        File asmFile;
-        Path inFilePath;
-
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
 
-        if (inFileString != null) {
+        if (setupProgramFile(asmFileString)) {
             try {
-                inFilePath = Paths.get(inFileString);
-                if (Files.exists(inFilePath)) {
-                    inStr.open(inFilePath);
-                } else {
-                    throw new FileNotFoundException();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println(ERR_NO_IN + "(" + inFileString + ")" + SHOW_CLI_HELP);
-                System.exit(1);
-            }
-        }
-
-        if (outFileString != null) {
-            outStr.open();
-        }
-
-        if (asmFileString != null) {
-            try {
-                inFilePath = Paths.get(asmFileString);
-                asmFile = new File(inFilePath.toString());
-
-                if (Files.exists(inFilePath)) {
-                    if (asmFile.length() != 0) {
-                        program.readProgram(asmFileString);
-                    } else {
-                        throw new EmptyFileException(asmFile);
-                    }
-                } else {
-                    throw new FileNotFoundException();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println(ERR_ASM_NOT_FOUND);
-                System.exit(1);
-
-            } catch (EmptyFileException | UnrecoverableException e) {
+                program.readProgram(asmFileString);
+            } catch (UnrecoverableException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);
             }
@@ -254,61 +178,22 @@ public class Main {
      * Starts the program in batch mode (Takes the ASM source code and runs it).
      *
      * @param asmFileString ASM source code filename
-     * @param inFileString input filename (for IN instructions)
-     * @param outFileString output filename (for OUT instructions)
      * @param inStr input mode configuration
      * @param outStr output mode configuration
      * @param writeLog write to log file?
      */
-    private static void doBatch(String asmFileString, String inFileString, String outFileString,
-                                InStrategy inStr, OutStrategy outStr, boolean writeLog) {
+    private static void doBatch(String asmFileString, InStrategy inStr, OutStrategy outStr, boolean writeLog) {
 
         TextView view;
         TextController controller;
 
-        File asmFile;
-        Path inFilePath;
-
         ProgramMV program = new ProgramMV();
         CPU cpu = new CPU(inStr, outStr, writeLog);
 
-        if (inFileString != null) {
+        if (setupProgramFile(asmFileString)) {
             try {
-                inFilePath = Paths.get(inFileString);
-                if (Files.exists(inFilePath)) {
-                    inStr.open(inFilePath);
-                } else {
-                    throw new FileNotFoundException();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println(ERR_NO_IN + "(" + inFileString + ")" + SHOW_CLI_HELP);
-                System.exit(1);
-            }
-        }
-
-        if (outFileString != null) {
-            outStr.open();
-        }
-
-        if (asmFileString != null) {
-            try {
-                inFilePath = Paths.get(asmFileString);
-                asmFile = new File(inFilePath.toString());
-
-                if (Files.exists(inFilePath)) {
-                    if (asmFile.length() != 0) {
-                        program.readProgram(asmFileString);
-                    } else {
-                        throw new EmptyFileException(asmFile);
-                    }
-                } else {
-                    throw new FileNotFoundException();
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println(ERR_ASM_NOT_FOUND);
-                System.exit(1);
-
-            } catch (EmptyFileException | UnrecoverableException e) {
+                program.readProgram(asmFileString);
+            } catch (UnrecoverableException e) {
                 System.err.println(e.getMessage());
                 System.exit(1);
             }
@@ -321,14 +206,77 @@ public class Main {
         view.enable();
     }
 
-    private static void showHelp() {
-        System.out.println("usage: jASM -a <asmfile> [-h] [-i <infile>] [-m <mode>] [-o <outfile>]");
-        System.out.println(" -a,--asm <asmfile>  ASM source code file. Can be omitted in interactive mode");
-        System.out.println(" -h,--help           Shows this help");
-        System.out.println(" -i,--in <infile>    Program input file");
-        System.out.println(" -m,--mode <mode>    Execution mode (batch | interactive | visual). Batch is the default mode");
-        System.out.println(" -o,--out <outfile>  Program output file");
-        System.out.println(" -d, --debug		 Prints cpu state to log file. Check status.log");
+    /**
+     * Initializes the IO of the program.
+     * Opens the input and the output file, checks for any errors on them, etc
+     *
+     * @param inFileString input filename (for IN instructions)
+     * @param outFileString output filename (for OUT instructions)
+     * @param inStr input mode configuration
+     * @param outStr output mode configuration
+     *
+     * @return the success of the operation
+     */
+    private static boolean setupIO(String inFileString, String outFileString,
+                                   InStrategy inStr, OutStrategy outStr) {
+
+        Path inFilePath;
+
+        if (inFileString != null) {
+            inFilePath = Paths.get(inFileString);
+            if (Files.exists(inFilePath)) {
+                inStr.open(inFilePath);
+            } else {
+                System.err.println(ERR_NO_IN + "(" + inFileString + ")" + SHOW_CLI_HELP);
+                return false;
+            }
+        }
+
+        if (outFileString != null) {
+            outStr.open();
+        }
+
+        return true;
+    }
+
+    /**
+     * Opens the ASM source code file and checks for any errors on it.
+     * Returns false if the user did not specify a file path, if it doesn't exist or if it's empty
+     *
+     * @param asmFileString ASM source code filename
+
+     * @return the success of the operation
+     */
+    private static boolean setupProgramFile(String asmFileString) {
+
+        boolean success = false;
+        Path inFilePath;
+        File asmFile;
+
+        if (asmFileString != null) {
+            try {
+                inFilePath = Paths.get(asmFileString);
+                asmFile = new File(inFilePath.toString());
+                if (Files.exists(inFilePath)) {
+                    if (asmFile.length() != 0) {
+                        success = true;
+                    } else {
+                        throw new EmptyFileException(asmFile);
+                    }
+                } else {
+                    throw new FileNotFoundException();
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println(ERR_ASM_NOT_FOUND);
+                success = false;
+
+            } catch (EmptyFileException e) {
+                System.err.println(e.getMessage());
+                success = false;
+            }
+        }
+
+        return success;
     }
 
     /**
@@ -427,6 +375,16 @@ public class Main {
         }
 
         return new SetupConfigurator(mode, asmFile, inFile, outFile, writeLog);
+    }
+
+    private static void showHelp() {
+        System.out.println("usage: jASM -a <asmfile> [-h] [-i <infile>] [-m <mode>] [-o <outfile>]");
+        System.out.println(" -a,--asm <asmfile>  ASM source code file. Can be omitted in interactive mode");
+        System.out.println(" -h,--help           Shows this help");
+        System.out.println(" -i,--in <infile>    Program input file");
+        System.out.println(" -m,--mode <mode>    Execution mode (batch | interactive | visual). Batch is the default mode");
+        System.out.println(" -o,--out <outfile>  Program output file");
+        System.out.println(" -d, --debug		 Prints cpu state to log file. Check status.log");
     }
 
     /**
