@@ -13,14 +13,19 @@ import mv.ins.instList.TwoParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
-// TODO: Check wtf is this supposing to do
+/**
+ * Goes to the param instruction while the value in register is greater than zero.
+ *
+ * When the value gets to zero, it continues the execution of the program
+ * If the value in that register drops below zero, raises a RegisterValueException.
+ */
 public class Loopdec extends TwoParamInst {
 
     public Loopdec() {
         super("LOOPDEC");
     }
 
-    public Loopdec(String register, int param, int param1) {
+    public Loopdec(String register, int param, int param1) { // TODO: Check npe, why use the param1?
         super("LOOPDEC", register, param, param1);
         this.param = param;
     }
@@ -29,7 +34,7 @@ public class Loopdec extends TwoParamInst {
     public Instruction parse(String input) {
 
         input = input.trim();
-        String[] tokens = input.split("\\s"); // TODO: wtf is \\s for
+        String[] tokens = input.split("\\s");
 
         if (tokens.length != 3) {
             return null;

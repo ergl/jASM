@@ -12,6 +12,9 @@ import mv.ins.instList.TwoParamInst;
 import mv.strategies.InStrategy;
 import mv.strategies.OutStrategy;
 
+/**
+ * Moves the summit of the stack to the given register (deletes the element from the stack)
+ */
 public class Move extends TwoParamInst {
 
     public Move() {
