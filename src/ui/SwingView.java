@@ -563,8 +563,8 @@ public class SwingView implements Watcher {
 
         private JPanel buttonSubPanel() {
 
-            JPanel mainPanel= 		new JPanel(new BorderLayout());
-            JPanel topRowPanel = 	new JPanel();
+            JPanel mainPanel= new JPanel(new BorderLayout());
+            JPanel topRowPanel = new JPanel();
             JPanel bottomRowPanel = new JPanel();
 
             pushValueLabel = new JLabel();
