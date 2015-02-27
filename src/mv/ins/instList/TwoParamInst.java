@@ -59,7 +59,7 @@ public abstract class TwoParamInst implements Instruction {
 
     public Instruction parse(String input) {
         input = input.trim();
-        String[] tokens = input.split("\\ ");
+        String[] tokens = input.split("\\s");
 
         if (tokens.length != 2) {
             return null;

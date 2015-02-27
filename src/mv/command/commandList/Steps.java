@@ -30,7 +30,7 @@ public class Steps extends Step {
     @Override
     public CommandInterpreter parseComm(String input) {
         input = input.trim();
-        String[] tokens = input.split("\\ ");
+        String[] tokens = input.split("\\s");
 
         if (tokens.length == 2 && tokens[0].equalsIgnoreCase("STEP")) {
             if (Commons.isInteger(tokens[1])) {

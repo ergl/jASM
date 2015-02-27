@@ -22,7 +22,7 @@ public class SetBreakpoint extends CommandInterpreter {
     @Override
     public CommandInterpreter parseComm(String input) {
         input.trim();
-        String[] tokens = input.split("\\ ");
+        String[] tokens = input.split("\\s");
 
         if (tokens.length != 2) {
             return  null;

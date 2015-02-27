@@ -29,7 +29,7 @@ public class DebugWrite extends CommandInterpreter {
     @Override
     public CommandInterpreter parseComm(String input) {
         input = input.trim();
-        String[] tokens = input.split("\\ ");
+        String[] tokens = input.split("\\s");
 
         if (tokens.length == 3 && tokens[0].equalsIgnoreCase("WRITE")) {
             if (Commons.isInteger(tokens[1]) && Commons.isInteger(tokens[2])) {

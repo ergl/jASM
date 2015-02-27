@@ -18,7 +18,7 @@ public class Run extends Step {
     @Override
     public CommandInterpreter parseComm(String input) {
         input = input.trim();
-        String[] tokens = input.split("\\ ");
+        String[] tokens = input.split("\\s");
 
         if ((tokens.length == 1) && (tokens[0].equalsIgnoreCase("RUN"))) {
             return new Run();

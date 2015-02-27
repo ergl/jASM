@@ -30,7 +30,7 @@ public abstract class OneParamInst implements Instruction {
 
     public Instruction parse(String input) {
         input = input.trim();
-        String[] tokens = input.split("\\ ");
+        String[] tokens = input.split("\\s");
 
         if (tokens.length != 1) {
             return null;
