@@ -47,6 +47,7 @@ public class Memory extends Watchable {
      * @param val value to be written
      * @param ref memory reference in which that value will be stored
      */
+    // TODO: Check if a return value is needed
     public boolean storeValue(int val, int ref) {
         boolean success = true;
         int oldRef = getMemoryReference(ref);
