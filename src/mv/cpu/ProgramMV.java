@@ -58,7 +58,7 @@ public class ProgramMV {
     /**
      * Parse the source code from a file
      *
-     * Will be executed until user inputs the END_TOKEN
+     * Will be executed until EOF or syntax error
      *
      * @param file source code file
      * @throws commons.exceptions.UnrecoverableException
@@ -70,30 +70,33 @@ public class ProgramMV {
 
         try {
             bf = Files.newBufferedReader(input, Charset.defaultCharset());
-            String line = bf.readLine();
+            String line;
 
-            while (line != null) {
+            while (null != (line = bf.readLine())) {
                 line = line.trim();
 
-                if (!line.startsWith(String.valueOf(COMMENT_DELIMITER))) {
-                    String[] tmp = line.split(String.valueOf(COMMENT_DELIMITER));
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(tmp[0]);
-
-                    if (!sb.toString().isEmpty()) {
-                        inst = InstructionParser.parse(sb.toString());
-                        if (inst != null) {
-                            addInstruction(inst);
-                        } else {
-                            throw new BadProgramException(sb.toString());
-                        }
-                    }
+                if (line.startsWith(String.valueOf(COMMENT_DELIMITER))) {
+                    continue;
                 }
 
-                line = bf.readLine();
+                String[] tmp = line.split(String.valueOf(COMMENT_DELIMITER));
+                StringBuilder sb = new StringBuilder();
+                sb.append(tmp[0]); // get the line before the comment
+
+                if (sb.toString().isEmpty()) {
+                    continue;
+                }
+
+                inst = InstructionParser.parse(sb.toString());
+                if (inst != null) {
+                    addInstruction(inst);
+                } else {
+                    throw new BadProgramException(sb.toString());
+                }
             }
 
         } catch (IOException e) {
+            System.err.println("Fatal: Couldn't read source file. \nExiting...");
             System.exit(2);
         } finally {
             try {
