@@ -13,6 +13,7 @@
 - Reset buttons to correct state after a breakpoint is reached
 - Add displacement jumps
 - Look into NullPointerException errors when parsing some instructions
+- Why use custom class vs Observer / Observable?
 
 
 ### Major

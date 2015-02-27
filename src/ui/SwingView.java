@@ -17,7 +17,6 @@ public class SwingView implements Watcher {
      * TODO: Breakpoint mark disappears when program update happens
      * Change + with another characters when "Skip all breakpoints" is enabled
      */
-
     public static int timeout = 100;
 
     private SwingController controller;
@@ -574,16 +573,12 @@ public class SwingView implements Watcher {
 
             pushValueField = new JTextField();
             pushValueField.setPreferredSize(new Dimension(60,20));
+            pushValueField.addActionListener(pushAction());
             topRowPanel.add(pushValueField);
 
             pushButton = new JButton();
             pushButton.setText("Push");
-            pushButton.addActionListener(e -> {
-                SwingView.this.uncheckMemoryBox();
-                SwingView.this.uncheckStackBox();
-                controller.pushEvent(pushValueField.getText().trim());
-                pushValueField.setText(null);
-            });
+            pushButton.addActionListener(pushAction());
 
             topRowPanel.add(pushButton);
 
@@ -634,6 +629,15 @@ public class SwingView implements Watcher {
                 StackPanel.this.pushButton.setEnabled(false);
             });
         }
+
+        private ActionListener pushAction() {
+            return e -> {
+                SwingView.this.uncheckMemoryBox();
+                SwingView.this.uncheckStackBox();
+                controller.pushEvent(pushValueField.getText().trim());
+                pushValueField.setText(null);
+            };
+        }
     }
 
     /**
@@ -679,39 +683,31 @@ public class SwingView implements Watcher {
 
         private JPanel buttonSubPanel() {
 
-            JPanel mainPanel = 			new JPanel(new BorderLayout());
-            JPanel topRowPanel = 		new JPanel();
-            JPanel bottomRowPanel = 	new JPanel();
+            JPanel mainPanel = 	new JPanel(new BorderLayout());
+            JPanel topRowPanel = new JPanel();
+            JPanel bottomRowPanel = new JPanel();
 
-            positionLabel =  			new JLabel();
+            positionLabel =  new JLabel();
             positionLabel.setText("Pos: ");
             topRowPanel.add(positionLabel);
 
-            positionField = 			new JTextField();
+            positionField = new JTextField();
             positionField.setPreferredSize(new Dimension(60, 20));
+            positionField.addActionListener(submitAction());
             topRowPanel.add(positionField);
 
-            valueLabel = 				new JLabel();
+            valueLabel = new JLabel();
             valueLabel.setText("Val: ");
             topRowPanel.add(valueLabel);
 
-
-            valueField = 				new JTextField();
+            valueField = new JTextField();
             valueField.setPreferredSize(new Dimension(60, 20));
+            valueField.addActionListener(submitAction());
             topRowPanel.add(valueField);
 
-            writeButton = 				new JButton();
+            writeButton = new JButton();
             writeButton.setText("Write");
-            writeButton.addActionListener(e -> {
-                SwingView.this.uncheckMemoryBox();
-                SwingView.this.uncheckStackBox();
-                String pos = positionField.getText().trim(),
-                        val = valueField.getText().trim();
-
-                positionField.setText(null);
-                valueField.setText(null);
-                controller.writeEvent(pos, val);
-            });
+            writeButton.addActionListener(submitAction());
 
             bottomRowPanel.add(writeButton);
 
@@ -720,7 +716,6 @@ public class SwingView implements Watcher {
 
             return mainPanel;
         }
-
 
         @Override
         public void updateDisplays(Watchable o, Object arg) {
@@ -769,6 +764,19 @@ public class SwingView implements Watcher {
                 MemoryPanel.this.valueField.setEditable(false);
                 MemoryPanel.this.writeButton.setEnabled(false);
             });
+        }
+
+        private ActionListener submitAction() {
+            return e -> {
+                SwingView.this.uncheckMemoryBox();
+                SwingView.this.uncheckStackBox();
+                String pos = positionField.getText().trim(),
+                        val = valueField.getText().trim();
+
+                positionField.setText(null);
+                valueField.setText(null);
+                controller.writeEvent(pos, val);
+            };
         }
     }
 
