@@ -15,7 +15,7 @@ import mv.strategies.OutStrategy;
 public class Move extends TwoParamInst {
 
     public Move() {
-        super("MOVE");
+        super("MOVE"); // TODO: Check NullPointerException
     }
 
     public Move(String register, int number) {
@@ -44,7 +44,7 @@ public class Move extends TwoParamInst {
 
         char[] register = tokens[1].toCharArray();
 
-        if (!Character.isDigit(register[1])) {
+        if (register.length <= 1 || !Character.isDigit(register[1])) {
             return null;
         }
 
