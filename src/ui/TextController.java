@@ -34,7 +34,7 @@ public class TextController {
         this.inStr = inStr;
         this.outStr = outStr;
 
-        CommandInterpreter.configureCommandInterpreter(cpu);
+        CommandInterpreter.configure(cpu);
     }
 
     public void addView(TextView view) {
@@ -60,6 +60,7 @@ public class TextController {
 
         if (cpu.isHalted() || input.equalsIgnoreCase(END_TOKEN)) {
             isHalted = true;
+            return;
         }
 
         try {
@@ -71,14 +72,7 @@ public class TextController {
         if (cpu.isHalted()) {
             isHalted = true;
         }
-
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
-
 
     String showProgram() {
         return cpu.printProgram();
@@ -97,6 +91,8 @@ public class TextController {
             this.inStr.close();
             this.outStr.close();
             this.cpu.deleteAssignedWatchers();
-        } catch (NullPointerException e) { /* Ignore */ }
+        } catch (NullPointerException e) {
+            // We are exiting the program anyway
+        }
     }
 }

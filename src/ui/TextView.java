@@ -28,8 +28,6 @@ public class TextView implements Watcher {
             case INTERACTIVE:
                 doInteractive();
                 break;
-            case WINDOW:
-                break;
             default:
                 doBatch();
                 break;
@@ -51,7 +49,6 @@ public class TextView implements Watcher {
 
     private void doInteractive() {
         System.out.println(controller.showProgram());
-
         do {
             System.out.print("> ");
             controller.debug(sc.nextLine());

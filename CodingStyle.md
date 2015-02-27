@@ -160,13 +160,14 @@ When it truly is appropriate to take no actions whatsoever in a catch block, the
 reason is justified and explained in a comment:
 
 ```java
+    // ...
     try {
         int i = Integer.parseInt(response);
         return handleNumericResponse(i);
     } catch (NumberFormatException ok) {
         // it's not numeric; that's fine, just continue
     }
-    return handleTextResponse(response);
+    // ...
 ```
 
 __Exception:__ In tests, a caught exception may be ignored without comment _if_
@@ -174,11 +175,13 @@ it is named `expected`. The following is a very common idiom for ensuring that
 the method under test _does_ throw an exception of the expected type:
 
 ```java
+    // ...
     try {
         emptyStack.pop();
         fail();
     } catch (NoSuchElementException expected) {
     }
+    // ...
 ```
 
 ### Static members: qualified using class
