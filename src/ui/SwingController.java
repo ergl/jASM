@@ -52,6 +52,11 @@ public class SwingController {
         cpu.addRegisterWatcher(registerWatcher);
     }
 
+    /**
+     * Hard reset: Resets the VM and all associated files.
+     *
+     * Difference between this and the Reset command is that the later only resets the VM
+     */
     void reset() {
         inStr.close();
         outStr.close();
@@ -60,31 +65,13 @@ public class SwingController {
         cpu.reset();
     }
 
-    void enableBreakpoints() {
-        cpu.enableBreakpoints();
-    }
-    
-    void disableBreakpoints() {
-        cpu.disableBreakpoints();
-    }
-    
-    void addBreakpointAt(int i) {
-        cpu.setBreakpoint(i);
-    }
-    
-    void deleteBreakpointAt(int i) {
-        cpu.deleteBreakpoint(i);
-    }
-    
-    boolean breakpointsEnabled() {
-        return cpu.breakpointsEnabled();
-    }
-
     void stepEvent() {
         if (isReady()) {
             try {
                 cpu.step();
-            } catch (RecoverableException e) {/* Already handled by view */}
+            } catch (RecoverableException e) {
+                // Already handled by view
+            }
         }
     }
 
@@ -94,19 +81,19 @@ public class SwingController {
 
     void pushEvent(String value) {
         if (isReady()) {
-            cpu.debugInstruction(value, null);
+            cpu.debugPush(value);
         }
     }
 
     void popEvent() {
         if (isReady()) {
-            cpu.debugInstruction(null, null);
+            cpu.debugPop();
         }
     }
 
     void writeEvent(String position, String value) {
         if (isReady()) {
-            cpu.debugInstruction(position, value);
+            cpu.debugWrite(position, value);
         }
     }
 
@@ -128,6 +115,28 @@ public class SwingController {
             this.inStr.close();
             this.outStr.close();
             this.cpu.deleteAssignedWatchers();
-        } catch (NullPointerException e) { /* Ignore */ }
+        } catch (NullPointerException e) {
+            // We are exiting the program anyway
+        }
+    }
+
+    void enableBreakpoints() {
+        cpu.enableBreakpoints();
+    }
+
+    void disableBreakpoints() {
+        cpu.disableBreakpoints();
+    }
+
+    void addBreakpointAt(int i) {
+        cpu.setBreakpoint(i);
+    }
+
+    void deleteBreakpointAt(int i) {
+        cpu.deleteBreakpoint(i);
+    }
+
+    boolean breakpointsEnabled() {
+        return cpu.breakpointsEnabled();
     }
 }

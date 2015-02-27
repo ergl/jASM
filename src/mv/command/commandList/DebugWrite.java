@@ -23,7 +23,7 @@ public class DebugWrite extends CommandInterpreter {
 
     @Override
     public void executeCommand(CPU cpu) {
-        cpu.debugInstruction(String.valueOf(this.ref), String.valueOf(this.val));
+        cpu.debugWrite(String.valueOf(this.ref), String.valueOf(this.val));
     }
 
     @Override

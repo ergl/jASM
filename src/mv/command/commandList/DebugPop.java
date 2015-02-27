@@ -14,7 +14,7 @@ public class DebugPop extends CommandInterpreter {
 
     @Override
     public void executeCommand(CPU cpu) {
-        cpu.debugInstruction(null, null);
+        cpu.debugPop();
     }
 
     @Override

@@ -150,43 +150,51 @@ public class CPU extends Watchable {
             while (!this.isHalted() && !executionManager.breakpointsEnabled() && !executionManager.onBreakpoint())
                 step();
         } catch (RecoverableException e) {
-            // TODO
+            // TODO: ?
         }
     }
 
     /**
-     * Executes a debug instruction on the CPU
+     * Executes push on the CPU
      *
-     * @param param param 0 of the instruction to be executed
-     * @param param1 param 1 of the instruction to be executed
+     * @param param value to be stacked
      */
-    public void debugInstruction(String param, String param1) {
-        if (param == null) {
-            cpuDebug(new Pop());
+    public void debugPush(String param) {
+        if (Commons.isInteger(param)) {
+            cpuDebug(new Push(Integer.parseInt(param)));
         } else {
-            if (param1 == null) {
-                if (Commons.isInteger(param)) {
-                    cpuDebug(new Push((Integer.parseInt(param))));
-                } else {
-                    this.setChanged();
-                    this.notifyViews(ERR_NUM);
-                }
-            } else {
-                if (!Commons.isInteger(param) || !Commons.isInteger(param1)) {
-                    this.setChanged();
-                    this.notifyViews(ERR_NUM);
-                    return;
-                }
-
-                if (Integer.parseInt(param) < 0) {
-                    this.setChanged();
-                    this.notifyViews(ERR_FORMAT);
-                    return;
-                }
-
-                cpuDebug(new Store(Integer.parseInt(param), Integer.parseInt(param1)));
-            }
+            this.setChanged();
+            this.notifyViews(ERR_NUM);
         }
+    }
+
+    /**
+     * Executes pop on the CPU
+     */
+    public void debugPop() {
+        cpuDebug(new Pop());
+    }
+
+    /**
+     * Executes store on the CPU
+     *
+     * @param position memory position in which we will write
+     * @param value value to be written to memory
+     */
+    public void debugWrite(String position, String value) {
+        if (!Commons.isInteger(position) || !Commons.isInteger(value)) {
+            this.setChanged();
+            this.notifyViews(ERR_NUM);
+            return;
+        }
+
+        if (Integer.parseInt(position) < 0) {
+            this.setChanged();
+            this.notifyViews(ERR_FORMAT);
+            return;
+        }
+
+        cpuDebug(new Store(Integer.parseInt(position), Integer.parseInt(value)));
     }
 
     /**
@@ -197,7 +205,7 @@ public class CPU extends Watchable {
     private void cpuDebug(Instruction inst) {
         this.setChanged();
         try {
-            inst.execute(executionManager, memory, stack, null, null, registerList);
+            inst.execute(executionManager, memory, stack, inStr, outStr, registerList);
         } catch (RecoverableException re) {
             this.notifyViews(re.getMessage());
         } catch (UnrecoverableException ue) {

@@ -20,13 +20,13 @@ public class DebugPush extends CommandInterpreter {
 
     @Override
     public void executeCommand(CPU cpu) {
-        cpu.debugInstruction(String.valueOf(this.value), null);
+        cpu.debugPush(String.valueOf(this.value));
     }
 
     @Override
     public CommandInterpreter parseComm(String input) {
         input = input.trim();
-        String[] tokens = input.split("\\ ");
+        String[] tokens = input.split("\\s");
 
         if (tokens.length != 2) {
             return null;
