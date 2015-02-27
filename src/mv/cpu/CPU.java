@@ -61,16 +61,15 @@ public class CPU extends Watchable {
         this.registerList = new RegisterBank();
         this.executionManager = new ExecutionManager();
 
-        setLogOption(writeLog);
+        configureLog(writeLog);
     }
 
-    private void setLogOption(boolean writeLog) {
-        if (this.writeLog = writeLog) {
-            configureLog();
+    private void configureLog(boolean write) {
+
+        if (!(writeLog = write)) {
+            return;
         }
-    }
 
-    private void configureLog() {
         logFilePath = Paths.get(LOG_FILE);
 
         if (Files.exists(logFilePath)) {
@@ -78,54 +77,18 @@ public class CPU extends Watchable {
                 logWriter = new PrintWriter(new FileWriter(logFilePath.toFile()));
                 logFile = logFilePath.toFile();
             } catch (IOException e) {
-                System.exit(2); //TODO
+                System.err.println("Couldn't create the log file. Skipping...");
+                writeLog = false;
             }
         } else {
             logFile = new File(LOG_FILE);
             try {
                 logWriter = new PrintWriter(new FileWriter(logFile));
             } catch (IOException e) {
-                System.exit(2);
+                System.err.println("Couldn't create the log file. Skipping...");
+                writeLog = false;
             }
         }
-    }
-
-    public void reset() {
-        memory.flush();
-        stack.flush();
-        executionManager.reset();
-    }
-
-    private void log(String instruction) {
-        logWriter.write(printStatus(instruction) + "\n\n");
-    }
-
-    private void closeResources() {
-        logWriter.close();
-    }
-
-    public boolean breakpointsEnabled() {
-        return this.executionManager.breakpointsEnabled();
-    }
-
-    public void enableBreakpoints() {
-        this.executionManager.enableBreakpoints();
-    }
-
-    public void disableBreakpoints() {
-        this.executionManager.disableBreakpoints();
-    }
-
-    public void setBreakpoint(Integer i) {
-        this.executionManager.addBreakpoint(i);
-    }
-
-    public void deleteBreakpoint(Integer i) {
-        this.executionManager.deleteBreakpoint(i);
-    }
-
-    public void deleteBreakpoints() {
-        this.executionManager.disableBreakpoints();
     }
 
     /**
@@ -264,6 +227,15 @@ public class CPU extends Watchable {
     }
 
     /**
+     * Resets the CPU to its initial state
+     */
+    public void reset() {
+        memory.flush();
+        stack.flush();
+        executionManager.reset();
+    }
+
+    /**
      * Is the CPU off?
      *
      * @return CPU state
@@ -280,6 +252,34 @@ public class CPU extends Watchable {
     // Displays the program in an array: to be consumed by the swing view
     public String[] showProgram() {
         return this.program.displayContent();
+    }
+
+    private void log(String instruction) {
+        logWriter.write(printStatus(instruction) + "\n\n");
+    }
+
+    public boolean breakpointsEnabled() {
+        return this.executionManager.breakpointsEnabled();
+    }
+
+    public void enableBreakpoints() {
+        this.executionManager.enableBreakpoints();
+    }
+
+    public void disableBreakpoints() {
+        this.executionManager.disableBreakpoints();
+    }
+
+    public void setBreakpoint(Integer i) {
+        this.executionManager.addBreakpoint(i);
+    }
+
+    public void deleteBreakpoint(Integer i) {
+        this.executionManager.deleteBreakpoint(i);
+    }
+
+    public void deleteBreakpoints() {
+        this.executionManager.disableBreakpoints();
     }
 
     // Add observer to the Execution Manager
@@ -305,12 +305,16 @@ public class CPU extends Watchable {
     // Deletes all observers and closes any open resources
     public void deleteAssignedWatchers() {
         this.deleteWatchers();
-        this.executionManager.deleteWatchers();
         this.stack.deleteWatchers();
         this.memory.deleteWatchers();
         this.registerList.deleteWatchers();
+        this.executionManager.deleteWatchers();
 
         closeResources();
+    }
+
+    private void closeResources() {
+        logWriter.close();
     }
 
     /**
