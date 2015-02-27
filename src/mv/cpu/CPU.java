@@ -45,7 +45,7 @@ public class CPU extends Watchable {
     private OperandStack stack;
     private ExecutionManager executionManager;
     private ProgramMV program;
-    private InStrategy inStr; //TODO: Check if strategies are needed
+    private InStrategy inStr;
     private OutStrategy outStr;
     private RegisterBank registerList;
 
@@ -53,10 +53,14 @@ public class CPU extends Watchable {
 
 
     public CPU(InStrategy in, OutStrategy out, boolean writeLog) {
+        this.inStr = in;
+        this.outStr = out;
+
         this.memory = new Memory();
         this.stack = new OperandStack();
-        this.executionManager = new ExecutionManager();
         this.registerList = new RegisterBank();
+        this.executionManager = new ExecutionManager();
+
         setLogOption(writeLog);
     }
 
@@ -268,12 +272,12 @@ public class CPU extends Watchable {
         return this.executionManager.isHalted();
     }
 
-    // Displays the ASM source code to be executed
+    // Displays the ASM source code to be executed; consumed by the text view
     public String printProgram() {
         return this.program.toString();
     }
 
-    // TODO: Diff between print and showProgram?
+    // Displays the program in an array: to be consumed by the swing view
     public String[] showProgram() {
         return this.program.displayContent();
     }
