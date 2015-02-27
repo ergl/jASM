@@ -5,6 +5,7 @@ src/ui/res/
 !src/mv/strategies/out
 # ASM source code files
 *.asm
+!/examples/*.asm
 # input files
 *.in
 # output files

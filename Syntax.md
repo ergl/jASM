@@ -11,12 +11,16 @@ Please note that functions, sections or global variables are not supported as of
 Example:
 
 ```asm
-	push 7
-	push 9
-	add
-    store 0
-	halt
-
+    push 10
+    move R0
+    push 43
+    out
+    loopdec r0 2
+    halt
 ```
 
-Would store `16` in the `0` memory address.
+Would print out 10 `+` characters (ascii code 43).
+
+To find out more, please check out the [examples]()
+
+[//]: # (^ TODO: Add the file location)

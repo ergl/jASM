@@ -2,6 +2,10 @@
 
 Please check out the syntax [documentation]().
 
-Interested in contributing? Check out the [TODO]() and the [coding style]()
+Interested in contributing? Check out the [TODO]() and the [coding style](). Or, if you prefer it,
+jump ahead and read some of the [example]() files.
 
-[//]: # (This is a comment ✓)
+[//]: # (^ TODO: Add file locations)
+
+
+
