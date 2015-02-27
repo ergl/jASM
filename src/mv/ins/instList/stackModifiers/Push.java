@@ -14,7 +14,7 @@ import mv.strategies.OutStrategy;
 public class Push extends TwoParamInst {
 
     public Push() {
-        super("PUSH");
+        super("PUSH"); // TODO: Check NullPointerException
     }
 
     public Push(int param) {

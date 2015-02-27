@@ -12,6 +12,7 @@
 - Breakpoint support for CLI interface
 - Reset buttons to correct state after a breakpoint is reached
 - Add displacement jumps
+- Look into NullPointerException errors when parsing some instructions
 
 
 ### Major

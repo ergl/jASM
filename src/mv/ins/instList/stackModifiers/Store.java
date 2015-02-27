@@ -17,7 +17,7 @@ import mv.strategies.OutStrategy;
 public class Store extends TwoParamInst {
 
     public Store() {
-        super("STORE");
+        super("STORE"); // TODO: Check NullPointerException
     }
 
     public Store(int param) {

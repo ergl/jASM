@@ -16,7 +16,7 @@ import mv.strategies.OutStrategy;
 public class Load extends TwoParamInst {
 
     public Load() {
-        super("LOAD");
+        super("LOAD"); // TODO: Check NullPointerException
     }
 
     public Load(int param) {

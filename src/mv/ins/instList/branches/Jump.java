@@ -11,7 +11,7 @@ import mv.strategies.OutStrategy;
 public class Jump extends Branches {
 
     public Jump() {
-        super("JUMP");
+        super("JUMP", -1);
     }
 
     public Jump(int param) {
