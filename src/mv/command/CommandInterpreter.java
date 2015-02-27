@@ -16,7 +16,7 @@ public abstract class CommandInterpreter {
     protected static CPU cpu;
 
     // Which CPU are we debugging?
-    public static void configureCommandInterpreter(CPU cpu) {
+    public static void configure(CPU cpu) {
         CommandInterpreter.cpu = cpu;
     }
 
