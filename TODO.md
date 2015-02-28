@@ -5,7 +5,7 @@
     * Expected: Step instruction doesn't trigger the breakpoint, in either mode (batch, interactive or visual)
     * Happens: Step instruction triggers the breakpoint
     * Expected: When running the program, reaching a breakpoint pauses the CPU, in visual and in interactive
-    * Happens: In interactive, the CPU continues to execute the same instruction over and over. In visual, I have no idea
+    * Happens: In interactive, the CPU continues to execute the same instruction over and over. In visual, exception is raised
 
 
 - Check cli arguments conflicts
@@ -18,14 +18,26 @@
 
 ### Major
 - Test current build and find any possible bugs
-- Recognizing comments and delimiters  
+- Recognizing function delimiters
 
 ### Minor
 - Add Undo instruction
 - Redesign UI
 
 ## Bugs (use the issue tracker)
-- The log file is not written on error, why?
+- The log file is not written on error, why? -> why: when a breakpoint exception is raised, the cpu skips the log() line
+
+    ```java
+        if (...) {
+            throw new BreakpointException(...);
+        }
+        // ...
+        log();
+        // ...
+        catch (BreakpointException e) {
+            // ...
+        }
+    ```
 
     * Enable log, interactive
     * Enable a breakpoint on any instruction: `b X`
