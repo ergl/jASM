@@ -4,7 +4,7 @@
 
 Please check out the syntax [documentation](doc/Syntax.md).
 
-Interested in contributing? Check out the [TODO](TODOl.md) and the [coding style](doc/CodingStyle.md). Or, if you prefer it,
+Interested in contributing? Check out the [TODO](TODO.md) and the [coding style](doc/CodingStyle.md). Or, if you prefer it,
 jump ahead and read some of the [example](examples/) files.
 
 ## Licensing
