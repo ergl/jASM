@@ -21,6 +21,4 @@ Example:
 
 Would print out 10 `+` characters (ascii code 43).
 
-To find out more, please check out the [examples]()
-
-[//]: # (^ TODO: Add the file location)
+To find out more, please check out the [examples](../examples/)

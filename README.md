@@ -2,13 +2,10 @@
 
 ![Screenshot](screenshot.png)
 
-Please check out the syntax [documentation]().
+Please check out the syntax [documentation](doc/Syntax.md).
 
-Interested in contributing? Check out the [TODO]() and the [coding style](). Or, if you prefer it,
-jump ahead and read some of the [example]() files.
-
-[//]: # (^ TODO: Add file locations)
-
+Interested in contributing? Check out the [TODO](Todo.md) and the [coding style](doc/CodingStyle.md). Or, if you prefer it,
+jump ahead and read some of the [example](examples/) files.
 
 ## Licensing
 
