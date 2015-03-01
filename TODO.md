@@ -1,8 +1,6 @@
 ## TODO
 
-- Check icons licenses
 - Add license file
-- Take screenshot and add it to repo
 
 - Check cli arguments conflicts
 - Add displacement jumps
