@@ -326,6 +326,7 @@ public class SwingView implements Watcher {
                 SwingView.this.hideHaltedCPU();
                 SwingView.this.inputPanel.flushContent();
                 SwingView.this.outputPanel.flushContent();
+                SwingView.this.registerPanel.flushContent();
                 SwingView.this.statusPanel.resetExecutedInstructions();
 
                 controller.reset();
@@ -419,6 +420,13 @@ public class SwingView implements Watcher {
 			r3Field.setText(tokens[3]);
 
 		}
+
+        private void flushContent() {
+            r0Field.setText(null);
+            r1Field.setText(null);
+            r2Field.setText(null);
+            r3Field.setText(null);
+        }
 
     }
 
