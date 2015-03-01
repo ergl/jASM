@@ -1,7 +1,5 @@
 ## TODO
 
-- Add license file
-
 - Check cli arguments conflicts
 - Add displacement jumps
 - Look into NullPointerException errors when parsing some instructions
