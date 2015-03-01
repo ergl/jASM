@@ -1,4 +1,4 @@
-# jARM coding style
+# jASM coding style
 
 
 Most of this guide is taken from the [Linux Kernel coding style guide](https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/CodingStyle?id=refs/tags/v3.19-rc6) and
