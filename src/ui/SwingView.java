@@ -205,17 +205,17 @@ public class SwingView implements Watcher {
         private void initUI() {
             JPanel actionPanel = new JPanel(new GridLayout(1,5));
 
-            stepIconURL = 	SwingView.class.getResource("./res/step.png");
-            runIconURL 	= 	SwingView.class.getResource("./res/run.png");
-            pauseIconURL = 	SwingView.class.getResource("./res/pause.png");
-            quitIconURL = 	SwingView.class.getResource("./res/exit.png");
-            resetIconURL = SwingView.class.getResource("./res/reset.png");
+            stepIconURL = SwingView.class.getResource("./res/next.png");
+            runIconURL = SwingView.class.getResource("./res/run.png");
+            pauseIconURL = SwingView.class.getResource("./res/pause.png");
+            resetIconURL = SwingView.class.getResource("./res/replay.png");
+            quitIconURL = SwingView.class.getResource("./res/exit.png");
 
-            stepButton = (stepIconURL  != null)  ?  new JButton("Step", new ImageIcon(stepIconURL))   :  new JButton("STEP");
-            runButton = (runIconURL   != null)  ?  new JButton("Run", new ImageIcon(runIconURL))     :  new JButton("RUN");
-            pauseButton = (pauseIconURL != null)  ?  new JButton("Pause", new ImageIcon(pauseIconURL)) :  new JButton("PAUSE");
-            quitButton = (quitIconURL  != null)  ?  new JButton("Exit", new ImageIcon(quitIconURL))   :  new JButton("EXIT");
-            resetButton = (resetIconURL != null)  ?  new JButton("Reset", new ImageIcon(resetIconURL)) :  new JButton("RESET");
+            stepButton = (stepIconURL != null) ? new JButton("Step", new ImageIcon(stepIconURL)) :  new JButton("STEP");
+            runButton = (runIconURL != null) ? new JButton("Run", new ImageIcon(runIconURL)) : new JButton("RUN");
+            pauseButton = (pauseIconURL != null) ? new JButton("Pause", new ImageIcon(pauseIconURL)) : new JButton("PAUSE");
+            quitButton = (quitIconURL != null) ? new JButton("Exit", new ImageIcon(quitIconURL)) :  new JButton("EXIT");
+            resetButton = (resetIconURL != null) ? new JButton("Reset", new ImageIcon(resetIconURL)) : new JButton("RESET");
 
             pauseButton.setEnabled(false);
 
