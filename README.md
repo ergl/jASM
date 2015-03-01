@@ -13,7 +13,7 @@ jump ahead and read some of the [example]() files.
 ## Licensing
 
 This software uses the Apache Commons CLI Library, distributed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
-Graphical Interface Icons by [Daniele De Santis](http://www.danieledesantis.net/) distributed under the [CC Attribution 4.0](http://creativecommons.org/licenses/by/4.0/) license.
+Graphical Interface Icons by [Daniele De Santis](http://www.danieledesantis.net/) distributed under the [CC Attribution 4.0](http://creativecommons.org/licenses/by/4.0/legalcode) license.
 Additional Icon work by [IconsMind](https://www.iconsmind.com).
 
 
