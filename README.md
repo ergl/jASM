@@ -4,12 +4,12 @@
 
 Please check out the syntax [documentation](doc/Syntax.md).
 
-Interested in contributing? Check out the [TODO](Todo.md) and the [coding style](doc/CodingStyle.md). Or, if you prefer it,
+Interested in contributing? Check out the [TODO](TODOl.md) and the [coding style](doc/CodingStyle.md). Or, if you prefer it,
 jump ahead and read some of the [example](examples/) files.
 
 ## Licensing
 
-This software is distributed undel the GPLv3 license. For more information, please check the [License](LICENSE).
+This software is distributed under the GPLv3 license. For more information, please check the [License](LICENSE).
 
 This software uses the [Apache Commons CLI Library](http://commons.apache.org/proper/commons-cli/), distributed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
