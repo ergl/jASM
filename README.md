@@ -1,4 +1,4 @@
-# jARM: Java-built ASM emulator and debugger
+# jASM: Java-built ASM emulator and debugger
 
 ![Screenshot](screenshot.png)
 
