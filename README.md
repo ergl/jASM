@@ -12,6 +12,6 @@ jump ahead and read some of the [example](examples/) files.
 This software is distributed undel the GPLv3 license. For more information, please check the [License](LICENSE).
 This software uses the [Apache Commons CLI Library](http://commons.apache.org/proper/commons-cli/), distributed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
 Graphical Interface Icons by [Daniele De Santis](http://www.danieledesantis.net/) distributed under the [CC Attribution 4.0](http://creativecommons.org/licenses/by/4.0/legalcode) license.
-Additional Icon work by [IconsMind](https://www.iconsmind.com).
+Additional Icon work by [IconsMind](https://www.iconsmind.com).  
 
 
