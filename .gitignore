@@ -1,7 +1,7 @@
 # Created by http://www.gitignore.io
 
 # Project Specifics #
-src/ui/res/
+!src/ui/res/
 !src/mv/strategies/out
 # ASM source code files
 *.asm
