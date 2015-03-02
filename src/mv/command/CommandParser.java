@@ -28,8 +28,7 @@ public class CommandParser {
 
     private static final CommandInterpreter[] commands = {
             new Step(), new Steps(), new Run(), new DebugPush(),
-            new DebugPop(), new DebugWrite(), new Reset(),
-            new SetBreakpoint(), new Quit()
+            new DebugPop(), new DebugWrite(), new Reset(), new Quit()
     };
 
     /**

@@ -136,24 +136,4 @@ public class SwingController {
             // We are exiting the program anyway
         }
     }
-
-    void enableBreakpoints() {
-        cpu.enableBreakpoints();
-    }
-
-    void disableBreakpoints() {
-        cpu.disableBreakpoints();
-    }
-
-    void addBreakpointAt(int i) {
-        cpu.setBreakpoint(i);
-    }
-
-    void deleteBreakpointAt(int i) {
-        cpu.deleteBreakpoint(i);
-    }
-
-    boolean breakpointsEnabled() {
-        return cpu.breakpointsEnabled();
-    }
 }

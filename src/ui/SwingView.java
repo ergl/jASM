@@ -242,7 +242,6 @@ public class SwingView implements Watcher {
                 SwingView.this.uncheckMemoryBox();
 
                 resetButton.setEnabled(true);
-                controller.disableBreakpoints();
                 controller.stepEvent();
             });
 
@@ -260,14 +259,7 @@ public class SwingView implements Watcher {
                         SwingView.this.stackPanel.disableActions();
                         SwingView.this.memoryPanel.disableActions();
 
-
-                        if(controller.breakpointsEnabled()) {
-                            controller.disableBreakpoints();
-                            controller.stepEvent();
-                            controller.enableBreakpoints();
-                        } else {
-                            controller.stepEvent();
-                        }
+                        controller.stepEvent();
 
                         while(!Thread.currentThread().isInterrupted() && controller.ready()) {
 
@@ -440,9 +432,6 @@ public class SwingView implements Watcher {
         private DefaultListCellRenderer programListRender;
         private JScrollPane programListScroll;
 
-        private boolean breakpointSet;
-        private JRadioButton breakpointButton;
-
         private String[] program;
 
         private ProgramPanel() {
@@ -463,28 +452,13 @@ public class SwingView implements Watcher {
             programList.setModel(programListModel);
             programList.setCellRenderer(programListRender);
 
-            programList.addMouseListener(selectBreakpoint());
-
             programListScroll = new JScrollPane(programList);
             programListScroll.setPreferredSize(new Dimension(150, 250));
-
-            breakpointButton = new JRadioButton("Skip All Breakpoints");
-
-            breakpointButton.addItemListener(e -> {
-                if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    controller.enableBreakpoints();
-                } else if (e.getStateChange() == ItemEvent.SELECTED) {
-                    controller.disableBreakpoints();
-                }
-            });
-
-            breakpointSet = false;
 
             JPanel programDisplayPanel = new JPanel();
             programDisplayPanel.add(programListScroll);
 
             add(programDisplayPanel, BorderLayout.PAGE_START);
-            add(breakpointButton, BorderLayout.PAGE_END);
         }
 
         private void addProgram(String[] text) {
@@ -492,45 +466,6 @@ public class SwingView implements Watcher {
             for(String inst : program)
                 programListModel.addElement(inst);
             this.updateProgramDisplay(0);
-        }
-
-        private MouseAdapter selectBreakpoint() {
-            return new MouseAdapter() {
-                public void mouseClicked(MouseEvent evt) {
-                    int index;
-                    JList<String> list = (JList<String>)evt.getSource();
-                    if (evt.getClickCount() == 2) {
-                        index = list.locationToIndex(evt.getPoint());
-                        if (!breakpointSet) {
-                            controller.addBreakpointAt(index);
-                            showBreakpoint(index);
-                            breakpointSet = true;
-                        } else {
-                            controller.deleteBreakpointAt(index);
-                            hideBreakpoint(index);
-                            breakpointSet = false;
-                        }
-                    }
-                }
-            };
-        }
-
-        private void showBreakpoint(final int breakpointInst) {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                for (int i = 0; i < program.length; i++) {
-                    if (i == breakpointInst)
-                        programListModel.set(i, "+" + programListModel.getElementAt(i));
-                }
-            });
-        }
-
-        private void hideBreakpoint(final int breakpointInst) {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                for (int i = 0; i < program.length; i++) {
-                    if (i == breakpointInst)
-                        programListModel.set(i, program[i]);
-                }
-            });
         }
 
         @Override

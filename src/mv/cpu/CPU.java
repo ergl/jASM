@@ -20,7 +20,6 @@ package mv.cpu;
 import commons.Commons;
 import commons.exceptions.RecoverableException;
 import commons.exceptions.UnrecoverableException;
-import commons.exceptions.BreakpointException;
 import commons.watcherPattern.Watchable;
 import commons.watcherPattern.Watcher;
 import mv.ins.Instruction;
@@ -132,9 +131,6 @@ public class CPU extends Watchable {
         if (!this.isHalted()) {
             if (inst != null) {
                 try {
-                    if (executionManager.breakpointsEnabled() && executionManager.onBreakpoint()) {
-                        throw new BreakpointException("Breakpoint reached");
-                    }
                     inst.execute(executionManager, memory, stack, inStr, outStr, registerList);
                     if (writeLog) {
                         log(inst.toString());
@@ -146,8 +142,6 @@ public class CPU extends Watchable {
                 } catch (UnrecoverableException ue) {
                     stop();
                     this.notifyViews(ue.getMessage());
-                } catch (BreakpointException be) {
-                    this.notifyViews(be.getMessage());
                 }
             } else {
                 System.err.println("Error: No instruction");
@@ -161,11 +155,9 @@ public class CPU extends Watchable {
      */
     public void runProgram() {
         try {
-            if (!executionManager.breakpointsEnabled() && !executionManager.onBreakpoint()) {
+            while (!this.isHalted()) {
                 step();
             }
-            while (!this.isHalted() && !executionManager.breakpointsEnabled() && !executionManager.onBreakpoint())
-                step();
         } catch (RecoverableException e) {
             // TODO: ?
         }
@@ -281,30 +273,6 @@ public class CPU extends Watchable {
 
     private void log(String instruction) {
         logWriter.write(printStatus(instruction) + "\n\n");
-    }
-
-    public boolean breakpointsEnabled() {
-        return this.executionManager.breakpointsEnabled();
-    }
-
-    public void enableBreakpoints() {
-        this.executionManager.enableBreakpoints();
-    }
-
-    public void disableBreakpoints() {
-        this.executionManager.disableBreakpoints();
-    }
-
-    public void setBreakpoint(Integer i) {
-        this.executionManager.addBreakpoint(i);
-    }
-
-    public void deleteBreakpoint(Integer i) {
-        this.executionManager.deleteBreakpoint(i);
-    }
-
-    public void deleteBreakpoints() {
-        this.executionManager.disableBreakpoints();
     }
 
     // Add observer to the Execution Manager
