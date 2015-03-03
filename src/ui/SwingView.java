@@ -427,9 +427,8 @@ public class SwingView implements Watcher {
      */
     private class ProgramPanel extends JPanel implements Watcher {
 
-        private JList<String> programList;
-        private DefaultListModel<String> programListModel;
-        private DefaultListCellRenderer programListRender;
+        private JTable programTable;
+        private DefaultTableModel programTableModel;
         private JScrollPane programListScroll;
 
         private String[] program;
@@ -442,17 +441,14 @@ public class SwingView implements Watcher {
             setBorder(new TitledBorder("Program"));
             setLayout(new BorderLayout());
 
-            programList = new JList<String>();
-            programListModel = new DefaultListModel<String>();
-            programListRender = new DefaultListCellRenderer();
+            programTableModel = new DefaultTableModel(new Object[] {"Current", "Instruction"}, 0);
+            programTable = new JTable(programTableModel);
+            programTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 
-            // TODO: why commented out?
-            //programListRender.setHorizontalAlignment(JLabel.CENTER);
+            programTable.setCellSelectionEnabled(false);
+            programTable.setEnabled(false);
 
-            programList.setModel(programListModel);
-            programList.setCellRenderer(programListRender);
-
-            programListScroll = new JScrollPane(programList);
+            programListScroll = new JScrollPane(programTable);
             programListScroll.setPreferredSize(new Dimension(150, 250));
 
             JPanel programDisplayPanel = new JPanel();
@@ -463,8 +459,10 @@ public class SwingView implements Watcher {
 
         private void addProgram(String[] text) {
             this.program = text;
-            for(String inst : program)
-                programListModel.addElement(inst);
+
+            for (String inst : program)
+                this.programTableModel.addRow(new Object[] {null, inst});
+
             this.updateProgramDisplay(0);
         }
 
@@ -476,14 +474,13 @@ public class SwingView implements Watcher {
 
         private void updateProgramDisplay(final int nextInst) {
             javax.swing.SwingUtilities.invokeLater(() -> {
-                for (int i = 0; i < program.length; i++) {
+                for (int i = 0; i < program.length; ++i) {
                     if (i == nextInst) {
-                        programListModel.set(i, "*" + programListModel.getElementAt(i));
+                        this.programTableModel.setValueAt('»', i, 0);
                     } else {
-                        programListModel.set(i, program[i]);
+                        this.programTableModel.setValueAt(null, i, 0);
                     }
                 }
-
                 SwingView.this.updateStatusBar();
             });
         }
