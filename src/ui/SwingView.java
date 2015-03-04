@@ -398,13 +398,19 @@ public class SwingView implements Watcher {
      */
     private class ProgramPanel extends JPanel implements Watcher {
 
+        private char PROGRAM_MARKER = '»';
+        private char BREAKPOINT_MARKER = '¬';
         private JTable programTable;
         private DefaultTableModel programTableModel;
-        private JScrollPane programListScroll;
 
+        private JScrollPane programListScroll;
         private String[] program;
 
+        private boolean breakpointSet;
+        private JRadioButton toggleBreakpointsButton;
+
         private ProgramPanel() {
+            breakpointSet = false;
             initUI();
         }
 
@@ -412,12 +418,34 @@ public class SwingView implements Watcher {
             setBorder(new TitledBorder("Program"));
             setLayout(new BorderLayout());
 
-            programTableModel = new DefaultTableModel(new Object[] {"Current", "Instruction"}, 0);
+            toggleBreakpointsButton = new JRadioButton("Skip all breakpoints");
+            toggleBreakpointsButton.addItemListener(e -> {
+                if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    // foo
+                } else {
+                    // bar
+                }
+            });
+
+            programTableModel = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+
+            programTableModel.setColumnIdentifiers(new Object[] {"Current", "Instruction"});
             programTable = new JTable(programTableModel);
             programTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 
-            programTable.setCellSelectionEnabled(false);
-            programTable.setEnabled(false);
+            programTable.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+                        toggleBreakpoint(programTable.getSelectedRow());
+                    }
+                }
+            });
 
             programListScroll = new JScrollPane(programTable);
             programListScroll.setPreferredSize(new Dimension(150, 250));
@@ -426,6 +454,18 @@ public class SwingView implements Watcher {
             programDisplayPanel.add(programListScroll);
 
             add(programDisplayPanel, BorderLayout.PAGE_START);
+            add(toggleBreakpointsButton, BorderLayout.PAGE_END);
+        }
+
+        private void toggleBreakpoint(final int breakpointPosition) {
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                for (int i = 0; i < program.length; i++) {
+                    if (i == breakpointPosition) {
+                        programTableModel.setValueAt(((breakpointSet) ? null : BREAKPOINT_MARKER), i, 0);
+                        breakpointSet = !breakpointSet;
+                    }
+                }
+            });
         }
 
         private void addProgram(String[] text) {
@@ -446,11 +486,7 @@ public class SwingView implements Watcher {
         private void updateProgramDisplay(final int nextInst) {
             javax.swing.SwingUtilities.invokeLater(() -> {
                 for (int i = 0; i < program.length; ++i) {
-                    if (i == nextInst) {
-                        this.programTableModel.setValueAt('»', i, 0);
-                    } else {
-                        this.programTableModel.setValueAt(null, i, 0);
-                    }
+                    this.programTableModel.setValueAt(((i != nextInst) ? null : PROGRAM_MARKER), i, 0);
                 }
                 SwingView.this.updateStatusBar();
             });
