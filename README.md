@@ -10,9 +10,13 @@ Then, `cd` into your working directory and run `java -jar jASM.jar -h` to view t
 
 Running `java -jar jASM.jar -m interactive` will start an interactive prompt where you will be able to enter your program.
 
-To start the GUI, run it with the `-m window` option. Make sure to provide a valid asm source file.
+#### Please note that these screenshots may be out of date, but they should give a good idea of the general look and features
 
-#### Please note that this screenshot may be out of date, but it should give a good idea of the general look and features
+![Cli example1](cliscreenshot.png)
+
+![Cli example2](cliscreenshot-commands.png)
+
+To start the GUI, run it with the `-m window` option. Make sure to provide a valid asm source file.
 
 ![Screenshot](screenshot.png)
 
