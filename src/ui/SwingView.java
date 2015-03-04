@@ -350,54 +350,30 @@ public class SwingView implements Watcher {
      */
 	private class RegisterPanel extends JPanel implements Watcher {
 
-    	private JLabel r0Label,
-    				   r1Label,
-    				   r2Label,
-    				   r3Label;
+        private int REGISTER_N = 4;
 
-    	private JTextField r0Field,
-    	    			   r1Field,
-    	    			   r2Field,
-    	    			   r3Field;
+        private JLabel[] rLabels;
+        private JTextField[] rFields;
 
     	private RegisterPanel() {
+            rLabels = new JLabel[REGISTER_N];
+            rFields = new JTextField[REGISTER_N];
+
     		initUI();
     	}
 
     	private void initUI() {
     		setBorder(new TitledBorder("Registers"));
-    		r0Label = new JLabel("R0");
-    		r1Label = new JLabel("R1");
-    		r2Label = new JLabel("R2");
-    		r3Label = new JLabel("R3");
 
-    		r0Field = new JTextField();
-    		r1Field = new JTextField();
-    		r2Field = new JTextField();
-    		r3Field = new JTextField();
-
-    		r0Field.setEditable(false);
-    		r1Field.setEditable(false);
-    		r2Field.setEditable(false);
-    		r3Field.setEditable(false);
-
-    		r0Field.setPreferredSize(new Dimension(60, 20));
-    		r1Field.setPreferredSize(new Dimension(60, 20));
-    		r2Field.setPreferredSize(new Dimension(60, 20));
-    		r3Field.setPreferredSize(new Dimension(60, 20));
-
-    		add(this.r0Label);
-    		add(this.r0Field);
-
-    		add(this.r1Label);
-    		add(this.r1Field);
-
-    		add(this.r2Label);
-    		add(this.r2Field);
-
-    		add(this.r3Label);
-    		add(this.r3Field);
-    	}
+            for (int i = 0; i < REGISTER_N; i++) {
+                rLabels[i] = new JLabel("R" + i);
+                rFields[i] = new JTextField();
+                rFields[i].setEditable(false);
+                rFields[i].setPreferredSize(new Dimension(60, 20));
+                add(rLabels[i]);
+                add(rFields[i]);
+            }
+        }
 
 		@Override
 		public void updateDisplays(Watchable o, Object arg) {
@@ -406,18 +382,13 @@ public class SwingView implements Watcher {
 			if(tokens.length != 4)
 				return;
 
-			r0Field.setText(tokens[0]);
-			r1Field.setText(tokens[1]);
-			r2Field.setText(tokens[2]);
-			r3Field.setText(tokens[3]);
-
-		}
+            for (int i = 0; i < REGISTER_N; i++)
+                rFields[i].setText(tokens[i]);
+        }
 
         private void flushContent() {
-            r0Field.setText(null);
-            r1Field.setText(null);
-            r2Field.setText(null);
-            r3Field.setText(null);
+            for (JTextField jt : rFields)
+                jt.setText(null);
         }
 
     }
