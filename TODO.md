@@ -14,6 +14,8 @@
     * Expected: When running the program, reaching a breakpoint pauses the CPU, in visual and in interactive
     * Happens: In interactive, the CPU continues to execute the same instruction over and over. In visual, exception is raised
 
+- Set up Ant build
+
 
 ### Major
 - Test current build and find any possible bugs
