@@ -20,12 +20,35 @@ package ui;
 import commons.watcherPattern.Watchable;
 import commons.watcherPattern.Watcher;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.*;
-import java.net.URL;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 // TODO: Refactor the subcomponents into new classes
 public class SwingView implements Watcher {
@@ -209,11 +232,7 @@ public class SwingView implements Watcher {
         quitButton,
         resetButton;
 
-        private URL stepIconURL,
-        runIconURL,
-        pauseIconURL,
-        quitIconURL, 
-        resetIconURL;
+        private ImageIcon stepIcon, runIcon, pauseIcon, quitIcon, resetIcon;
 
         private ActionPanel() {
             initUI();
@@ -222,17 +241,17 @@ public class SwingView implements Watcher {
         private void initUI() {
             JPanel actionPanel = new JPanel(new GridLayout(1,5));
 
-            stepIconURL = SwingView.class.getResource("./res/next.png");
-            runIconURL = SwingView.class.getResource("./res/run.png");
-            pauseIconURL = SwingView.class.getResource("./res/pause.png");
-            resetIconURL = SwingView.class.getResource("./res/replay.png");
-            quitIconURL = SwingView.class.getResource("./res/exit.png");
+            stepIcon = setupImage("next.png");
+            runIcon = setupImage("run.png");
+            pauseIcon = setupImage("pause.png");
+            quitIcon = setupImage("replay.png");
+            resetIcon = setupImage("exit.png");
 
-            stepButton = (stepIconURL != null) ? new JButton("Step", new ImageIcon(stepIconURL)) :  new JButton("STEP");
-            runButton = (runIconURL != null) ? new JButton("Run", new ImageIcon(runIconURL)) : new JButton("RUN");
-            pauseButton = (pauseIconURL != null) ? new JButton("Pause", new ImageIcon(pauseIconURL)) : new JButton("PAUSE");
-            quitButton = (quitIconURL != null) ? new JButton("Exit", new ImageIcon(quitIconURL)) :  new JButton("EXIT");
-            resetButton = (resetIconURL != null) ? new JButton("Reset", new ImageIcon(resetIconURL)) : new JButton("RESET");
+            stepButton = (stepIcon != null) ? new JButton("Step", stepIcon) : new JButton("STEP");
+            runButton = (runIcon != null) ? new JButton("Run", runIcon) : new JButton("RUN");
+            pauseButton = (pauseIcon != null) ? new JButton("Pause", pauseIcon) : new JButton("PAUSE");
+            quitButton = (quitIcon != null) ? new JButton("Exit", quitIcon) : new JButton("EXIT");
+            resetButton = (resetIcon != null) ? new JButton("Reset", resetIcon) : new JButton("RESET");
 
             pauseButton.setEnabled(false);
 
@@ -334,6 +353,16 @@ public class SwingView implements Watcher {
 
             setBorder(new TitledBorder("Actions"));
             add(actionPanel, BorderLayout.CENTER);
+        }
+
+        private ImageIcon setupImage(String image) {
+            try {
+                InputStream is = new BufferedInputStream(this.getClass().getClassLoader().getResourceAsStream("ui/res/" + image));
+                Image result = ImageIO.read(is);
+                return new ImageIcon(result);
+            } catch (IOException e) {
+                return null;
+            }
         }
 
         private void disableActions() {
