@@ -28,47 +28,61 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
 
 public class ProgramMV {
 
-    private static char COMMENT_DELIMITER = ';';
+    private static final char COMMENT_DELIMITER = ';';
+    private static final char FUNCTION_DELIMITER = '@';
+    private static final char FUNCTION_START_DELIM = ':';
 
     private static final int MAX_PROGRAM_SIZE = 100;
     private static final String MSG_INTRO = "Input your program here\n(END to stop): ";
     private static final String MSG_PROMPT = "> ";
-    private static final String MSG_ERROR = "Error: Syntax error";
     private static final String MSG_SHOW = "Program to be executed: ";
     private static final String END_TOKEN = "END";
 
     private Vector<Instruction> program;
+    private ArrayList<String> functionTable;
 
     public ProgramMV() {
         this.program = new Vector<>();
+        this.functionTable = new ArrayList<String>();
+    }
+
+    /**
+     * Adds a function to the local scope
+     *
+     * @param name Function name
+     */
+    private void addFunction(String name) {
+        if (!functionTable.contains(name)) {
+            functionTable.add(name);
+        }
     }
 
     /**
      * Parse the source code from stdin
      *
      * Will be executed until user inputs the END_TOKEN
+     * (Syntax errors will be notified and that line will be discarded)
      *
      * @param scanner open stdin scanner
     */
     public void readProgram(Scanner scanner) {
         System.out.println(MSG_INTRO);
         System.out.print(MSG_PROMPT);
-        String input = scanner.nextLine();
+        String input;
 
-        while (!input.equalsIgnoreCase(END_TOKEN)) {
-            Instruction inst = InstructionParser.parse(input);
-            if (inst != null) {
-                addInstruction(inst);
-            } else {
-                System.out.println(MSG_ERROR);
+        while (!(input = scanner.nextLine()).equalsIgnoreCase(END_TOKEN)) {
+            try {
+                parse(input);
+            } catch (UnrecoverableException e) {
+                System.err.println(e.getMessage());
             }
             System.out.print(MSG_PROMPT);
-            input = scanner.nextLine();
         }
     }
 
@@ -81,7 +95,6 @@ public class ProgramMV {
      * @throws commons.exceptions.UnrecoverableException
      */
     public void readProgram(String file) throws UnrecoverableException {
-        Instruction inst;
         BufferedReader bf = null;
         Path input = Paths.get(file);
 
@@ -90,26 +103,7 @@ public class ProgramMV {
             String line;
 
             while (null != (line = bf.readLine())) {
-                line = line.trim();
-
-                if (line.startsWith(String.valueOf(COMMENT_DELIMITER))) {
-                    continue;
-                }
-
-                String[] tmp = line.split(String.valueOf(COMMENT_DELIMITER));
-                StringBuilder sb = new StringBuilder();
-                sb.append(tmp[0]); // get the line before the comment
-
-                if (sb.toString().isEmpty()) {
-                    continue;
-                }
-
-                inst = InstructionParser.parse(sb.toString());
-                if (inst != null) {
-                    addInstruction(inst);
-                } else {
-                    throw new BadProgramException(sb.toString());
-                }
+                parse(line);
             }
 
         } catch (IOException e) {
@@ -124,6 +118,53 @@ public class ProgramMV {
                 e.printStackTrace();
                 System.exit(2);
             }
+        }
+    }
+
+    /**
+     * Parses input into instructions
+     *
+     * @param line input line
+     *
+     * @throws UnrecoverableException with syntax error or other badly formed string
+     */
+    private void parse(String line) throws UnrecoverableException {
+
+        if (line == null || line.isEmpty()) {
+            return;
+        }
+
+        Instruction inst;
+        String result = line.trim();
+
+        if (result.isEmpty() || result.startsWith(String.valueOf(COMMENT_DELIMITER))) {
+            return;
+        }
+
+        if (result.contains(String.valueOf(COMMENT_DELIMITER))) {
+            result = result.split(String.valueOf(COMMENT_DELIMITER))[0];
+            if (result.isEmpty()) {
+                return;
+            }
+        }
+
+        if (result.startsWith(String.valueOf(FUNCTION_DELIMITER))) {
+            String[] tokens = result.split("\\s", 2);
+            if (tokens[0].endsWith(String.valueOf(FUNCTION_START_DELIM))) {
+                addFunction(tokens[0].substring(0, tokens[0].length() - 1));
+                if (tokens.length != 2 || tokens[1].isEmpty()) {
+                    return;
+                }
+                result = tokens[1];
+            } else {
+                throw new BadProgramException(tokens[0]);
+            }
+        }
+
+        if ((inst = InstructionParser.parse(result)) != null) {
+            addInstruction(inst);
+        } else {
+            throw new BadProgramException(result);
         }
     }
 

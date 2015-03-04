@@ -19,7 +19,9 @@
 
 ### Major
 - Test current build and find any possible bugs
-- Recognizing function delimiters
+- Figure out a scope for the CPU to look up the function pc
+- Add instruction to switch to a function
+- Figure out a way to return variables from a function (shared memory? stack? register?)
 
 ### Minor
 - Add Undo instruction
