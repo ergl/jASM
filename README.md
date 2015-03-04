@@ -16,7 +16,7 @@ Running `java -jar jASM.jar -m interactive` will start an interactive prompt whe
 
 ![Cli example2](cliscreenshot-commands.png)
 
-To start the GUI, run it with the `-m window` option. Make sure to provide a valid asm source file.
+To start the GUI, run it with the `-m window` option. Make sure to provide a valid asm source file. 
 
 ![Screenshot](screenshot.png)
 
