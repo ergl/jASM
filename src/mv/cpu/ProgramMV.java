@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -45,22 +45,20 @@ public class ProgramMV {
     private static final String END_TOKEN = "END";
 
     private Vector<Instruction> program;
-    private ArrayList<String> functionTable;
+    private final Env functionEnv;
+    private int programLine;
 
     public ProgramMV() {
         this.program = new Vector<>();
-        this.functionTable = new ArrayList<String>();
+        this.functionEnv = new Env();
     }
 
-    /**
-     * Adds a function to the local scope
-     *
-     * @param name Function name
-     */
-    private void addFunction(String name) {
-        if (!functionTable.contains(name)) {
-            functionTable.add(name);
-        }
+    private void addFunction(Integer position, String name) {
+        functionEnv.set(position, name);
+    }
+
+    private Optional<Integer> get(String name) {
+        return functionEnv.find(name);
     }
 
     /**
@@ -75,7 +73,7 @@ public class ProgramMV {
         System.out.println(MSG_INTRO);
         System.out.print(MSG_PROMPT);
         String input;
-
+        programLine = 0;
         while (!(input = scanner.nextLine()).equalsIgnoreCase(END_TOKEN)) {
             try {
                 parse(input);
@@ -97,7 +95,7 @@ public class ProgramMV {
     public void readProgram(String file) throws UnrecoverableException {
         BufferedReader bf = null;
         Path input = Paths.get(file);
-
+        programLine = 0;
         try {
             bf = Files.newBufferedReader(input, Charset.defaultCharset());
             String line;
@@ -151,7 +149,7 @@ public class ProgramMV {
         if (result.startsWith(String.valueOf(FUNCTION_DELIMITER))) {
             String[] tokens = result.split("\\s", 2);
             if (tokens[0].endsWith(String.valueOf(FUNCTION_START_DELIM))) {
-                addFunction(tokens[0].substring(0, tokens[0].length() - 1));
+                addFunction(programLine, tokens[0].substring(0, tokens[0].length() - 1));
                 if (tokens.length != 2 || tokens[1].isEmpty()) {
                     return;
                 }
@@ -163,6 +161,7 @@ public class ProgramMV {
 
         if ((inst = InstructionParser.parse(result)) != null) {
             addInstruction(inst);
+            programLine++;
         } else {
             throw new BadProgramException(result);
         }

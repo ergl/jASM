@@ -18,8 +18,9 @@
 
 
 ### Major
+
+- Refactor TwoParamInst, OneParamInst, etc
 - Test current build and find any possible bugs
-- Figure out a scope for the CPU to look up the function pc
 - Add instruction to switch to a function
 - Figure out a way to return variables from a function (shared memory? stack? register?)
 
