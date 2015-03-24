@@ -1,4 +1,4 @@
-# jASM: Java-built ASM emulator and debugger [![Build status](https://travis-ci.org/ergl/jASM.svg)](https://travis-ci.org/ergl/jASM/)
+# jASM: Java-built ASM emulator and debugger
 
 ## Usage
 

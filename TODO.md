@@ -4,6 +4,7 @@
 - Add displacement jumps
 - Look into NullPointerException errors when parsing some instructions
 - Why use custom class vs Observer / Observable? -> To extend functionality -> TODO: Extend watcher functionality
+- Tests
 
 - Breakpoint support for CLI interface
 - Reset buttons to correct state after a breakpoint is reached
