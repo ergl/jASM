@@ -1,4 +1,8 @@
-# jASM: Java-built ASM emulator and debugger
+# jASM: Java-built ASM emulator and debugger 
+[ ![License] [license-image] ] [license]
+
+[license-image]: https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat
+[license]: https://www.gnu.org/licenses/gpl-3.0-standalone.html
 
 ## Usage
 
