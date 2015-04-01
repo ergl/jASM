@@ -326,8 +326,8 @@ public class CPU extends Watchable {
      */
     @Override
     public String toString() {
-        return System.lineSeparator() + memory.toString() +
-                System.lineSeparator() + stack.toString() +
-                System.lineSeparator() + registerList.toString();
+        return System.lineSeparator() + '\t' + memory.toString() +
+                System.lineSeparator() + '\t' + stack.toString() +
+                System.lineSeparator() + '\t' + registerList.toString();
     }
 }
