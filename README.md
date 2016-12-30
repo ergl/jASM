@@ -8,7 +8,7 @@
 
 This project uses [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), so be sure to download it.
 
-Then, build the project with whatever build tool you use. If you prefer it, you can download an already built jar from [here](https://dl.dropboxusercontent.com/u/29178650/jASM.jar).
+Then, build the project with whatever build tool you use.
 
 Then, `cd` into your working directory and run `java -jar jASM.jar -h` to view the usage options. Be sure to take a look at the [examples](examples/) and the syntax [documentation](doc/Syntax.md).
 
