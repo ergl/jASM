@@ -356,8 +356,12 @@ public class SwingView implements Watcher {
         }
 
         private ImageIcon setupImage(String image) {
-            try {
-                InputStream is = new BufferedInputStream(this.getClass().getClassLoader().getResourceAsStream("ui/res/" + image));
+            InputStream imageStream = this.getClass().getClassLoader().getResourceAsStream("resources/assets/" + image);
+            if (imageStream == null) {
+                return null;
+            }
+
+            try (InputStream is = new BufferedInputStream(imageStream)) {
                 Image result = ImageIO.read(is);
                 return new ImageIcon(result);
             } catch (IOException e) {

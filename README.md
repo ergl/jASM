@@ -1,5 +1,5 @@
 # jASM: Java-built ASM emulator and debugger 
-[ ![License] [license-image] ] [license]
+[![License][license-image]][license]
 
 [license-image]: https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat
 [license]: https://www.gnu.org/licenses/gpl-3.0-standalone.html
@@ -8,11 +8,11 @@
 
 This project uses [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), so be sure to download it.
 
-Then, build the project with whatever build tool you use.
+To build it, just run `make` (you'll need to have Maven installed and the `mvn` binary in your path).
 
-Then, `cd` into your working directory and run `java -jar jASM.jar -h` to view the usage options. Be sure to take a look at the [examples](examples/) and the syntax [documentation](doc/Syntax.md).
+Run it with `java -jar target/jASM-1.0-SNAPSHOT.jar -h` to view the usage options. Be sure to take a look at the [examples](examples/) and the syntax [documentation](doc/Syntax.md).
 
-Running `java -jar jASM.jar -m interactive` will start an interactive prompt where you will be able to enter your program.
+Running `java -jar target/jASM-1.0-SNAPSHOT.jar -m interactive` will start an interactive prompt where you will be able to enter your program.
 
 #### Please note that these screenshots may be out of date, but they should give a good idea of the general look and features
 
@@ -20,7 +20,7 @@ Running `java -jar jASM.jar -m interactive` will start an interactive prompt whe
 
 ![Cli example2](images/cliscreenshot-commands.png)
 
-To start the GUI, run it with the `-m window` option. Make sure to provide a valid asm source file. 
+To start the GUI, run it with the `-m window` option. Make sure to provide a valid asm source file. Running `java -jar target/jASM-1.0-SNAPSHOT.jar -m window -a examples/loopdec.asm ` should show you the following:
 
 ![Screenshot](images/screenshot.png)
 
@@ -28,7 +28,6 @@ To start the GUI, run it with the `-m window` option. Make sure to provide a val
 
 Interested in contributing? Check out the [TODO](TODO.md) and the [coding style](doc/CodingStyle.md). Or, if you prefer it,
 jump ahead and read some of the [example](examples/) files.
-
 
 ## Licensing
 

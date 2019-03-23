@@ -17,11 +17,7 @@
 
 package mv;
 
-import org.apache.commons.cli.BasicParser;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 
 import commons.exceptions.EmptyFileException;
 import commons.exceptions.UnrecoverableException;
@@ -307,7 +303,7 @@ public class Main {
     private static SetupConfigurator optionSelector(String[] args) {
 
         CommandLine line;
-        CommandLineParser parser = new BasicParser();
+        CommandLineParser parser = new DefaultParser();
         Options options = new Options();
         boolean writeLog = false;
 
@@ -399,7 +395,7 @@ public class Main {
         System.out.println(" -a,--asm <asmfile>  ASM source code file. Can be omitted in interactive mode");
         System.out.println(" -h,--help           Shows this help");
         System.out.println(" -i,--in <infile>    Program input file");
-        System.out.println(" -m,--mode <mode>    Execution mode (batch | interactive | visual). Batch is the default mode");
+        System.out.println(" -m,--mode <mode>    Execution mode (batch | interactive | window). Batch is the default mode");
         System.out.println(" -o,--out <outfile>  Program output file");
         System.out.println(" -d, --debug		 Prints cpu state to log file. Check status.log");
     }
